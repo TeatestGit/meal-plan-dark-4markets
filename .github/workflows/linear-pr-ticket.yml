@@ -32,4 +32,4 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           GIT_AUTH: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-        run: python3 scripts/create_linear_ticket.py
+        run: PYTHONPATH=. python3 scripts/create_linear_ticket.py
