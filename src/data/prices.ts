@@ -43,7 +43,7 @@ const rawPriceMap: Record<string, PriceEntry> = {
   "baby spinach":      { unit: "200g",     carrefour: 8.5,  lulu: 7.2,  spinneys: 11,    geant: 9.2 },
   "rocket":            { unit: "100g",     carrefour: 6,    lulu: 5.2,  spinneys: 8,     geant: 6.5 },
   "carrots":           { unit: "kg",       carrefour: 5.5,  lulu: 4.8,  spinneys: 7.5,   geant: 6 },
-  "celery":            { unit: "bunch",    carrefour: 7,    lulu: 6,    spinneys: 9.5,   geant: 7.6 },
+  "celery":            { unit: "kg",       carrefour: 14,   lulu: 12,   spinneys: 19,    geant: 15.2 },
   "avocado":           { unit: "each",     carrefour: 6.5,  lulu: 6,    spinneys: 9,     geant: 7 },
   "bell pepper":       { unit: "kg",       carrefour: 12,   lulu: 10.5, spinneys: 16,    geant: 13 },
   "corn":              { unit: "2 pcs",    carrefour: 6,    lulu: 5.2,  spinneys: 8,     geant: 6.5 },
@@ -93,6 +93,8 @@ const aliasMap: Record<string, string> = {
   "vinegar":         "apple cider vinegar",
   "cider vinegar":   "apple cider vinegar",
   "pepper":          "black pepper",
+  "sesame oil":      "sesame",
+  "sesame seeds":    "sesame",
 };
 
 export const ingredientPriceMap: Record<string, PriceEntry> = {
