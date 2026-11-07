@@ -199,7 +199,7 @@ export function MealDetail({
 
               {/* Kcal pill */}
               <div className="mb-6">
-                <div className="rounded-[14px] bg-page border border-rim px-5 py-3 inline-block min-w-0">
+                <div data-testid="nutrition-kcal-pill" className="rounded-[14px] bg-page border border-rim px-5 py-3 inline-block min-w-0">
                   <div className="font-dm text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted mb-1">Total</div>
                   <div className="font-newsreader italic text-[28px] text-ink-primary leading-none tabular">{kcal} <span className="text-[16px] text-ink-secondary not-italic font-dm">kcal</span></div>
                 </div>

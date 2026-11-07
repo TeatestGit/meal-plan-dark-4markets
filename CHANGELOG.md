@@ -1,5 +1,11 @@
 e Changelog
 
+## 2026-11-07 — Tests: nutrition tab unit + Playwright coverage
+
+- Added `src/components/MealDetail.test.tsx` (7 unit tests): heading/subtitle, kcal pill content, macro labels, gram values, kcal contributions, USDA link href, tab button presence.
+- Added 6 Playwright specs to `e2e/meal-detail.spec.ts`: heading/subtitle, kcal pill scoped by testId, macro grams+kcal rows, USDA FoodData Central link href, nutrition content after meal switch, macro % sum ≈ 100.
+- Added `nutritionKcalPill` testId to `src/testIds.ts` and `data-testid="nutrition-kcal-pill"` to the kcal card in `MealDetail.tsx` to enable scoped assertions.
+
 ## 2026-11-07 — Nutrition tab: restore macro colors without legend
 
 - Restored color dot and colored progress bar on each macro row (protein blue, carbs orange, fat red).

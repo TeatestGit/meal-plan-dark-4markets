@@ -39,6 +39,9 @@ export const testIds = {
   // Meal detail — steps
   stepRow: "step-row",
 
+  // Meal detail — nutrition
+  nutritionKcalPill: "nutrition-kcal-pill",
+
   // Meal detail — storage
   storageKeepLabel: "storage-keep-label",
   storageText: "storage-text",
