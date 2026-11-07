@@ -1,5 +1,14 @@
 e Changelog
 
+## 2026-11-07 — Correct meal protein values (label-density audit)
+
+- w1-wed Rotisserie chicken quinoa salad: 36g → **28g** protein (rotisserie chicken lower density than raw breast)
+- w1-fri Pesto chicken salad: 35g → **33g** protein (minor adjustment to label-based estimate)
+- w2-wed Chicken Waldorf toast: 33g → **27g** protein (220g cooked chicken at label density per serving)
+- w2-fri Tuna sandwich: ingredient clarified to "145g can tuna in water (drained ~85g)" so net drained weight used for nutrition is explicit
+
+All other meals verified within ±15% of USDA-reference calculations. All 14 recipes confirmed as 2-serving, with macros listed per serving.
+
 ## 2026-11-07 — Playwright: full page-structure visibility suite
 
 - Added `e2e/page-structure.spec.ts` (39 specs across 3 describe blocks):
