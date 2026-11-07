@@ -10,7 +10,7 @@ type MealSelectorProps = {
 
 export function MealSelector({ weekMeals, selectedMealId, plannedMeals, onSelect }: MealSelectorProps) {
   return (
-    <div className="flex md:grid md:grid-cols-1 gap-3 overflow-x-auto md:overflow-x-visible md:overflow-y-auto md:max-h-[62vh] lg:max-h-none lg:overflow-visible pb-3 md:pb-0 snap-x snap-mandatory md:snap-none px-3 md:px-0 scrollbar-hide max-w-full w-full box-border">
+    <div className="flex md:grid md:grid-cols-1 gap-3 overflow-x-auto md:overflow-x-visible md:overflow-y-auto md:max-h-[62vh] pb-3 md:pb-0 snap-x snap-mandatory md:snap-none px-3 md:px-0 scrollbar-hide max-w-full w-full box-border">
       {weekMeals.map((meal) => {
         const isActive = meal.id === selectedMealId;
         const isPlanned = plannedMeals.has(meal.id);

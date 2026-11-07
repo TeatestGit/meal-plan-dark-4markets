@@ -18,12 +18,12 @@ const meal: Meal = {
   storage: "Fridge 3 days.",
 };
 
-function renderNutrition() {
-  render(
+function renderWith(tab: "ingredients" | "steps" | "storage" | "nutrition", overrides: Partial<typeof meal> = {}) {
+  const { rerender, ...rest } = render(
     <MealDetail
-      selectedMeal={meal}
-      tab="nutrition"
-      activeStepIdx={-1}
+      selectedMeal={{ ...meal, ...overrides }}
+      tab={tab}
+      activeStepIdx={0}
       shoppingSet={new Set()}
       plannedMeals={new Set()}
       selectedMarket="carrefour"
@@ -36,7 +36,132 @@ function renderNutrition() {
       getIngredientPrice={() => null}
     />
   );
+  return { rerender, ...rest };
 }
+
+function renderNutrition() {
+  renderWith("nutrition");
+}
+
+describe("MealDetail — Ingredients tab", () => {
+  it("renders all ingredient rows", () => {
+    renderWith("ingredients");
+    expect(screen.getAllByTestId("ingredient-row")).toHaveLength(meal.ingredients.length);
+  });
+
+  it("shows the meal title", () => {
+    renderWith("ingredients");
+    expect(screen.getByText(meal.title)).toBeInTheDocument();
+  });
+
+  it("shows the Add meal and Clear meal buttons", () => {
+    renderWith("ingredients");
+    expect(screen.getByTestId("add-meal-btn")).toBeInTheDocument();
+    expect(screen.getByTestId("clear-meal-btn")).toBeInTheDocument();
+  });
+
+  it("shows in-list count starting at 0", () => {
+    renderWith("ingredients");
+    expect(screen.getByTestId("in-list-count")).toHaveTextContent("0 in list");
+  });
+
+  it("highlights an ingredient row when it is in the shopping set", () => {
+    render(
+      <MealDetail
+        selectedMeal={meal}
+        tab="ingredients"
+        activeStepIdx={0}
+        shoppingSet={new Set(["w1-mon:0"])}
+        plannedMeals={new Set()}
+        selectedMarket="carrefour"
+        onTabChange={() => {}}
+        onToggleIngredient={() => {}}
+        onAddMealToList={() => {}}
+        onClearMealIngredients={() => {}}
+        onSetActiveStepIdx={() => {}}
+        onTogglePlanned={() => {}}
+        getIngredientPrice={() => null}
+      />
+    );
+    expect(screen.getAllByTestId("ingredient-row")[0]).toHaveClass("bg-rim");
+  });
+});
+
+describe("MealDetail — Steps tab", () => {
+  it("renders all step rows", () => {
+    renderWith("steps");
+    expect(screen.getAllByTestId("step-row")).toHaveLength(meal.steps.length);
+  });
+
+  it("shows the Method heading", () => {
+    renderWith("steps");
+    expect(screen.getByRole("heading", { name: /method/i })).toBeInTheDocument();
+  });
+
+  it("highlights the active step row", () => {
+    renderWith("steps");
+    // step at index 0 is active (activeStepIdx=0) — should have bg-rim class
+    expect(screen.getAllByTestId("step-row")[0]).toHaveClass("bg-rim");
+  });
+
+  it("non-active step rows do not have the active class", () => {
+    renderWith("steps");
+    expect(screen.getAllByTestId("step-row")[1]).not.toHaveClass("bg-rim");
+  });
+});
+
+describe("MealDetail — Storage tab", () => {
+  it("shows the keep label", () => {
+    renderWith("storage");
+    expect(screen.getByTestId("storage-keep-label")).toBeInTheDocument();
+  });
+
+  it("shows the storage text from meal data", () => {
+    renderWith("storage");
+    expect(screen.getByTestId("storage-text")).toHaveTextContent(meal.storage);
+  });
+});
+
+describe("MealDetail — tab bar", () => {
+  it("all four tab buttons are always rendered", () => {
+    renderWith("ingredients");
+    expect(screen.getByTestId("tab-ingredients")).toBeInTheDocument();
+    expect(screen.getByTestId("tab-steps")).toBeInTheDocument();
+    expect(screen.getByTestId("tab-storage")).toBeInTheDocument();
+    expect(screen.getByTestId("tab-nutrition")).toBeInTheDocument();
+  });
+
+  it("active tab button has the active style", () => {
+    renderWith("steps");
+    expect(screen.getByTestId("tab-steps")).toHaveClass("bg-rim");
+  });
+
+  it("inactive tab buttons do not have the active style", () => {
+    renderWith("steps");
+    expect(screen.getByTestId("tab-ingredients")).not.toHaveClass("bg-rim");
+  });
+
+  it("mark-planned button shows Planned when meal is in planned set", () => {
+    render(
+      <MealDetail
+        selectedMeal={meal}
+        tab="ingredients"
+        activeStepIdx={0}
+        shoppingSet={new Set()}
+        plannedMeals={new Set([meal.id])}
+        selectedMarket="carrefour"
+        onTabChange={() => {}}
+        onToggleIngredient={() => {}}
+        onAddMealToList={() => {}}
+        onClearMealIngredients={() => {}}
+        onSetActiveStepIdx={() => {}}
+        onTogglePlanned={() => {}}
+        getIngredientPrice={() => null}
+      />
+    );
+    expect(screen.getByTestId("mark-planned-btn")).toHaveTextContent("Planned");
+  });
+});
 
 describe("MealDetail — Nutrition tab", () => {
   it("renders the Nutrition heading and per-serving subtitle", () => {

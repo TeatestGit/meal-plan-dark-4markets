@@ -62,12 +62,12 @@ test.describe("Shopping list", () => {
   });
 
   test("clear list button is in the action row (after copy button)", async ({ page }) => {
-    const row = page.locator(".mt-5.flex.gap-2");
+    const row = page.getByTestId(sel.actionRow);
     await expect(row.getByTestId(sel.clearListBtn)).toBeVisible();
   });
 
   test("clear list button appears after copy button in DOM order", async ({ page }) => {
-    const buttons = page.locator(".mt-5.flex.gap-2 button");
+    const buttons = page.getByTestId(sel.actionRow).locator("button");
     const labels = await buttons.allTextContents();
     const copyIdx = labels.findIndex(t => t.trim() === "Copy");
     const clearIdx = labels.findIndex(t => t.trim() === "Clear list");

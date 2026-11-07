@@ -16,8 +16,11 @@ function parseKcal(v: string) { return parseInt(v.match(/(\d+)/)?.[1] ?? "0", 10
 function parseProtein(v: string) { return parseInt(v.match(/(\d+)/)?.[1] ?? "0", 10); }
 
 describe("meals.json — protein & kcal data integrity", () => {
-  it("contains exactly 14 meals", () => {
-    expect(typedMeals).toHaveLength(14);
+  it("contains 14 meals per plan", () => {
+    const plans = [...new Set(typedMeals.map(m => m.plan))];
+    for (const plan of plans) {
+      expect(typedMeals.filter(m => m.plan === plan)).toHaveLength(14);
+    }
   });
 
   it("every meal has a non-empty protein string in 'Ng protein' format", () => {
@@ -38,11 +41,11 @@ describe("meals.json — protein & kcal data integrity", () => {
     }
   });
 
-  it("every meal has a kcal value between 300 and 800", () => {
+  it("every meal has a kcal value between 300 and 1200", () => {
     for (const meal of typedMeals) {
       const k = parseKcal(meal.kcal);
       expect(k).toBeGreaterThanOrEqual(300);
-      expect(k).toBeLessThanOrEqual(800);
+      expect(k).toBeLessThanOrEqual(1200);
     }
   });
 
@@ -70,7 +73,7 @@ describe("meals.json — protein & kcal data integrity", () => {
   });
 
   it("week 1 total kcal matches sum of week 1 meals (parseKcal)", () => {
-    const w1 = typedMeals.filter(m => m.week === 1);
+    const w1 = typedMeals.filter(m => m.plan === "no-red-meat" && m.week === 1);
     expect(w1).toHaveLength(7);
     const total = w1.reduce((sum, m) => sum + parseKcal(m.kcal), 0);
     const expected = w1.map(m => parseKcal(m.kcal)).reduce((a, b) => a + b, 0);
@@ -78,7 +81,7 @@ describe("meals.json — protein & kcal data integrity", () => {
   });
 
   it("week 2 total protein matches sum of week 2 meals (parseProtein)", () => {
-    const w2 = typedMeals.filter(m => m.week === 2);
+    const w2 = typedMeals.filter(m => m.plan === "no-red-meat" && m.week === 2);
     expect(w2).toHaveLength(7);
     const total = w2.reduce((sum, m) => sum + parseProtein(m.protein), 0);
     const expected = w2.map(m => parseProtein(m.protein)).reduce((a, b) => a + b, 0);

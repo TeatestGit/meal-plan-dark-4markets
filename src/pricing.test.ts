@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateIngredientCost, parseIngredientQuantity } from "./pricing";
+import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
 import type { PriceEntry } from "./types";
 
@@ -128,6 +128,97 @@ describe("findPriceEntry — newly added ingredients", () => {
   it("resolves vegetable stock", () => expect(findPriceEntry("600ml vegetable stock")).not.toBeNull());
   it("resolves lettuce", () => expect(findPriceEntry("40g lettuce")).not.toBeNull());
   it("resolves mixed leaves", () => expect(findPriceEntry("40g mixed leaves")).not.toBeNull());
+});
+
+describe("parseIngredientQuantity — unit conversions", () => {
+  it("parses kg as grams", () => {
+    expect(parseIngredientQuantity("1.5 kg chicken")).toEqual({ amount: 1500, unit: "g" });
+  });
+
+  it("parses litres as ml", () => {
+    expect(parseIngredientQuantity("0.5 l water")).toEqual({ amount: 500, unit: "ml" });
+  });
+
+  it("parses cups as ml (240ml each)", () => {
+    expect(parseIngredientQuantity("1 cup milk")).toEqual({ amount: 240, unit: "ml" });
+  });
+
+  it("parses a plain fraction", () => {
+    expect(parseIngredientQuantity("1/4 tsp salt")).toEqual({ amount: 1.25, unit: "ml" });
+  });
+
+  it("returns null for an ingredient with no recognisable quantity", () => {
+    expect(parseIngredientQuantity("salt and pepper to taste")).toBeNull();
+  });
+
+  it("parses egg count", () => {
+    expect(parseIngredientQuantity("2 eggs, beaten")).toEqual({ amount: 2, unit: "count" });
+  });
+
+  it("parses avocado count", () => {
+    expect(parseIngredientQuantity("1 avocado, sliced")).toEqual({ amount: 1, unit: "count" });
+  });
+});
+
+describe("formatIngredientQuantity", () => {
+  it("formats grams", () => {
+    expect(formatIngredientQuantity({ amount: 300, unit: "g" })).toBe("300g");
+  });
+
+  it("formats ml", () => {
+    expect(formatIngredientQuantity({ amount: 15, unit: "ml" })).toBe("15ml");
+  });
+
+  it("formats count as pcs", () => {
+    expect(formatIngredientQuantity({ amount: 2, unit: "count" })).toBe("2 pcs");
+  });
+
+  it("formats fractional amounts with one decimal place", () => {
+    expect(formatIngredientQuantity({ amount: 7.5, unit: "ml" })).toBe("7.5ml");
+  });
+
+  it("omits trailing .0 from decimal amounts", () => {
+    expect(formatIngredientQuantity({ amount: 10.0, unit: "g" })).toBe("10g");
+  });
+});
+
+describe("calculateIngredientCost — edge cases", () => {
+  const kgPrice: PriceEntry = { unit: "kg", carrefour: 40, lulu: 36, spinneys: 55, geant: 42 };
+  const mlPrice: PriceEntry = { unit: "500ml", carrefour: 20, lulu: 18, spinneys: 26, geant: 22 };
+  const eachPrice: PriceEntry = { unit: "each", carrefour: 2, lulu: 1.8, spinneys: 2.5, geant: 2.1 };
+
+  it("returns null when ingredient unit is incompatible with price unit", () => {
+    // ingredient is ml-based but price entry is kg-based
+    expect(calculateIngredientCost("100ml olive oil", kgPrice)).toBeNull();
+  });
+
+  it("returns null when ingredient has no parseable quantity", () => {
+    expect(calculateIngredientCost("salt to taste", kgPrice)).toBeNull();
+  });
+
+  it("scales correctly for a large gram quantity against a kg price", () => {
+    // 500g / 1000g * 40 = 20
+    expect(calculateIngredientCost("500g beef", kgPrice)?.prices.carrefour).toBe(20);
+  });
+
+  it("scales correctly for an ml quantity against an ml price", () => {
+    // 100ml / 500ml * 20 = 4
+    expect(calculateIngredientCost("100ml coconut milk", mlPrice)?.prices.carrefour).toBe(4);
+  });
+
+  it("prices a whole each-based item at full price", () => {
+    expect(calculateIngredientCost("1 avocado, sliced", eachPrice)?.prices.carrefour).toBe(2);
+  });
+
+  it("prices 2 each-based items at double price", () => {
+    expect(calculateIngredientCost("2 eggs, beaten", eachPrice)?.prices.carrefour).toBe(4);
+  });
+
+  it("rounds prices to two decimal places", () => {
+    // 100ml / 500ml * 20 = 4.00 — exact; test a case that produces a repeating decimal
+    // 10ml / 500ml * 20 = 0.4 exactly, but test 7ml / 500ml * 20 = 0.28
+    expect(calculateIngredientCost("7ml oil", mlPrice)?.prices.carrefour).toBe(0.28);
+  });
 });
 
 describe("qualitative quantities (handful / pinch)", () => {
