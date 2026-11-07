@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-newsreader: "Newsreader", Georgia, serif;
+  --font-instrument: "Instrument Serif", Georgia, serif;
+  --font-dm: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+html,
+body {
+  background: #121110;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-dm);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-newsreader {
+  font-family: var(--font-newsreader);
+}
+
+.font-instrument {
+  font-family: var(--font-instrument);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.font-dm {
+  font-family: var(--font-dm);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

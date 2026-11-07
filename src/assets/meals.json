@@ -1,0 +1,405 @@
+[
+  {
+    "id": "w1-mon",
+    "week": 1,
+    "day": "Mon \u2014 Week 1",
+    "title": "Harissa chicken grain bowl",
+    "time": "25 min",
+    "protein": "42g protein",
+    "kcal": "520 kcal",
+    "ingredients": [
+      "300g chicken breast, cubed",
+      "1.5 tbsp harissa paste",
+      "200g cooked freekeh or brown rice (100g dry)",
+      "100g chickpeas, drained",
+      "80g cucumber, diced",
+      "80g cherry tomatoes, halved",
+      "30g feta, crumbled",
+      "1 tbsp olive oil",
+      "1/2 lemon, juice + zest",
+      "Small handful parsley, chopped + pinch salt & pepper"
+    ],
+    "steps": [
+      "Toss chicken in harissa + 1 tsp oil + salt. Sear 6-7 min until charred and cooked through.",
+      "Warm grains & chickpeas with pinch cumin, 1 tsp oil, lemon zest.",
+      "Build bowl: grains base, chicken, cucumber, tomatoes, feta, parsley.",
+      "Drizzle lemon juice + remaining oil. Pack feta separately if prepping."
+    ],
+    "storage": "Fridge 3 days. Keep grains and chicken separate from fresh veg. Add feta day-of.",
+    "placeholder": null
+  },
+  {
+    "id": "w1-tue",
+    "week": 1,
+    "day": "Tue \u2014 Week 1",
+    "title": "High-protein tuna wrap no mayo",
+    "time": "12 min",
+    "protein": "38g protein",
+    "kcal": "445 kcal",
+    "ingredients": [
+      "2 x 145g cans tuna in water, drained well (total 290g drained ~180g)",
+      "120g 0% Greek yogurt",
+      "1 tsp Dijon mustard",
+      "2 whole wheat wraps (60g each)",
+      "60g carrots, julienned",
+      "60g cucumber, ribbons",
+      "40g mixed leaves",
+      "1 tsp capers, rinsed",
+      "1 tsp lemon juice + black pepper"
+    ],
+    "steps": [
+      "Mix tuna, yogurt, Dijon, capers, lemon, pepper \u2014 no mayo needed.",
+      "Warm wraps 10 sec. Spread tuna mix, top with carrots, cucumber, leaves.",
+      "Roll tight, slice diagonally. Secure with parchment for lunchbox."
+    ],
+    "storage": "Filling keeps 2 days chilled. Assemble wrap morning-of to avoid soggy.",
+    "placeholder": null
+  },
+  {
+    "id": "w1-wed",
+    "week": 1,
+    "day": "Wed \u2014 Week 1",
+    "title": "Rotisserie chicken quinoa crunch salad",
+    "time": "15 min",
+    "protein": "36g protein",
+    "kcal": "480 kcal",
+    "ingredients": [
+      "250g rotisserie chicken, skin removed & shredded",
+      "160g cooked quinoa (80g dry)",
+      "80g apple, diced (Honeycrisp)",
+      "40g toasted sliced almonds",
+      "60g celery, thinly sliced",
+      "60g 0% Greek yogurt",
+      "1 tbsp apple cider vinegar",
+      "1 tsp honey",
+      "40g rocket + salt & pepper"
+    ],
+    "steps": [
+      "Whisk yogurt, vinegar, honey, salt & pepper for quick dressing.",
+      "Toss quinoa, chicken, apple, celery, half almonds with dressing.",
+      "Finish with rocket and remaining almonds for crunch."
+    ],
+    "storage": "Best within 24h. Keep rocket separate; add just before eating.",
+    "placeholder": {
+      "gradient": "from-[#fde8c7] to-[#f9c6a3]",
+      "emoji": "\\uD83E\\uDD57",
+      "label": "Quinoa Crunch"
+    }
+  },
+  {
+    "id": "w1-thu",
+    "week": 1,
+    "day": "Thu \u2014 Week 1",
+    "title": "White bean tuna salad",
+    "time": "12 min",
+    "protein": "34g protein",
+    "kcal": "465 kcal",
+    "ingredients": [
+      "1 x 400g can cannellini beans, drained & rinsed (240g)",
+      "145g tuna in olive oil, drained",
+      "80g cherry tomatoes, quartered",
+      "50g red onion, very thin",
+      "60g cucumber, diced",
+      "30g Kalamata olives, halved",
+      "2 tbsp flat-leaf parsley, chopped",
+      "2 tbsp extra virgin olive oil",
+      "1 tbsp lemon juice + zest + pepper"
+    ],
+    "steps": [
+      "Rinse onion in cold water 1 min to mellow, then drain.",
+      "Gently combine beans, tuna flakes, tomatoes, cucumber, onion, olives.",
+      "Dress with EVOO, lemon, parsley. Rest 10 min for beans to absorb."
+    ],
+    "storage": "Fridge 3 days \u2014 actually improves. No heating needed. Dubai-proof.",
+    "placeholder": null
+  },
+  {
+    "id": "w1-fri",
+    "week": 1,
+    "day": "Fri \u2014 Week 1",
+    "title": "Pesto chicken salad with crackers",
+    "time": "15 min",
+    "protein": "35g protein",
+    "kcal": "495 kcal",
+    "ingredients": [
+      "250g cooked chicken breast, diced",
+      "40g basil pesto",
+      "80g 0% Greek yogurt",
+      "50g celery, finely diced",
+      "30g sun-dried tomatoes in oil, drained & sliced",
+      "60g whole-grain crackers",
+      "60g baby spinach",
+      "Squeeze lemon + black pepper"
+    ],
+    "steps": [
+      "Stir pesto + yogurt. Fold in chicken, celery, sun-dried tomatoes, lemon.",
+      "Pack spinach separate. Serve salad scooped with crackers or over spinach.",
+      "Add pepper, extra lemon to taste \u2014 no extra salt needed."
+    ],
+    "storage": "Fridge 3 days. Keep crackers in separate pouch to stay crisp.",
+    "placeholder": null
+  },
+  {
+    "id": "w1-sat",
+    "week": 1,
+    "day": "Sat \u2014 Week 1",
+    "title": "Mediterranean chickpea bowl",
+    "time": "20 min",
+    "protein": "18g protein",
+    "kcal": "510 kcal",
+    "ingredients": [
+      "1 x 400g can chickpeas, drained (240g)",
+      "150g couscous (75g dry) or bulgur",
+      "80g cucumber, diced",
+      "80g tomatoes, diced",
+      "40g red onion, diced",
+      "30g feta",
+      "20g Kalamata olives",
+      "2 tbsp olive oil + 1.5 tbsp lemon juice",
+      "1 tsp cumin, pinch paprika, mint leaves"
+    ],
+    "steps": [
+      "Cook couscous with pinch salt, fluff. Toss chickpeas warm with cumin, 1 tbsp oil.",
+      "Mix veg, olives, mint. Whisk lemon + remaining oil for dressing.",
+      "Bowl up: couscous, chickpeas, salad, feta crumbled on top."
+    ],
+    "storage": "Fridge 4 days. Plant-powered \u2014 holds best of the week. Good cold.",
+    "placeholder": null
+  },
+  {
+    "id": "w1-sun",
+    "week": 1,
+    "day": "Sun \u2014 Week 1",
+    "title": "Chicken tikka bagel",
+    "time": "20 min",
+    "protein": "38g protein",
+    "kcal": "505 kcal",
+    "ingredients": [
+      "300g chicken thigh fillets, cut 2cm",
+      "80g 0% Greek yogurt + 1 tbsp tikka paste + 1 tsp lemon",
+      "2 wholemeal bagels (90g each), split",
+      "40g mint yogurt chutney (yogurt + mint + pinch salt)",
+      "60g red onion, thinly sliced",
+      "60g cucumber, sliced",
+      "40g lettuce"
+    ],
+    "steps": [
+      "Marinate chicken 15 min (or overnight) in yogurt + tikka + lemon. Grill/pan 7-8 min.",
+      "Toast bagels. Spread mint chutney on both sides.",
+      "Layer lettuce, chicken, onion, cucumber. Close and wrap in foil."
+    ],
+    "storage": "Chicken keeps 3 days. Assemble bagel morning-of or toast base only.",
+    "placeholder": {
+      "gradient": "from-[#ffd6b1] to-[#ffb88c]",
+      "emoji": "\\uD83E\\uDD6F",
+      "label": "Tikka Bagel"
+    }
+  },
+  {
+    "id": "w2-mon",
+    "week": 2,
+    "day": "Mon \u2014 Week 2",
+    "title": "Salmon avocado rice bowl",
+    "time": "22 min",
+    "protein": "36g protein",
+    "kcal": "545 kcal",
+    "ingredients": [
+      "300g salmon fillet, skin off, 2cm cubes",
+      "200g cooked sushi or jasmine rice (100g dry)",
+      "1 ripe avocado (140g), sliced",
+      "80g edamame, shelled",
+      "60g cucumber, diced",
+      "2 tbsp low-sodium soy sauce",
+      "1 tsp sesame oil + 1 tbsp sesame seeds",
+      "1/2 lime + 20g pickled ginger"
+    ],
+    "steps": [
+      "Pan-sear salmon 3-4 min in 1 tsp oil, glaze with 1 tbsp soy + lime. Rest.",
+      "Warm rice with sesame oil. Add edamame, cucumber.",
+      "Top with salmon, avocado, sesame seeds, ginger. Extra soy on side."
+    ],
+    "storage": "Fridge 2 days max for salmon. Keep avocado & dress separately with lime.",
+    "placeholder": null
+  },
+  {
+    "id": "w2-tue",
+    "week": 2,
+    "day": "Tue \u2014 Week 2",
+    "title": "Turkey hummus veggie wrap",
+    "time": "12 min",
+    "protein": "32g protein",
+    "kcal": "430 kcal",
+    "ingredients": [
+      "200g sliced roast turkey breast (deli, low sodium)",
+      "80g hummus (classic)",
+      "2 whole wheat wraps (60g each)",
+      "80g bell pepper, strips",
+      "60g cucumber, sticks",
+      "40g carrots, shredded",
+      "30g feta",
+      "40g baby spinach + lemon squeeze"
+    ],
+    "steps": [
+      "Spread hummus on wraps. Layer turkey, peppers, cucumber, carrots, spinach.",
+      "Crumble feta, squeeze lemon, roll tightly.",
+      "Slice in half \u2014 holds well for grab-and-go."
+    ],
+    "storage": "Wrap best day-of. Hummus base prevents soggy \u2014 still good next day wrapped.",
+    "placeholder": {
+      "gradient": "from-[#d6e8d0] to-[#a8c9a0]",
+      "emoji": "\\uD83C\\uDF2F",
+      "label": "Turkey Hummus"
+    }
+  },
+  {
+    "id": "w2-wed",
+    "week": 2,
+    "day": "Wed \u2014 Week 2",
+    "title": "Chicken Waldorf toast",
+    "time": "15 min",
+    "protein": "33g protein",
+    "kcal": "460 kcal",
+    "ingredients": [
+      "220g cooked chicken breast, diced",
+      "1 small apple (120g), diced",
+      "40g walnuts, toasted & chopped",
+      "60g celery, diced",
+      "60g 0% Greek yogurt",
+      "1 tsp Dijon mustard",
+      "2 sourdough slices (80g total)",
+      "40g mixed leaves + lemon juice"
+    ],
+    "steps": [
+      "Mix yogurt, Dijon, lemon, pepper. Toss chicken, apple, celery, half walnuts.",
+      "Toast sourdough. Top with leaves, then Waldorf chicken salad.",
+      "Finish with remaining walnuts and drizzle honey if liked."
+    ],
+    "storage": "Salad keeps 2 days. Toast bread fresh \u2014 pack components separately.",
+    "placeholder": {
+      "gradient": "from-[#e8e0c8] to-[#d4c5a0]",
+      "emoji": "\\uD83C\\uDF5E",
+      "label": "Waldorf"
+    }
+  },
+  {
+    "id": "w2-thu",
+    "week": 2,
+    "day": "Thu \u2014 Week 2",
+    "title": "Lemony lentil soup + side salad",
+    "time": "30 min",
+    "protein": "22g protein",
+    "kcal": "420 kcal",
+    "ingredients": [
+      "150g red lentils, rinsed",
+      "1 small onion (80g), diced",
+      "1 carrot (70g), diced",
+      "2 garlic cloves, minced",
+      "1 tsp cumin + 1 tsp turmeric",
+      "600ml vegetable stock",
+      "30ml lemon juice + zest",
+      "2 tbsp olive oil",
+      "Side: 80g cucumber, 80g tomatoes, 20g parsley, 1 tbsp olive oil, lemon"
+    ],
+    "steps": [
+      "Saut\u00e9 onion, carrot, garlic in 1 tbsp oil 4 min. Add spices, lentils, stock. Simmer 18 min.",
+      "Blend half for creaminess, stir lemon juice + zest + remaining oil.",
+      "Toss quick side salad \u2014 serve with soup, warm or room temp."
+    ],
+    "storage": "Soup keeps 4 days, freezes well. Side salad day-of.",
+    "placeholder": {
+      "gradient": "from-[#ffe9a8] to-[#f5c86e]",
+      "emoji": "\\uD83C\\uDF4B",
+      "label": "Lentil Soup"
+    }
+  },
+  {
+    "id": "w2-fri",
+    "week": 2,
+    "day": "Fri \u2014 Week 2",
+    "title": "Tuna olive cucumber sandwich",
+    "time": "10 min",
+    "protein": "30g protein",
+    "kcal": "410 kcal",
+    "ingredients": [
+      "145g tuna in water, drained",
+      "2 tbsp 0% Greek yogurt",
+      "10g capers, chopped",
+      "30g green olives, chopped",
+      "60g cucumber, thin rounds",
+      "2 slices whole-grain bread (70g)",
+      "20g rocket",
+      "1 tsp Dijon + lemon squeeze + pepper"
+    ],
+    "steps": [
+      "Mix tuna, yogurt, capers, olives, Dijon, lemon.",
+      "Layer rocket, tuna mix, cucumber on bread. Top slice.",
+      "Press lightly, slice. Pack with ice pack if commuting."
+    ],
+    "storage": "Filling 2 days. Assemble morning-of for crisp cucumber.",
+    "placeholder": {
+      "gradient": "from-[#cde4d0] to-[#9fc5a6]",
+      "emoji": "\\uD83E\\uDD52",
+      "label": "Tuna Cucumber"
+    }
+  },
+  {
+    "id": "w2-sat",
+    "week": 2,
+    "day": "Sat \u2014 Week 2",
+    "title": "Grilled shrimp power bowl",
+    "time": "20 min",
+    "protein": "32g protein",
+    "kcal": "485 kcal",
+    "ingredients": [
+      "280g shrimp, peeled & deveined",
+      "1 tsp smoked paprika + pinch garlic powder",
+      "1 tbsp olive oil + lime juice",
+      "160g cooked quinoa (80g dry)",
+      "80g black beans, rinsed",
+      "80g corn (frozen, charred)",
+      "80g avocado, diced",
+      "60g cherry tomatoes, halved + cilantro + 30g feta"
+    ],
+    "steps": [
+      "Toss shrimp with paprika, oil, salt. Sear 2-3 min per side until pink.",
+      "Char corn in same pan 2 min. Warm quinoa & beans with lime.",
+      "Bowl up everything, finish with avocado, tomato, cilantro, feta."
+    ],
+    "storage": "Fridge 2 days (shrimp). Keep avocado with lime, separate.",
+    "placeholder": {
+      "gradient": "from-[#ffd9c7] to-[#ff9e7a]",
+      "emoji": "\\uD83C\\uDF64",
+      "label": "Shrimp Bowl"
+    }
+  },
+  {
+    "id": "w2-sun",
+    "week": 2,
+    "day": "Sun \u2014 Week 2",
+    "title": "Egg white bean skillet",
+    "time": "18 min",
+    "protein": "28g protein",
+    "kcal": "445 kcal",
+    "ingredients": [
+      "6 egg whites + 2 whole eggs (about 300g liquid)",
+      "200g cannellini beans, drained",
+      "100g baby spinach",
+      "80g cherry tomatoes, halved",
+      "1 garlic clove, sliced",
+      "1 tbsp olive oil",
+      "30g feta, crumbled",
+      "1 tsp za\u2019atar + pinch chilli flakes"
+    ],
+    "steps": [
+      "Saut\u00e9 garlic in oil 1 min, add tomatoes, beans, spinach \u2014 wilt 2 min.",
+      "Pour eggs, scramble softly 2-3 min. Season with za\u2019atar, chilli.",
+      "Top with feta. Serve warm or room temp with lemon wedge."
+    ],
+    "storage": "Fridge 3 days. Reheats well \u2014 great for Sunday prep into Mon.",
+    "placeholder": {
+      "gradient": "from-[#f7e7b4] to-[#e8c77a]",
+      "emoji": "\\uD83C\\uDF73",
+      "label": "Bean Skillet"
+    }
+  }
+]
