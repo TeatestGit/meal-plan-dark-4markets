@@ -1,5 +1,6 @@
 export type Meal = {
   id: string;
+  plan: string;
   week: number;
   day: string;
   title: string;

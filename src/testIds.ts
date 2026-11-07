@@ -1,4 +1,7 @@
 export const testIds = {
+  // Plan nav
+  planBtn: (planId: string) => `plan-btn-${planId}`,
+
   // Week nav
   weekBtn: (n: 1 | 2) => `week-btn-${n}`,
   weekMealCount: "week-meal-count",
@@ -47,6 +50,7 @@ export const testIds = {
   storageText: "storage-text",
 
   // Shopping list — controls
+  actionRow: "action-row",
   addWeekBtn: "add-week-btn",
   addAllBtn: "add-all-btn",
   copyBtn: "copy-btn",

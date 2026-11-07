@@ -28,7 +28,8 @@
       "Drizzle lemon juice + remaining oil. Pack feta separately if prepping."
     ],
     "storage": "Fridge 3 days. Keep grains and chicken separate from fresh veg. Add feta day-of.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-tue",
@@ -57,7 +58,8 @@
       "Roll tight, slice diagonally. Secure with parchment for lunchbox."
     ],
     "storage": "Filling keeps 2 days chilled. Assemble wrap morning-of to avoid soggy.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-wed",
@@ -90,7 +92,8 @@
       "gradient": "from-[#fde8c7] to-[#f9c6a3]",
       "emoji": "\\uD83E\\uDD57",
       "label": "Quinoa Crunch"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-thu",
@@ -119,7 +122,8 @@
       "Dress with EVOO, lemon, parsley. Rest 10 min for beans to absorb."
     ],
     "storage": "Fridge 3 days \u2014 actually improves. No heating needed. Dubai-proof.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-fri",
@@ -147,7 +151,8 @@
       "Add pepper, extra lemon to taste \u2014 no extra salt needed."
     ],
     "storage": "Fridge 3 days. Keep crackers in separate pouch to stay crisp.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-sat",
@@ -176,7 +181,8 @@
       "Bowl up: couscous, chickpeas, salad, feta crumbled on top."
     ],
     "storage": "Fridge 4 days. Plant-powered \u2014 holds best of the week. Good cold.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w1-sun",
@@ -207,7 +213,8 @@
       "gradient": "from-[#ffd6b1] to-[#ffb88c]",
       "emoji": "\\uD83E\\uDD6F",
       "label": "Tikka Bagel"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-mon",
@@ -235,7 +242,8 @@
       "Top with salmon, avocado, sesame seeds, ginger. Extra soy on side."
     ],
     "storage": "Fridge 2 days max for salmon. Keep avocado & dress separately with lime.",
-    "placeholder": null
+    "placeholder": null,
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-tue",
@@ -267,7 +275,8 @@
       "gradient": "from-[#d6e8d0] to-[#a8c9a0]",
       "emoji": "\\uD83C\\uDF2F",
       "label": "Turkey Hummus"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-wed",
@@ -299,7 +308,8 @@
       "gradient": "from-[#e8e0c8] to-[#d4c5a0]",
       "emoji": "\\uD83C\\uDF5E",
       "label": "Waldorf"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-thu",
@@ -332,7 +342,8 @@
       "gradient": "from-[#ffe9a8] to-[#f5c86e]",
       "emoji": "\\uD83C\\uDF4B",
       "label": "Lentil Soup"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-fri",
@@ -364,7 +375,8 @@
       "gradient": "from-[#cde4d0] to-[#9fc5a6]",
       "emoji": "\\uD83E\\uDD52",
       "label": "Tuna Cucumber"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-sat",
@@ -396,7 +408,8 @@
       "gradient": "from-[#ffd9c7] to-[#ff9e7a]",
       "emoji": "\\uD83C\\uDF64",
       "label": "Shrimp Bowl"
-    }
+    },
+    "plan": "no-red-meat"
   },
   {
     "id": "w2-sun",
@@ -428,6 +441,451 @@
       "gradient": "from-[#f7e7b4] to-[#e8c77a]",
       "emoji": "\\uD83C\\uDF73",
       "label": "Bean Skillet"
-    }
+    },
+    "plan": "no-red-meat"
+  },
+  {
+    "id": "v1-mon",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Mon \u2014 Week 1",
+    "title": "Spiced chickpea & quinoa power bowl",
+    "time": "20 min",
+    "protein": "40g protein",
+    "kcal": "930 kcal",
+    "fat": "36g fat",
+    "carbs": "112g carbs",
+    "ingredients": [
+      "200g cooked quinoa (90g dry)",
+      "240g chickpeas, drained & rinsed",
+      "1 tsp cumin + 1 tsp smoked paprika + 1/2 tsp turmeric",
+      "80g baby spinach",
+      "80g cherry tomatoes, halved",
+      "1/2 cucumber, diced",
+      "2 tbsp tahini",
+      "1 lemon, juice",
+      "1 tbsp olive oil",
+      "Salt & pepper"
+    ],
+    "steps": [
+      "Toss chickpeas in cumin, paprika, turmeric + 1 tsp oil + salt. Pan-fry 5-6 min until crispy.",
+      "Warm quinoa with a splash of water and remaining oil.",
+      "Whisk tahini + lemon juice + 2 tbsp water + pinch salt into a dressing.",
+      "Build bowl: quinoa, spinach, tomatoes, cucumber, crispy chickpeas. Drizzle dressing."
+    ],
+    "storage": "Fridge 3 days. Keep dressing separate. Chickpeas lose crunch \u2014 re-crisp in a dry pan.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-tue",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Tue \u2014 Week 1",
+    "title": "Crispy tofu & mango rice paper rolls",
+    "time": "28 min",
+    "protein": "35g protein",
+    "kcal": "886 kcal",
+    "fat": "33g fat",
+    "carbs": "112g carbs",
+    "ingredients": [
+      "250g firm tofu, pressed & cubed",
+      "1 tbsp soy sauce + 1 tsp sesame oil",
+      "8 rice paper sheets",
+      "1 small mango, julienned",
+      "1 carrot, julienned",
+      "1/2 cucumber, julienned",
+      "50g rice vermicelli, cooked",
+      "2 tbsp peanut butter + 1 tbsp soy sauce + 1/2 lime, juice + 1 tsp chilli flakes",
+      "Fresh mint & coriander leaves"
+    ],
+    "steps": [
+      "Marinate tofu in soy + sesame oil 5 min. Pan-fry on high 7-8 min until golden all sides.",
+      "Whisk peanut butter, soy, lime juice, chilli + 2 tbsp water into dipping sauce.",
+      "Soften rice paper in warm water 20 sec. Fill with noodles, tofu, mango, carrot, cucumber, herbs. Roll tight.",
+      "Serve rolls with peanut dipping sauce."
+    ],
+    "storage": "Fridge 1 day \u2014 wrap each roll in damp paper towel. Sauce fridge 4 days.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-wed",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Wed \u2014 Week 1",
+    "title": "Lentil & roasted red pepper wrap",
+    "time": "22 min",
+    "protein": "35g protein",
+    "kcal": "909 kcal",
+    "fat": "28g fat",
+    "carbs": "129g carbs",
+    "ingredients": [
+      "200g cooked green or puy lentils",
+      "2 large wholegrain tortilla wraps",
+      "2 roasted red peppers (jar), sliced",
+      "1 small red onion, thinly sliced",
+      "80g baby rocket",
+      "2 tbsp hummus",
+      "1 tsp cumin + 1/2 tsp smoked paprika",
+      "1 tbsp red wine vinegar",
+      "1 tbsp olive oil",
+      "Salt & pepper"
+    ],
+    "steps": [
+      "Warm lentils in a pan with oil, cumin, paprika, salt + splash of water 3-4 min.",
+      "Quick-pickle red onion in vinegar + pinch salt for 5 min.",
+      "Spread hummus on wrap. Layer lentils, roasted peppers, pickled onion, rocket.",
+      "Fold sides in and roll tight. Slice on the diagonal."
+    ],
+    "storage": "Fridge 2 days \u2014 wrap in foil. Pack rocket separately to avoid wilting.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-thu",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Thu \u2014 Week 1",
+    "title": "Edamame & avocado sushi bowl",
+    "time": "15 min",
+    "protein": "27g protein",
+    "kcal": "805 kcal",
+    "fat": "38g fat",
+    "carbs": "89g carbs",
+    "ingredients": [
+      "200g cooked sushi rice (90g dry)",
+      "120g shelled edamame, cooked",
+      "1 ripe avocado, sliced",
+      "1 small cucumber, diced",
+      "1 carrot, grated",
+      "1 sheet nori, cut into strips",
+      "2 tbsp soy sauce + 1 tsp sesame oil + 1 tsp rice vinegar",
+      "1 tsp sesame seeds",
+      "1 tsp pickled ginger (optional)"
+    ],
+    "steps": [
+      "Season cooked rice with rice vinegar + pinch salt. Fan to cool slightly.",
+      "Mix soy sauce + sesame oil into a dressing.",
+      "Build bowl: rice base, edamame, avocado, cucumber, carrot, nori strips.",
+      "Drizzle dressing, scatter sesame seeds + pickled ginger."
+    ],
+    "storage": "Fridge 1 day \u2014 avocado browns. Add avocado fresh. Rice keeps 2 days.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-fri",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Fri \u2014 Week 1",
+    "title": "Black bean & corn burrito bowl",
+    "time": "20 min",
+    "protein": "33g protein",
+    "kcal": "843 kcal",
+    "fat": "20g fat",
+    "carbs": "133g carbs",
+    "ingredients": [
+      "200g cooked brown rice (90g dry)",
+      "240g black beans, drained & rinsed",
+      "100g sweetcorn, drained",
+      "1 tsp cumin + 1 tsp smoked paprika + 1/2 tsp chilli powder",
+      "80g cherry tomatoes, quartered",
+      "1/2 lime, juice",
+      "2 tbsp salsa",
+      "1/4 red cabbage, shredded",
+      "Small handful coriander",
+      "1 tbsp olive oil"
+    ],
+    "steps": [
+      "Fry beans + corn in oil with cumin, paprika, chilli 4-5 min. Add lime juice.",
+      "Season cabbage with pinch salt + a few drops lime juice.",
+      "Build bowl: rice, spiced beans, cabbage, tomatoes, salsa, coriander.",
+      "Finish with remaining lime juice."
+    ],
+    "storage": "Fridge 3 days. Keep cabbage and tomatoes separate for best texture.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-sat",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Sat \u2014 Week 1",
+    "title": "Peanut noodles with crispy tofu",
+    "time": "25 min",
+    "protein": "48g protein",
+    "kcal": "964 kcal",
+    "fat": "57g fat",
+    "carbs": "65g carbs",
+    "ingredients": [
+      "250g firm tofu, pressed & cubed",
+      "180g soba or rice noodles, cooked",
+      "2 tbsp soy sauce",
+      "3 tbsp peanut butter + 1 tbsp soy sauce + 1 tbsp rice vinegar + 1 tsp sesame oil + 1 tsp chilli paste",
+      "1 red pepper, thinly sliced",
+      "2 spring onions, sliced",
+      "1 carrot, julienned",
+      "1 tbsp vegetable oil",
+      "1 tsp sesame seeds",
+      "1 lime, juice"
+    ],
+    "steps": [
+      "Press tofu dry. Pan-fry in oil over high heat 7-8 min until golden. Add 1 tbsp soy in last minute.",
+      "Whisk peanut butter, soy, rice vinegar, sesame oil, chilli paste + 3 tbsp warm water.",
+      "Toss warm noodles with peanut sauce, red pepper, carrot, half the spring onions.",
+      "Top with crispy tofu, sesame seeds, remaining spring onions + lime juice."
+    ],
+    "storage": "Fridge 2 days. Noodles absorb sauce \u2014 add splash of water when reheating.",
+    "placeholder": null
+  },
+  {
+    "id": "v1-sun",
+    "plan": "vegan",
+    "week": 1,
+    "day": "Sun \u2014 Week 1",
+    "title": "Smoky red lentil soup & flatbread",
+    "time": "30 min",
+    "protein": "26g protein",
+    "kcal": "541 kcal",
+    "fat": "10g fat",
+    "carbs": "87g carbs",
+    "ingredients": [
+      "200g red lentils, rinsed",
+      "1 onion, diced",
+      "2 garlic cloves, minced",
+      "1 tsp cumin + 1 tsp smoked paprika + 1/4 tsp cayenne",
+      "400g chopped tomatoes (tin)",
+      "800ml vegetable stock",
+      "1 tbsp olive oil",
+      "1 lemon, juice",
+      "2 wholegrain flatbreads or pitta",
+      "Small handful parsley"
+    ],
+    "steps": [
+      "Soften onion in oil 5 min. Add garlic + spices 1 min.",
+      "Add lentils, tomatoes, stock. Simmer 18-20 min until lentils are soft.",
+      "Blend half the soup for a creamy-chunky texture. Season with lemon juice + salt.",
+      "Warm flatbreads. Serve soup topped with parsley + drizzle of oil."
+    ],
+    "storage": "Fridge 4 days. Thickens overnight \u2014 thin with a little water when reheating.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-mon",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Mon \u2014 Week 2",
+    "title": "Falafel hummus grain plate",
+    "time": "15 min",
+    "protein": "30g protein",
+    "kcal": "995 kcal",
+    "fat": "47g fat",
+    "carbs": "113g carbs",
+    "ingredients": [
+      "6 store-bought falafel (baked or pan-fried)",
+      "200g cooked freekeh or bulgur (90g dry)",
+      "4 tbsp hummus",
+      "80g cherry tomatoes, halved",
+      "1/2 cucumber, diced",
+      "1/4 red onion, thinly sliced",
+      "2 tbsp olive oil",
+      "1/2 lemon, juice",
+      "1 tsp za'atar",
+      "Small handful flat-leaf parsley"
+    ],
+    "steps": [
+      "Heat falafel per packet \u2014 oven 10 min at 180 \u00b0C or pan-fry 3-4 min.",
+      "Season grains with lemon juice + 1 tbsp oil + pinch salt.",
+      "Spread hummus on plate. Pile grains alongside tomato-cucumber-onion salad.",
+      "Top with falafel, drizzle remaining oil, sprinkle za'atar + parsley."
+    ],
+    "storage": "Fridge 2 days. Reheat falafel in a dry pan to crisp up. Keep salad separate.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-tue",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Tue \u2014 Week 2",
+    "title": "Teriyaki tempeh & broccoli rice bowl",
+    "time": "22 min",
+    "protein": "56g protein",
+    "kcal": "988 kcal",
+    "fat": "44g fat",
+    "carbs": "92g carbs",
+    "ingredients": [
+      "200g tempeh, sliced",
+      "200g cooked jasmine rice (90g dry)",
+      "200g broccoli florets",
+      "3 tbsp soy sauce + 1 tbsp maple syrup + 1 tsp sesame oil + 1 tsp rice vinegar + 1 garlic clove, grated",
+      "1 tbsp vegetable oil",
+      "1 tsp sesame seeds",
+      "2 spring onions, sliced",
+      "1 tsp grated ginger"
+    ],
+    "steps": [
+      "Mix soy, maple syrup, sesame oil, rice vinegar, garlic, ginger into teriyaki sauce.",
+      "Pan-fry tempeh in oil 3-4 min each side until golden. Pour over sauce, cook 2 min until glazed.",
+      "Steam or stir-fry broccoli 4-5 min until bright green and tender-crisp.",
+      "Bowl: rice, broccoli, teriyaki tempeh. Scatter sesame seeds + spring onions."
+    ],
+    "storage": "Fridge 3 days. Sauce intensifies \u2014 reheat tempeh with a splash of water.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-wed",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Wed \u2014 Week 2",
+    "title": "Quinoa tabbouleh with roasted chickpeas",
+    "time": "20 min",
+    "protein": "35g protein",
+    "kcal": "1055 kcal",
+    "fat": "48g fat",
+    "carbs": "121g carbs",
+    "ingredients": [
+      "200g cooked quinoa (90g dry)",
+      "240g chickpeas, drained & rinsed",
+      "1 tsp cumin + 1/2 tsp paprika",
+      "Large handful flat-leaf parsley, finely chopped",
+      "Small handful mint, finely chopped",
+      "3 tomatoes, finely diced",
+      "1/2 cucumber, finely diced",
+      "2 spring onions, sliced",
+      "3 tbsp olive oil",
+      "2 lemons, juice + salt & pepper"
+    ],
+    "steps": [
+      "Toss chickpeas in cumin, paprika + 1 tsp oil + salt. Roast 200 \u00b0C for 15 min or pan-fry until crispy.",
+      "Cool quinoa to room temp. Combine with parsley, mint, tomatoes, cucumber, spring onions.",
+      "Dress with lemon juice + olive oil + salt + pepper. Toss well.",
+      "Top with crispy chickpeas just before serving."
+    ],
+    "storage": "Fridge 3 days \u2014 improves overnight. Add chickpeas day-of to keep crunch.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-thu",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Thu \u2014 Week 2",
+    "title": "Thai-style peanut tofu with jasmine rice",
+    "time": "25 min",
+    "protein": "45g protein",
+    "kcal": "997 kcal",
+    "fat": "51g fat",
+    "carbs": "90g carbs",
+    "ingredients": [
+      "250g firm tofu, pressed & cubed",
+      "200g cooked jasmine rice (90g dry)",
+      "100g mange tout or sugar snap peas",
+      "1 red pepper, sliced",
+      "3 tbsp peanut butter + 2 tbsp soy sauce + 1 tbsp lime juice + 1 tsp chilli flakes + 1 tsp brown sugar",
+      "1 tbsp vegetable oil",
+      "2 garlic cloves, minced",
+      "1 tsp grated ginger",
+      "Fresh coriander + lime wedge to serve"
+    ],
+    "steps": [
+      "Pan-fry tofu in oil over high heat 6-7 min until golden. Set aside.",
+      "Fry garlic + ginger 30 sec. Add peppers + mange tout 3 min.",
+      "Stir in peanut butter, soy, lime, chilli, sugar + 4 tbsp water into a sauce. Add tofu back, toss 1 min.",
+      "Serve over rice. Top with coriander + lime wedge."
+    ],
+    "storage": "Fridge 2 days. Sauce thickens \u2014 loosen with water when reheating.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-fri",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Fri \u2014 Week 2",
+    "title": "Smoky chipotle bean tacos",
+    "time": "18 min",
+    "protein": "37g protein",
+    "kcal": "1116 kcal",
+    "fat": "42g fat",
+    "carbs": "148g carbs",
+    "ingredients": [
+      "240g kidney or black beans, drained & rinsed",
+      "1 tsp chipotle paste + 1 tsp cumin + 1/2 tsp smoked paprika",
+      "6 small corn tortillas",
+      "1/4 red cabbage, finely shredded",
+      "2 tomatoes, diced",
+      "1/2 lime, juice",
+      "2 tbsp salsa or hot sauce",
+      "1 ripe avocado, sliced",
+      "1 tbsp olive oil",
+      "Small handful coriander"
+    ],
+    "steps": [
+      "Fry beans in oil with chipotle paste, cumin, paprika + 2 tbsp water 4-5 min. Lightly mash.",
+      "Toss cabbage with lime juice + pinch salt.",
+      "Warm tortillas dry in a hot pan 30 sec each side.",
+      "Fill tortillas: beans, cabbage, tomato, avocado, salsa, coriander."
+    ],
+    "storage": "Fridge 2 days \u2014 beans only. Assemble tacos fresh. Avocado add day-of.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-sat",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Sat \u2014 Week 2",
+    "title": "Greek-style stuffed bell peppers",
+    "time": "35 min",
+    "protein": "16g protein",
+    "kcal": "505 kcal",
+    "fat": "16g fat",
+    "carbs": "74g carbs",
+    "ingredients": [
+      "3 large bell peppers, halved & deseeded",
+      "180g cooked brown rice (80g dry)",
+      "240g chickpeas, drained & rinsed",
+      "80g cherry tomatoes, quartered",
+      "1/2 red onion, diced",
+      "1 tsp dried oregano + 1/2 tsp cumin",
+      "2 tbsp tomato paste",
+      "2 tbsp olive oil",
+      "1 lemon, juice",
+      "Small handful parsley + salt & pepper"
+    ],
+    "steps": [
+      "Preheat oven 200 \u00b0C. Place pepper halves cut-side up on a baking tray. Brush with oil + salt.",
+      "Mix rice, chickpeas, tomatoes, onion, tomato paste, oregano, cumin, lemon juice + 1 tbsp oil.",
+      "Fill peppers generously with rice mixture. Roast 20-22 min until peppers are tender.",
+      "Finish with parsley + extra lemon juice."
+    ],
+    "storage": "Fridge 3 days. Reheat covered at 180 \u00b0C for 10 min or microwave 2 min.",
+    "placeholder": null
+  },
+  {
+    "id": "v2-sun",
+    "plan": "vegan",
+    "week": 2,
+    "day": "Sun \u2014 Week 2",
+    "title": "Green lentil & spinach coconut curry",
+    "time": "30 min",
+    "protein": "28g protein",
+    "kcal": "1003 kcal",
+    "fat": "63g fat",
+    "carbs": "81g carbs",
+    "ingredients": [
+      "200g green or brown lentils, rinsed",
+      "400ml coconut milk (tin)",
+      "400ml vegetable stock",
+      "100g baby spinach",
+      "1 onion, diced",
+      "3 garlic cloves, minced",
+      "1 tsp grated ginger",
+      "2 tsp curry powder + 1/2 tsp turmeric + 1/2 tsp cumin",
+      "200g cooked basmati rice (90g dry)",
+      "1 tbsp coconut oil",
+      "1/2 lime, juice + salt"
+    ],
+    "steps": [
+      "Soften onion in coconut oil 5 min. Add garlic, ginger + spices 1 min.",
+      "Add lentils, coconut milk, stock. Simmer 20-22 min until lentils are tender.",
+      "Stir in spinach until wilted. Season with lime juice + salt.",
+      "Serve over rice."
+    ],
+    "storage": "Fridge 4 days. Thickens \u2014 add coconut milk or water when reheating.",
+    "placeholder": null
   }
 ]

@@ -9,18 +9,18 @@ import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuant
 import { findPriceEntry } from "./data/prices";
 import { testIds } from "./testIds";
 
-const rawImages = import.meta.glob<{ default: string }>("./assets/*.webp", { eager: true });
+const rawImages = import.meta.glob<{ default: string }>("./assets/*/*.{webp,jpg}", { eager: true });
 const imageMap: Record<string, string> = Object.fromEntries(
   Object.entries(rawImages).map(([path, mod]) => [
-    path.replace("./assets/", "").replace(".webp", ""),
+    path.replace(/^\.\/assets\/[^/]+\//, "").replace(/\.(webp|jpg)$/, ""),
     mod.default,
   ])
 );
 
-const rawThumbs = import.meta.glob<{ default: string }>("./assets/thumbs/*.jpg", { eager: true });
+const rawThumbs = import.meta.glob<{ default: string }>("./assets/*/thumbs/*.jpg", { eager: true });
 const thumbnailMap: Record<string, string> = Object.fromEntries(
   Object.entries(rawThumbs).map(([path, mod]) => [
-    path.replace("./assets/thumbs/", "").replace(".jpg", ""),
+    path.replace(/^\.\/assets\/[^/]+\/thumbs\//, "").replace(/-thumb\.jpg$/, "").replace(".jpg", ""),
     mod.default,
   ])
 );
@@ -73,6 +73,19 @@ function saveSet(key: string, value: Set<string>) {
 }
 
 export default function App() {
+  const plans = useMemo(() => {
+    const seen = new Set<string>();
+    const result: { id: string; label: string }[] = [];
+    for (const meal of mealsData as Array<{ plan: string }>) {
+      if (!seen.has(meal.plan)) {
+        seen.add(meal.plan);
+        result.push({ id: meal.plan, label: meal.plan.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) });
+      }
+    }
+    return result;
+  }, []);
+
+  const [plan, setPlan] = useState<string>(plans[0]?.id ?? "no-red-meat");
   const [week, setWeek] = useState<1 | 2>(1);
   const [selectedId, setSelectedId] = useState<string>("w1-mon");
   const [search, setSearch] = useState("");
@@ -88,8 +101,11 @@ export default function App() {
   useEffect(() => { saveSet("shopping-set", shoppingSet); }, [shoppingSet]);
   useEffect(() => { saveSet("planned-meals", plannedMeals); }, [plannedMeals]);
 
+  const planLabel = plans.find((p) => p.id === plan)?.label ?? plan;
+  const planMealCount = useMemo(() => meals.filter((m) => m.plan === plan).length, [plan]);
+
   const weekMeals = useMemo(() => {
-    const base = meals.filter((meal) => meal.week === week);
+    const base = meals.filter((meal) => meal.plan === plan && meal.week === week);
     if (!search.trim()) return base;
     const query = search.toLowerCase();
     return base.filter(
@@ -98,7 +114,7 @@ export default function App() {
         meal.ingredients.join(" ").toLowerCase().includes(query) ||
         meal.day.toLowerCase().includes(query)
     );
-  }, [week, search]);
+  }, [plan, week, search]);
 
   const selectedMeal = useMemo(
     () => meals.find((meal) => meal.id === selectedId) || weekMeals[0] || meals[0],
@@ -115,7 +131,7 @@ export default function App() {
   }, [selectedId]);
 
   const stats = useMemo(() => {
-    const wm = meals.filter((meal) => meal.week === week);
+    const wm = meals.filter((meal) => meal.plan === plan && meal.week === week);
     const totalKcal = wm.reduce((sum, meal) => sum + parseKcal(meal.kcal), 0);
     const totalProtein = wm.reduce((sum, meal) => sum + parseProtein(meal.protein), 0);
     const totalTime = wm.reduce((sum, meal) => sum + parseTime(meal.time), 0);
@@ -236,7 +252,7 @@ export default function App() {
   };
 
   const addWholeWeekToList = () => {
-    const wm = meals.filter((meal) => meal.week === week);
+    const wm = meals.filter((meal) => meal.plan === plan && meal.week === week);
     setShoppingSet((prev) => {
       const next = new Set(prev);
       wm.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
@@ -250,14 +266,15 @@ export default function App() {
   };
 
   const addAllMealsToList = () => {
+    const planMeals = meals.filter((meal) => meal.plan === plan);
     setShoppingSet((prev) => {
       const next = new Set(prev);
-      meals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
+      planMeals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
       return next;
     });
     setPlannedMeals((prev) => {
       const next = new Set(prev);
-      meals.forEach((meal) => next.add(meal.id));
+      planMeals.forEach((meal) => next.add(meal.id));
       return next;
     });
   };
@@ -300,6 +317,31 @@ export default function App() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto min-w-0">
+              {plans.length > 1 && (
+                <div className="flex items-center bg-card rounded-full p-1 border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] w-full sm:w-auto justify-center">
+                  {plans.map((p) => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      data-testid={testIds.planBtn(p.id)}
+                      onClick={() => {
+                        setPlan(p.id);
+                        setWeek(1);
+                        const firstMeal = meals.find((meal) => meal.plan === p.id && meal.week === 1);
+                        if (firstMeal) setSelectedId(firstMeal.id);
+                        setActiveStepIdx(0);
+                      }}
+                      className={`flex-1 sm:flex-none h-[36px] sm:h-[32px] px-5 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] truncate max-w-[160px] ${
+                        plan === p.id
+                          ? "bg-ink-primary text-page shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
+                          : "bg-rim text-ink-secondary hover:text-ink-primary"
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              )}
               <div className="flex gap-2 w-full sm:w-auto items-center">
                 <div className="flex items-center bg-card rounded-full p-1 border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex-1 sm:flex-none justify-center">
                   {[1, 2].map((weekNumber) => (
@@ -309,7 +351,7 @@ export default function App() {
                       data-testid={testIds.weekBtn(weekNumber as 1 | 2)}
                       onClick={() => {
                         setWeek(weekNumber as 1 | 2);
-                        const firstMeal = meals.find((meal) => meal.week === weekNumber);
+                        const firstMeal = meals.find((meal) => meal.plan === plan && meal.week === weekNumber);
                         if (firstMeal) setSelectedId(firstMeal.id);
                         setActiveStepIdx(0);
                       }}
@@ -341,7 +383,7 @@ export default function App() {
           <div className="rounded-[20px] sm:rounded-[24px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] px-6 sm:px-10 lg:px-12 py-8 sm:py-12 lg:py-14 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 lg:gap-12 min-w-0 overflow-hidden">
             <div className="max-w-[30ch] min-w-0">
               <div className="mb-4 sm:mb-6">
-                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary break-words">Editorial Lunch Series · No Red Meat · Dubai Pricing</span>
+                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary break-words">Editorial Lunch Series · {planLabel} · Dubai Pricing</span>
               </div>
               <h1 className="font-newsreader italic font-normal text-[36px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.1] sm:leading-[1.02] lg:leading-[0.95] tracking-[-0.03em] text-ink-primary break-words">
                 2-Week Lunch<br />Plan
@@ -349,14 +391,14 @@ export default function App() {
               <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
                 <span className="h-px w-8 bg-rim hidden sm:block" />
                 <span className="font-newsreader italic text-[13px] sm:text-[14px] leading-[1.5] text-ink-muted break-words">
-                  No Red Meat · 14 recipes · AED prices per market
+                  {planLabel} · {planMealCount} recipes · AED prices per market
                 </span>
               </div>
             </div>
 
             <div className="lg:max-w-[42ch] flex flex-col gap-5 sm:gap-6 min-w-0">
               <p className="font-dm text-[14px] leading-[1.8] text-ink-secondary break-words">
-                14 no-red-meat lunches across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
+                {planMealCount} {planLabel.toLowerCase()} lunches across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
               </p>
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
                 <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} · {stats.totalKcal} kcal</span>
@@ -484,7 +526,7 @@ export default function App() {
 
         <footer className="pb-10 pt-2 flex flex-col sm:flex-row justify-between gap-3 font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted min-w-0 overflow-hidden">
           <span className="break-words">© 2026 · Dubai AED · Prices: Sep 2026</span>
-          <span className="break-words">No Red Meat · 14 Recipes · 2-Week Plan</span>
+          <span className="break-words">{planLabel} · {planMealCount} Recipes · 2-Week Plan</span>
         </footer>
       </div>
     </div>

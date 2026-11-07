@@ -101,3 +101,57 @@ describe('App', () => {
     expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
   });
 });
+
+describe('Plan switching', () => {
+  it('renders plan tabs for both plans', () => {
+    render(<App />);
+    expect(screen.getByTestId('plan-btn-no-red-meat')).toBeInTheDocument();
+    expect(screen.getByTestId('plan-btn-vegan')).toBeInTheDocument();
+  });
+
+  it('No Red Meat plan is active by default', () => {
+    render(<App />);
+    // first meal card should be a no-red-meat meal (harissa chicken)
+    const cards = screen.getAllByTestId('meal-card');
+    expect(cards).toHaveLength(7);
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
+  });
+
+  it('switching to Vegan shows 7 vegan week-1 meals', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-vegan'));
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
+    // vegan w1-mon title should appear (in card + detail panel)
+    expect(screen.getAllByText(/spiced chickpea/i).length).toBeGreaterThan(0);
+  });
+
+  it('switching plan resets to week 1', () => {
+    render(<App />);
+    // go to week 2 of no-red-meat, then switch plan
+    fireEvent.click(screen.getByTestId('week-btn-2'));
+    fireEvent.click(screen.getByTestId('plan-btn-vegan'));
+    // week 1 button should be active (bg-ink-primary class)
+    expect(screen.getByTestId('week-btn-1').className).toMatch(/bg-ink-primary/);
+  });
+
+  it('hero text updates to show active plan label', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-vegan'));
+    // eyebrow and footer should contain "Vegan"
+    expect(screen.getAllByText(/vegan/i).length).toBeGreaterThan(0);
+  });
+
+  it('no-red-meat meals are absent when vegan plan is active', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-vegan'));
+    // harissa chicken is a no-red-meat meal — should not be visible
+    expect(screen.queryByText(/harissa chicken/i)).toBeNull();
+  });
+
+  it('switching back to No Red Meat restores no-red-meat meals', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-vegan'));
+    fireEvent.click(screen.getByTestId('plan-btn-no-red-meat'));
+    expect(screen.getAllByText(/harissa chicken/i).length).toBeGreaterThan(0);
+  });
+});
