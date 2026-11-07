@@ -1,4 +1,5 @@
 import type { Meal } from "../types";
+import { testIds } from "../testIds";
 
 type MealSelectorProps = {
   weekMeals: Meal[];
@@ -18,7 +19,7 @@ export function MealSelector({ weekMeals, selectedMealId, plannedMeals, onSelect
           <button
             key={meal.id}
             type="button"
-            data-testid="meal-card"
+            data-testid={testIds.mealCard}
             data-meal-id={meal.id}
             aria-pressed={isActive}
             onClick={() => onSelect(meal.id)}

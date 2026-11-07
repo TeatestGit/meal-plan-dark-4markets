@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-07 — Centralised test ID constants
+
+- Created `src/testIds.ts` as the single source of truth for all `data-testid` strings used across the app and tests.
+- Updated `App.tsx`, `MealDetail.tsx`, `MealSelector.tsx`, and `ShoppingListPanel.tsx` to import and use `testIds` — no raw strings remain in `src/`.
+- Updated `e2e/selectors.ts` to re-export `testIds` from `src/testIds.ts` so app code and test code share one definition.
+- To rename or add a test ID, edit only `src/testIds.ts`.
+
 ## 2026-11-07 — Playwright E2E test suite
 
 - Added `@playwright/test` and Chromium browser for end-to-end testing.

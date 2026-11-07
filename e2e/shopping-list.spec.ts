@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { sel } from "./selectors";
 
 test.describe("Shopping list", () => {
   test.beforeEach(async ({ page }) => {
@@ -8,84 +9,84 @@ test.describe("Shopping list", () => {
   });
 
   test("shows empty state on fresh load", async ({ page }) => {
-    await expect(page.getByTestId("empty-state")).toBeVisible();
+    await expect(page.getByTestId(sel.emptyState)).toBeVisible();
   });
 
   test("'Add week' button populates the list", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    await expect(page.getByTestId("empty-state")).not.toBeVisible();
-    await expect(page.getByTestId("list-item").first()).toBeVisible();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
+    await expect(page.getByTestId(sel.listItem).first()).toBeVisible();
   });
 
   test("adding a single meal removes the empty state", async ({ page }) => {
-    await page.getByTestId("add-meal-btn").click();
-    await expect(page.getByTestId("empty-state")).not.toBeVisible();
+    await page.getByTestId(sel.addMealBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
   });
 
   test("item count badge is visible", async ({ page }) => {
-    await expect(page.getByTestId("item-count-badge")).toBeVisible();
+    await expect(page.getByTestId(sel.itemCountBadge)).toBeVisible();
   });
 
   test("all four market pill tabs are present", async ({ page }) => {
-    await expect(page.getByTestId("market-pill-carrefour")).toBeVisible();
-    await expect(page.getByTestId("market-pill-lulu")).toBeVisible();
-    await expect(page.getByTestId("market-pill-spinneys")).toBeVisible();
-    await expect(page.getByTestId("market-pill-geant")).toBeVisible();
+    await expect(page.getByTestId(sel.marketPill("carrefour"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketPill("lulu"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketPill("spinneys"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketPill("geant"))).toBeVisible();
   });
 
   test("clicking a market pill selects it", async ({ page }) => {
-    await page.getByTestId("market-pill-lulu").click();
-    await expect(page.getByTestId("market-pill-lulu")).toHaveClass(/bg-ink-primary/);
+    await page.getByTestId(sel.marketPill("lulu")).click();
+    await expect(page.getByTestId(sel.marketPill("lulu"))).toHaveClass(/bg-ink-primary/);
   });
 
   test("market price cards appear after adding items", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    await expect(page.getByTestId("market-card-carrefour")).toBeVisible();
-    await expect(page.getByTestId("market-card-lulu")).toBeVisible();
-    await expect(page.getByTestId("market-card-spinneys")).toBeVisible();
-    await expect(page.getByTestId("market-card-geant")).toBeVisible();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.marketCard("carrefour"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketCard("lulu"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketCard("spinneys"))).toBeVisible();
+    await expect(page.getByTestId(sel.marketCard("geant"))).toBeVisible();
   });
 
   test("cheapest market is labelled", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    await expect(page.getByTestId("cheapest-label")).toBeVisible();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.cheapestLabel)).toBeVisible();
   });
 
   test("savings banner appears after adding items", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    await expect(page.getByTestId("savings-banner")).toBeVisible();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.savingsBanner)).toBeVisible();
   });
 
   test("copy button is visible", async ({ page }) => {
-    await expect(page.getByTestId("copy-btn")).toBeVisible();
+    await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
   });
 
   test("remove button removes an item from the list", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    const countBefore = await page.getByTestId("list-item").count();
+    await page.getByTestId(sel.addWeekBtn).click();
+    const countBefore = await page.getByTestId(sel.listItem).count();
     // remove button is opacity-0 on desktop until hover; force the click
-    await page.getByTestId("item-remove-btn").first().click({ force: true });
-    const countAfter = await page.getByTestId("list-item").count();
+    await page.getByTestId(sel.itemRemoveBtn).first().click({ force: true });
+    const countAfter = await page.getByTestId(sel.listItem).count();
     expect(countAfter).toBeLessThan(countBefore);
   });
 
   test("clear list button empties the shopping list", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    await page.getByTestId("clear-list-btn").click();
-    await expect(page.getByTestId("empty-state")).toBeVisible();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await page.getByTestId(sel.clearListBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).toBeVisible();
   });
 
   test("shop-at link is present and points to the selected market", async ({ page }) => {
-    await page.getByTestId("add-week-btn").click();
-    const link = page.getByTestId("shop-at-link");
+    await page.getByTestId(sel.addWeekBtn).click();
+    const link = page.getByTestId(sel.shopAtLink);
     await expect(link).toBeVisible();
     const href = await link.getAttribute("href");
     expect(href).toBeTruthy();
   });
 
   test("'Add week' in Week 2 adds Week 2 items", async ({ page }) => {
-    await page.getByTestId("week-btn-2").click();
-    await page.getByTestId("add-week-btn").click();
-    await expect(page.getByTestId("empty-state")).not.toBeVisible();
+    await page.getByTestId(sel.weekBtn(2)).click();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
   });
 });

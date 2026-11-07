@@ -1,4 +1,5 @@
 import type { MarketKey, MarketInfo, PricedItem } from "../types";
+import { testIds } from "../testIds";
 
 type ShoppingListPanelProps = {
   pricedItems: PricedItem[];
@@ -48,7 +49,7 @@ export function ShoppingListPanel({
       <div className="px-6 sm:px-8 py-6 sm:py-7 min-w-0">
         <div className="flex items-center justify-between gap-3 min-w-0">
           <h3 className="font-instrument text-[18px] text-ink-primary">Grocery &amp; shopping</h3>
-          <span data-testid="item-count-badge" className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page border border-rim rounded-full px-3 py-1 tabular shrink-0">
+          <span data-testid={testIds.itemCountBadge} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page border border-rim rounded-full px-3 py-1 tabular shrink-0">
             {pricedItems.length} items · {hasPrices ? `AED ${selectedTotal.toFixed(2)}` : "No prices"}
           </span>
         </div>
@@ -63,7 +64,7 @@ export function ShoppingListPanel({
               return (
                 <button
                   key={mk}
-                  data-testid={`market-pill-${mk}`}
+                  data-testid={testIds.marketPill(mk)}
                   onClick={() => onSelectMarket(mk)}
                   className={`snap-start shrink-0 h-[42px] rounded-full border px-4 flex items-center gap-2.5 transition-all active:scale-[0.98] ${
                     isSelected
@@ -82,7 +83,7 @@ export function ShoppingListPanel({
                     {market.delivery}
                   </span>
                   {isCheapest && (
-                    <span data-testid="cheapest-label" className={`ml-1 text-[9px] font-dm font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${isSelected ? "bg-page text-ink-primary" : "bg-ink-primary text-page"}`}>
+                    <span data-testid={testIds.cheapestLabel} className={`ml-1 text-[9px] font-dm font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-full ${isSelected ? "bg-page text-ink-primary" : "bg-ink-primary text-page"}`}>
                       cheapest
                     </span>
                   )}
@@ -103,7 +104,7 @@ export function ShoppingListPanel({
               return (
                 <button
                   key={mk}
-                  data-testid={`market-card-${mk}`}
+                  data-testid={testIds.marketCard(mk)}
                   onClick={() => onSelectMarket(mk)}
                   className={`text-left rounded-[14px] border p-3 transition-all active:scale-[0.98] ${
                     isSelected ? "bg-rim border-ink-primary/30 shadow-[0_6px_18px_rgba(0,0,0,0.25)]" : "bg-page border-rim hover:border-rim-hover"
@@ -138,7 +139,7 @@ export function ShoppingListPanel({
         )}
 
         {hasPrices && savings > 0.01 && (
-          <div data-testid="savings-banner" className="mt-3 rounded-[12px] bg-[#1a2e1e]/60 border border-[#2a4a2e]/60 px-4 py-2.5 flex items-center gap-2">
+          <div data-testid={testIds.savingsBanner} className="mt-3 rounded-[12px] bg-[#1a2e1e]/60 border border-[#2a4a2e]/60 px-4 py-2.5 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-[#2a5a30] flex items-center justify-center text-[11px] text-emerald-200">↘</span>
             <span className="font-dm text-[11px] tracking-[0.04em] text-emerald-200/90">
               Save <span className="font-medium tabular-nums text-emerald-100">AED {savings.toFixed(2)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
@@ -147,10 +148,10 @@ export function ShoppingListPanel({
         )}
 
         <div className="mt-5 flex gap-2 min-w-0">
-          <button data-testid="add-week-btn" onClick={onAddWholeWeek} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition shadow-[0_8px_20px_rgba(0,0,0,0.25)] active:scale-[0.98] min-w-0">
+          <button data-testid={testIds.addWeekBtn} onClick={onAddWholeWeek} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition shadow-[0_8px_20px_rgba(0,0,0,0.25)] active:scale-[0.98] min-w-0">
             Add week
           </button>
-          <button data-testid="copy-btn" aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] shrink-0">
+          <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] shrink-0">
             {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
           </button>
         </div>
@@ -158,7 +159,7 @@ export function ShoppingListPanel({
 
       <div className="px-3 pb-3 min-w-0">
         {pricedItems.length === 0 ? (
-          <div data-testid="empty-state" className="rounded-[18px] border border-dashed border-rim bg-page/60 p-5 sm:p-6 mx-1 min-w-0">
+          <div data-testid={testIds.emptyState} className="rounded-[18px] border border-dashed border-rim bg-page/60 p-5 sm:p-6 mx-1 min-w-0">
             <div className="font-instrument text-[16px] text-ink-secondary mb-2 tracking-[-0.01em] break-words">Soft &amp; empty</div>
             <div className="font-dm text-[13px] text-ink-muted leading-[1.8] break-words">
               Select ingredients or add a whole week. Prices are static Dubai estimates, not live retailer prices. Reference: Sep 2026.
@@ -189,7 +190,7 @@ export function ShoppingListPanel({
               const comparisonId = `market-comparison-${idx}`;
 
               return (
-                <div key={item.id} data-testid="list-item" data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0" onMouseEnter={() => onHoverItem(item.id)} onMouseLeave={() => onHoverItem(null)}>
+                <div key={item.id} data-testid={testIds.listItem} data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0" onMouseEnter={() => onHoverItem(item.id)} onMouseLeave={() => onHoverItem(null)}>
                   <div className="flex gap-3 min-w-0">
                     <span className="font-newsreader text-[11px] text-ink-muted mt-[2px] italic tabular shrink-0">{String(idx + 1).padStart(2, "0")}</span>
                     <div className="flex-1 min-w-0">
@@ -207,7 +208,7 @@ export function ShoppingListPanel({
                       {prices && (
                         <button
                           type="button"
-                          data-testid="compare-prices-btn"
+                          data-testid={testIds.comparePricesBtn}
                           aria-expanded={isHovered}
                           aria-controls={comparisonId}
                           onClick={() => onHoverItem(isHovered ? null : item.id)}
@@ -217,7 +218,7 @@ export function ShoppingListPanel({
                         </button>
                       )}
                       {prices && (
-                        <div id={comparisonId} data-testid="price-comparison" hidden={!isHovered} className={`mt-2.5 grid grid-cols-4 gap-1.5 ${isHovered ? "" : "hidden"}`}>
+                        <div id={comparisonId} data-testid={testIds.priceComparison} hidden={!isHovered} className={`mt-2.5 grid grid-cols-4 gap-1.5 ${isHovered ? "" : "hidden"}`}>
                           {marketOrder.map((mk) => {
                             const productPrice = prices[mk];
                             const isCheapest = productPrice === cheapestPrice;
@@ -247,7 +248,7 @@ export function ShoppingListPanel({
                         </div>
                       )}
                     </div>
-                    <button data-testid="item-remove-btn" onClick={() => onRemoveItem(item)} className="font-dm text-[11px] tracking-[0.08em] uppercase text-ink-muted hover:text-ink-primary md:opacity-0 md:group-hover:opacity-100 transition shrink-0 active:scale-[0.98] self-start mt-0.5">
+                    <button data-testid={testIds.itemRemoveBtn} onClick={() => onRemoveItem(item)} className="font-dm text-[11px] tracking-[0.08em] uppercase text-ink-muted hover:text-ink-primary md:opacity-0 md:group-hover:opacity-100 transition shrink-0 active:scale-[0.98] self-start mt-0.5">
                       remove
                     </button>
                   </div>
@@ -263,7 +264,7 @@ export function ShoppingListPanel({
 
         {pricedItems.length > 0 && (
           <>
-            <a data-testid="shop-at-link" href={marketPrices[selectedMarket].url} target="_blank" rel="noopener noreferrer" className="mt-3 w-full h-[44px] rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.12em] uppercase flex items-center justify-center gap-2 hover:bg-ink-cta transition active:scale-[0.98] shadow-[0_8px_20px_rgba(0,0,0,0.25)]">
+            <a data-testid={testIds.shopAtLink} href={marketPrices[selectedMarket].url} target="_blank" rel="noopener noreferrer" className="mt-3 w-full h-[44px] rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.12em] uppercase flex items-center justify-center gap-2 hover:bg-ink-cta transition active:scale-[0.98] shadow-[0_8px_20px_rgba(0,0,0,0.25)]">
               Shop this list at {marketPrices[selectedMarket].name} <span className="text-[12px]">↗</span>
             </a>
             <div className="mt-2 grid grid-cols-2 gap-2">
@@ -289,7 +290,7 @@ export function ShoppingListPanel({
                 );
               })}
             </div>
-            <button data-testid="clear-list-btn" onClick={onClearList} className="mt-2 w-full h-[40px] sm:h-9 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
+            <button data-testid={testIds.clearListBtn} onClick={onClearList} className="mt-2 w-full h-[40px] sm:h-9 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
               Clear list
             </button>
           </>
