@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-07 — Nutrition tab: remove color bar/legend; add USDA FoodData Central link
+
+- Removed stacked color bar and color legend from the kcal row in the Nutrition tab (was visually redundant with the per-macro rows below).
+- Removed color dots from individual macro row headers.
+- Changed macro progress bar fill from per-macro color to neutral (`bg-ink-muted/40`).
+- Dropped unused `color` field from macro array.
+- Updated USDA note to include a link to [USDA FoodData Central](https://fdc.nal.usda.gov/).
+
 ## 2026-11-07 — Nutrition tab: per-meal macro breakdown with USDA verification
 
 - Added `fat` and `carbs` fields to all 14 meals in `meals.json` (estimated from ingredient list using USDA reference data; kcal-balanced).
