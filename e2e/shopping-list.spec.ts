@@ -89,4 +89,33 @@ test.describe("Shopping list", () => {
     await page.getByTestId(sel.addWeekBtn).click();
     await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
   });
+
+  test("'Add all' populates items from both weeks", async ({ page }) => {
+    await page.getByTestId(sel.addAllBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
+    await expect(page.getByTestId(sel.listItem).first()).toBeVisible();
+  });
+
+  test("'Add all' adds more items than 'Add week' alone", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const countOneWeek = await page.getByTestId(sel.listItem).count();
+
+    // Reset
+    await page.getByTestId(sel.clearListBtn).click();
+
+    await page.getByTestId(sel.addAllBtn).click();
+    const countAllWeeks = await page.getByTestId(sel.listItem).count();
+
+    expect(countAllWeeks).toBeGreaterThanOrEqual(countOneWeek);
+  });
+
+  test("list items section is scrollable (overflow-y-auto applied)", async ({ page }) => {
+    await page.getByTestId(sel.addAllBtn).click();
+    // The items container should have overflow-y set to auto or scroll
+    const overflow = await page.evaluate(() => {
+      const items = document.querySelector("[data-testid='list-item']")?.closest(".overflow-y-auto");
+      return items ? window.getComputedStyle(items).overflowY : null;
+    });
+    expect(overflow).toBe("auto");
+  });
 });

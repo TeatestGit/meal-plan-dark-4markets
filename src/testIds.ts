@@ -12,6 +12,12 @@ export const testIds = {
   statAvgProtein: "stat-avg-protein",
   statTotalTime: "stat-total-time",
 
+  // Week glance panel
+  weekGlance: "week-glance",
+  weekGlanceKcal: "week-glance-kcal",
+  weekGlanceProtein: "week-glance-protein",
+  weekGlanceTime: "week-glance-time",
+
   // Meal cards
   mealCard: "meal-card",
 
@@ -38,6 +44,7 @@ export const testIds = {
 
   // Shopping list — controls
   addWeekBtn: "add-week-btn",
+  addAllBtn: "add-all-btn",
   copyBtn: "copy-btn",
   clearListBtn: "clear-list-btn",
   emptyState: "empty-state",

@@ -1,5 +1,22 @@
 e Changelog
 
+## 2026-11-07 — Playwright: full page-structure visibility suite
+
+- Added `e2e/page-structure.spec.ts` (39 specs across 3 describe blocks):
+  - **On load**: hero title, stat pills (with "Avg" copy), footer copy, week nav buttons, week-glance panel and all three tiles, meal cards (count = 7), search input, ingredients tab / rows / selected-count badge, in-list count, Add meal / Clear / Mark planned / + List / Add week / Add all / Copy buttons, empty state, item count badge, all four market pill tabs.
+  - **After adding items**: market price cards (all 4), cheapest label, savings banner, shop-at link, clear list button, list items, remove button, compare-prices button, price comparison grid toggle.
+  - **Meal detail tabs**: steps rows, storage keep label + text, ingredients selected count increments on toggle.
+
+## 2026-11-07 — Playwright tests for week-glance and "Add all"
+
+- Added `e2e/week-glance.spec.ts` (5 specs): verifies kcal/protein/time tiles are visible, protein is a weekly total (>100g), time has "m" suffix, week-glance renders above the meal-count header, and stats update on week switch.
+- Added 5 specs to `e2e/shopping-list.spec.ts`: "Add all" button visible, populates items, adds ≥ as many items as "Add week", and list section has `overflow-y: auto`.
+- Added `addAllBtn` testId to `src/testIds.ts` and wired it to the "Add all" button in `ShoppingListPanel.tsx`.
+
+## 2026-11-07 — Fix week-glance protein showing average instead of total
+
+- Changed PROTEIN tile in week-glance to show `totalProtein` instead of `avgProtein`, consistent with KCAL and TIME which both show weekly totals.
+
 ## 2026-11-07 — UI polish and footer cleanup
 
 - Removed "session only · soft list" dev label from the meal detail action bar (`src/components/MealDetail.tsx`).

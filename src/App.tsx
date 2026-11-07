@@ -381,7 +381,7 @@ export default function App() {
                   </div>
                   <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
                     <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
-                    <div data-testid={testIds.weekGlanceProtein} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.avgProtein}g</div>
+                    <div data-testid={testIds.weekGlanceProtein} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalProtein}g</div>
                   </div>
                   <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
                     <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
