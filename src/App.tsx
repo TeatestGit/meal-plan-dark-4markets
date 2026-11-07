@@ -7,6 +7,7 @@ import { ShoppingListPanel } from "./components/ShoppingListPanel";
 import type { Meal, MarketKey, MarketInfo, PricedItem } from "./types";
 import { calculateIngredientCost, formatIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
+import { testIds } from "./testIds";
 
 const rawImages = import.meta.glob<{ default: string }>("./assets/*.webp", { eager: true });
 const imageMap: Record<string, string> = Object.fromEntries(
@@ -290,7 +291,7 @@ export default function App() {
                     <button
                       key={weekNumber}
                       type="button"
-                      data-testid={`week-btn-${weekNumber}`}
+                      data-testid={testIds.weekBtn(weekNumber as 1 | 2)}
                       onClick={() => {
                         setWeek(weekNumber as 1 | 2);
                         const firstMeal = meals.find((meal) => meal.week === weekNumber);
@@ -315,7 +316,7 @@ export default function App() {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="Search lunches, ingredients…"
-                  data-testid="search-input"
+                  data-testid={testIds.searchInput}
                   className="h-[44px] sm:h-[36px] w-full rounded-full bg-card border border-rim px-5 sm:px-4 pr-10 text-[15px] sm:text-[13px] font-dm text-ink-primary placeholder:text-ink-muted focus:border-rim-hover focus:outline-none shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition min-w-0"
                 />
                 <span className="absolute right-4 sm:right-3.5 top-1/2 -translate-y-1/2 text-[15px] sm:text-[13px] pointer-events-none text-ink-muted">⌕</span>
@@ -344,9 +345,9 @@ export default function App() {
                 A quiet archive of midday meals — now with Dubai grocery pricing. Dark clay, linen, soft paper. Photographs kept in their original light, priced by market with real anchors from Carrefour &amp; Spinneys.
               </p>
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                <span data-testid="stat-avg-kcal" className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} kcal</span>
-                <span data-testid="stat-avg-protein" className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">{stats.avgProtein}g protein</span>
-                <span data-testid="stat-total-time" className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">{stats.totalTime} min total</span>
+                <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} kcal</span>
+                <span data-testid={testIds.statAvgProtein} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">{stats.avgProtein}g protein</span>
+                <span data-testid={testIds.statTotalTime} className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">{stats.totalTime} min total</span>
               </div>
             </div>
           </div>
@@ -357,7 +358,7 @@ export default function App() {
             <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
               <div className="px-6 sm:px-8 py-5 sm:py-7 flex items-center justify-between border-b border-rim min-w-0">
                 <span className="font-instrument text-[18px] text-ink-primary tracking-[-0.02em]">Week {week}</span>
-                <span data-testid="week-meal-count" className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
+                <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
               </div>
 
               <div className="flex md:hidden items-center justify-between px-6 pt-4 pb-1">
@@ -400,7 +401,7 @@ export default function App() {
 
           <div className="min-w-0 order-2 md:order-2">
             {weekMeals.length === 0 ? (
-              <div role="status" data-testid="no-results" className="rounded-[20px] bg-card border border-rim p-8 font-dm text-[14px] text-ink-secondary">
+              <div role="status" data-testid={testIds.noResults} className="rounded-[20px] bg-card border border-rim p-8 font-dm text-[14px] text-ink-secondary">
                 No lunches match "{search}".
               </div>
             ) : (

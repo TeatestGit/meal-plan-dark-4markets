@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Meal, MarketKey } from "../types";
 import { formatIngredientQuantity, type IngredientCost } from "../pricing";
+import { testIds } from "../testIds";
 
 type MealDetailProps = {
   selectedMeal: Meal;
@@ -69,7 +70,7 @@ export function MealDetail({
           <button
             key={t}
             type="button"
-            data-testid={`tab-${t}`}
+            data-testid={t === "ingredients" ? testIds.tabIngredients : t === "steps" ? testIds.tabSteps : testIds.tabStorage}
             onClick={() => onTabChange(t)}
             className={`h-[40px] sm:h-[32px] px-4 sm:px-4 rounded-full font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition-all border tabular active:scale-[0.98] ${
               tab === t
@@ -80,7 +81,7 @@ export function MealDetail({
             {t} {t === "ingredients" ? `· ${selectedMeal.ingredients.length}` : t === "steps" ? `· ${selectedMeal.steps.length}` : ""}
           </button>
         ))}
-        <span data-testid="in-list-count" className="ml-auto hidden sm:inline font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular">
+        <span data-testid={testIds.inListCount} className="ml-auto hidden sm:inline font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular">
           {shoppingSet.size} in list
         </span>
       </div>
@@ -90,7 +91,7 @@ export function MealDetail({
           <>
             <div className="flex items-baseline justify-between mb-5 sm:mb-6 gap-3 min-w-0">
               <h3 className="font-instrument text-[20px] sm:text-[22px] text-ink-primary">Ingredients</h3>
-              <span data-testid="ingredients-selected-count" className="font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular shrink-0">
+              <span data-testid={testIds.ingredientsSelectedCount} className="font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular shrink-0">
                 {selectedMeal.ingredients.filter((_, index) => shoppingSet.has(`${selectedMeal.id}:${index}`)).length}/{selectedMeal.ingredients.length} selected
               </span>
             </div>
@@ -106,7 +107,7 @@ export function MealDetail({
                     key={`${ingredient}-${idx}`}
                     onClick={() => onToggleIngredient(idx)}
                     aria-label={ingredient}
-                    data-testid="ingredient-row"
+                    data-testid={testIds.ingredientRow}
                     data-index={idx}
                     className={`w-full text-left flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-[16px] border transition-all min-h-[48px] sm:min-h-0 active:scale-[0.98] min-w-0 ${
                       inList
@@ -133,11 +134,11 @@ export function MealDetail({
               })}
             </div>
             <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-2">
-              <button data-testid="add-meal-btn" onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
+              <button data-testid={testIds.addMealBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
                 Add meal to list
               </button>
               <button
-                data-testid="clear-meal-btn"
+                data-testid={testIds.clearMealBtn}
                 onClick={() => onClearMealIngredients(selectedMeal)}
                 className="h-[44px] sm:h-10 px-6 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] w-full sm:w-auto"
               >
@@ -157,7 +158,7 @@ export function MealDetail({
                   <button
                     key={`${step}-${i}`}
                     onClick={() => onSetActiveStepIdx(i)}
-                    data-testid="step-row"
+                    data-testid={testIds.stepRow}
                     data-step-index={i}
                     className={`w-full text-left flex gap-3 sm:gap-4 p-4 sm:p-5 rounded-[18px] border transition-all min-h-[56px] sm:min-h-0 active:scale-[0.98] min-w-0 ${
                       active
@@ -180,8 +181,8 @@ export function MealDetail({
           <>
             <h3 className="font-instrument text-[20px] sm:text-[22px] text-ink-primary mb-5 sm:mb-6">Storage &amp; prep</h3>
             <div className="rounded-[18px] sm:rounded-[20px] bg-page border border-rim p-5 sm:p-8 min-w-0">
-              <div data-testid="storage-keep-label" className="font-newsreader italic text-[13px] text-ink-secondary mb-3">Keep</div>
-              <div data-testid="storage-text" className="font-dm text-[14px] leading-[1.7] sm:leading-[1.8] text-ink-secondary break-words">{selectedMeal.storage}</div>
+              <div data-testid={testIds.storageKeepLabel} className="font-newsreader italic text-[13px] text-ink-secondary mb-3">Keep</div>
+              <div data-testid={testIds.storageText} className="font-dm text-[14px] leading-[1.7] sm:leading-[1.8] text-ink-secondary break-words">{selectedMeal.storage}</div>
               <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-2 sm:gap-3">
                 <div className="rounded-[14px] sm:rounded-[16px] bg-card border border-rim p-3 sm:p-4 min-w-0">
                   <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">Fridge</div>
@@ -212,7 +213,7 @@ export function MealDetail({
 
       <div className="px-4 sm:px-8 h-[64px] sm:h-[68px] border-t border-rim bg-page/50 flex items-center justify-between gap-3 min-w-0">
         <button
-          data-testid="mark-planned-btn"
+          data-testid={testIds.markPlannedBtn}
           onClick={() => onTogglePlanned(selectedMeal.id)}
           className={`h-[36px] sm:h-[32px] px-3 sm:px-4 rounded-full font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase border transition tabular active:scale-[0.98] shrink-0 ${
             plannedMeals.has(selectedMeal.id)
@@ -223,7 +224,7 @@ export function MealDetail({
           {plannedMeals.has(selectedMeal.id) ? "✓ Planned" : "○ Mark planned"}
         </button>
         <span className="hidden md:block font-newsreader italic text-[12px] text-ink-muted min-w-0">session only · soft list</span>
-        <button data-testid="add-list-footer-btn" onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
+        <button data-testid={testIds.addListFooterBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
       </div>
     </div>
   );
