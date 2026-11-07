@@ -186,9 +186,9 @@ export function MealDetail({
           const carbsKcal = carbs * 4;
           const fatKcal = fat * 9;
           const macros = [
-            { label: "Protein", g: protein, kcal: proteinKcal, pct: Math.round(proteinKcal / kcal * 100), color: "#5b8f72" },
-            { label: "Carbs", g: carbs, kcal: carbsKcal, pct: Math.round(carbsKcal / kcal * 100), color: "#c8903a" },
-            { label: "Fat", g: fat, kcal: fatKcal, pct: Math.round(fatKcal / kcal * 100), color: "#8a7fba" },
+            { label: "Protein", g: protein, kcal: proteinKcal, pct: Math.round(proteinKcal / kcal * 100), color: "#4a9fd4" },
+            { label: "Carbs", g: carbs, kcal: carbsKcal, pct: Math.round(carbsKcal / kcal * 100), color: "#e8923a" },
+            { label: "Fat", g: fat, kcal: fatKcal, pct: Math.round(fatKcal / kcal * 100), color: "#d45a5a" },
           ];
           return (
             <>
