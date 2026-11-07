@@ -19,16 +19,14 @@
 
 ## 2026-11-07 — CI pipeline (unit + e2e)
 
-- Fixed Vitest picking up Playwright specs: added `exclude: ["node_modules", "e2e/**"]` to `vitest.config.js`.
-- Fixed Playwright WebKit missing on CI: changed `playwright install chromium` to `playwright install` (all browsers).
-- Upgraded `node-version` from 20 to 24 in both CI jobs to suppress Node 20 deprecation warnings.
-
-## 2026-11-07 — CI pipeline (unit + e2e)
-
 - Added `.github/workflows/ci.yml` with two independent jobs: `unit` (Vitest) and `e2e` (Playwright).
 - Unit job runs first; e2e job starts only after unit passes (`needs: [unit]`), keeping them independent but sequenced.
 - Playwright installs only Chromium on CI for speed; e2e artifacts (HTML report) are uploaded on failure with 7-day retention.
 - Triggers on push and PR to `master` and `develop`.
+- Fixed Vitest picking up Playwright specs: added `exclude: ["node_modules", "e2e/**"]` to `vitest.config.js`.
+- Fixed Playwright WebKit missing on CI: changed `playwright install chromium` to `playwright install` (all browsers).
+- Upgraded `node-version` from 20 to 24 in both CI jobs to suppress Node 20 deprecation warnings.
+
 ## 2026-11-07 — Linear GitHub integration
 
 - Added `.github/workflows/linear-pr-ticket.yml`: on every PR opened or reopened, automatically creates a Linear issue inside the configured project and posts the issue URL as a PR comment.
