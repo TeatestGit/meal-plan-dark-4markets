@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-07 — Ingredient pricing fixes and test coverage
+
+### Pricing fixes
+- Added price entries for 17 previously missing ingredients: garlic, red onion, onion, honey, lime, ginger, whole-grain bread, soy sauce, lettuce, mixed leaves, vegetable stock, jasmine rice, crackers, apple cider vinegar, and more.
+- Changed spice and paste price units from grams to millilitres (harissa, cumin, turmeric, paprika, za'atar, sesame, dijon, honey) so tsp/tbsp recipe quantities calculate correctly without a density conversion.
+- Changed lemon and lime to per-each pricing so `1/2 lemon, juice + zest` shows AED 0.75 instead of PRICE UNAVAILABLE.
+- Added plural aliases (`wraps`, `bagels`) and additional aliases (`vinegar`, `cider vinegar`, `stock`, `rice`).
+
+### Parser fixes (`src/pricing.ts`)
+- Fixed fraction regex alternation order: `1/2` now correctly parses as `0.5` instead of `1`.
+- Fixed `+` bail logic to only apply when a unit keyword (tbsp, tsp, g, etc.) is present — count-type ingredients with descriptive suffixes (e.g. `1/2 lemon, juice + zest`) now price correctly.
+- Added `limes?` to the count-word recogniser.
+
+### Tests
+- Expanded `src/pricing.test.ts` from 4 to 22 unit tests covering the `+` suffix fix, ml-based spice prices, each-based lemon/lime pricing, and `findPriceEntry` coverage for all 17 new ingredients.
+- Added `e2e/ingredient-pricing.spec.ts` with 6 specs (30 assertions across 5 device profiles) verifying no PRICE UNAVAILABLE regressions for harissa, lemon, olive oil, spices, and soy sauce.
+
 ## 2026-11-07 — Linear GitHub integration
 
 - Added `.github/workflows/linear-pr-ticket.yml`: on every PR opened or reopened, automatically creates a Linear issue inside the configured project and posts the issue URL as a PR comment.
