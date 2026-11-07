@@ -182,7 +182,8 @@ export function ShoppingListPanel({
             </div>
           </div>
         ) : (
-          <div className="rounded-[18px] bg-page border border-rim overflow-hidden divide-y divide-rim/70 min-w-0">
+          <div className="rounded-[18px] bg-page border border-rim overflow-hidden min-w-0">
+            <div className="overflow-y-auto max-h-[420px] divide-y divide-rim/70">
             {pricedItems.map((item, idx) => {
               const selectedPrice = item.prices?.[selectedMarket];
               const prices = item.prices;
@@ -258,7 +259,8 @@ export function ShoppingListPanel({
                 </div>
               );
             })}
-            <div className="p-4 bg-card flex items-center justify-between">
+            </div>
+            <div className="p-4 bg-card border-t border-rim/70 flex items-center justify-between">
               <span className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary">Estimated ingredient cost at {marketPrices[selectedMarket].name}</span>
               <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">AED {selectedTotal.toFixed(2)}</span>
             </div>
