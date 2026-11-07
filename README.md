@@ -86,11 +86,55 @@ dist/ -> deploy to Vercel/Netlify
 ## Customize Prices
 Edit `src/data/prices.ts` — `ingredientPriceMap` holds all per-market prices; `aliasMap` maps ingredient name aliases to canonical keys.
 
-## CI / Linear Integration
-Opening a PR automatically creates a Linear issue in the configured project and posts its URL as a PR comment.
+## Linear ↔ GitHub Integration
 
-Required GitHub secrets:
-| Secret | Value |
-|--------|-------|
-| `LINEAR_API_KEY` | Linear personal API key (Settings → API) |
-| `LINEAR_PROJECT_NAME` | Exact project name in Linear (e.g. `meal-plan`) |
+Every PR opened against this repo automatically creates a linked Linear issue. Here is what happens on each side.
+
+### What happens on the GitHub side
+
+1. A PR is opened (or reopened).
+2. GitHub Actions runs `.github/workflows/linear-pr-ticket.yml`.
+3. The workflow calls `scripts/linear_helpers.py` via an inline Python script.
+4. Once the Linear issue is created, the workflow posts a comment on the PR:
+   ```
+   🔗 Linear issue created: [ENG-42](https://linear.app/...)
+   ```
+
+### What happens on the Linear side
+
+1. A new issue is created inside the configured project (e.g. `meal-plan`).
+2. The issue title matches the PR title.
+3. The issue description contains the GitHub PR URL and body:
+   ```
+   GitHub PR #12: https://github.com/.../pull/12
+
+   <PR body text>
+   ```
+4. The team is derived automatically from the project — no separate team config needed.
+
+### How `linear_helpers.py` works
+
+```
+PR opened
+  → query Linear API: projects { nodes { id name teams } }
+  → find project by name (case-insensitive)
+  → take first associated team id
+  → mutation issueCreate(teamId, projectId, title, description)
+  → return { identifier, url }
+  → post GitHub PR comment with the Linear URL
+```
+
+### Required GitHub secrets
+
+| Secret | Where to get it | Example value |
+|--------|----------------|---------------|
+| `LINEAR_API_KEY` | Linear → avatar → My Account → API → Personal API keys | `lin_api_...` |
+| `LINEAR_PROJECT_NAME` | Exact project name as shown in Linear | `meal-plan` |
+
+Add both at: `https://github.com/<org>/<repo>/settings/secrets/actions`
+
+### Limitations
+
+- One Linear issue is created per PR open/reopen — no sync after that (status, assignee, labels are not mirrored).
+- Project lookup fetches the first 50 projects; works fine on a free plan with few projects.
+- The workflow only runs on PRs from the same repo (forks are skipped).
