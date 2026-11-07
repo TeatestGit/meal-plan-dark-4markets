@@ -146,7 +146,6 @@ To run the Linear helper locally (e.g. to manually update an issue):
 ```bash
 set -a && source ~/.agents/env.mcp.local && set +a
 python3 scripts/linear_helpers.py create-issue \
-  --team-key ENG \
   --project-name meal-plan \
   --title "Issue title" \
   --description "Description"

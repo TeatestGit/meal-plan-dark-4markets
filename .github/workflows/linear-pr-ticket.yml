@@ -48,12 +48,28 @@ jobs:
           pr_body = os.environ.get("PR_BODY", "")
           pr_number = os.environ["PR_NUMBER"]
           pr_url = os.environ["PR_URL"]
+          linear_api_key = os.environ["LINEAR_API_KEY"]
+
+          # On reopen, skip if a Linear comment already exists on this PR
+          git_auth = os.environ["GIT_AUTH"]
+          comments_req = urllib.request.Request(
+              f"https://api.github.com/repos/{os.environ['REPO']}/issues/{pr_number}/comments",
+              headers={"Authorization": f"Bearer {git_auth}", "Accept": "application/vnd.github+json"},
+          )
+          with urllib.request.urlopen(comments_req, timeout=30) as r:
+              existing = json.loads(r.read())
+          if any("Linear issue created" in (c.get("body") or "") for c in existing):
+              print("Linear issue already exists for this PR, skipping.")
+              raise SystemExit(0)
 
           plain_summary = plain_english_summary(
               os.environ.get("ANTHROPIC_API_KEY", ""),
               pr_title,
               pr_body,
           )
+
+          # Sanitise pr_body: replace triple backticks to avoid breaking markdown in Linear
+          safe_body = pr_body.replace("```", "'''") if pr_body else "_No description provided._"
 
           description = f"""## What this change does
 {plain_summary}
@@ -68,11 +84,10 @@ jobs:
 | **Commits** | {os.environ["PR_COMMITS"]} |
 
 ## PR description
-{pr_body or "_No description provided._"}"""
+{safe_body}"""
 
           issue = create_linear_issue(
-              os.environ["LINEAR_API_KEY"],
-              "",
+              linear_api_key,
               os.environ["LINEAR_PROJECT_NAME"],
               pr_title,
               description,

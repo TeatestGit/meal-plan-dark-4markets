@@ -77,7 +77,6 @@ def resolve_linear_id(kind: str, api_key: str, lookup_value: str, field_name: st
 
 def create_linear_issue(
     api_key: str,
-    team_key: str,
     project_name: str,
     title: str,
     description: str,
@@ -142,7 +141,6 @@ def _parse_args() -> argparse.Namespace:
 
     issue = subparsers.add_parser("create-issue", help="Create a Linear issue")
     issue.add_argument("--api-key", default=os.environ.get("LINEAR_API_KEY"))
-    issue.add_argument("--team-key", required=True)
     issue.add_argument("--project-name", required=True)
     issue.add_argument("--title", required=True)
     issue.add_argument("--description", required=True)
@@ -162,7 +160,6 @@ def main() -> int:
     if args.command == "create-issue":
         issue = create_linear_issue(
             args.api_key,
-            args.team_key,
             args.project_name,
             args.title,
             args.description,
