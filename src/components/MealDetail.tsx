@@ -228,7 +228,7 @@ export function MealDetail({
 
               {/* USDA note */}
               <div className="mt-5 flex items-start gap-3 rounded-[14px] bg-card border border-rim px-4 py-3 min-w-0">
-                <img src="https://fdc.nal.usda.gov/img/usda-symbol.svg" alt="USDA" className="shrink-0 mt-[1px] w-7 h-7 opacity-70" />
+                <img src="https://fdc.nal.usda.gov/img/usda-symbol.svg" alt="USDA" className="shrink-0 mt-[1px] w-7 h-7 rounded-sm bg-white p-[2px]" />
                 <span className="font-dm text-[12px] text-ink-muted leading-[1.6] break-words">Macros estimated from ingredient list using USDA reference values. All 14 meals cross-checked; values accurate within ±15%. <a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener noreferrer" className="text-ink-secondary underline underline-offset-2">USDA FoodData Central →</a></span>
               </div>
             </>
