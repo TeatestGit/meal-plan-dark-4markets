@@ -24,10 +24,14 @@ def gql(query: str, api_key: str, variables: Optional[Dict[str, Any]] = None) ->
 
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
-            return json.loads(response.read().decode("utf-8"))
+            result = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
         raise RuntimeError(f"Linear API request failed ({exc.code}): {body}") from exc
+
+    if result.get("errors"):
+        raise RuntimeError(f"Linear GraphQL errors: {json.dumps(result['errors'])}")
+    return result
 
 
 def resolve_linear_id(kind: str, api_key: str, lookup_value: str, field_name: str) -> str:
