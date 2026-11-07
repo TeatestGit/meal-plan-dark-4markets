@@ -18,10 +18,18 @@ jobs:
         env:
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
           LINEAR_PROJECT_NAME: ${{ secrets.LINEAR_PROJECT_NAME }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_BASE: ${{ github.event.pull_request.base.ref }}
+          PR_FILES: ${{ github.event.pull_request.changed_files }}
+          PR_ADDITIONS: ${{ github.event.pull_request.additions }}
+          PR_DELETIONS: ${{ github.event.pull_request.deletions }}
+          PR_COMMITS: ${{ github.event.pull_request.commits }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           GIT_AUTH: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
@@ -34,14 +42,40 @@ jobs:
           import urllib.error
           import urllib.request
 
-          from scripts.linear_helpers import create_linear_issue
+          from scripts.linear_helpers import create_linear_issue, plain_english_summary
+
+          pr_title = os.environ["PR_TITLE"]
+          pr_body = os.environ.get("PR_BODY", "")
+          pr_number = os.environ["PR_NUMBER"]
+          pr_url = os.environ["PR_URL"]
+
+          plain_summary = plain_english_summary(
+              os.environ.get("ANTHROPIC_API_KEY", ""),
+              pr_title,
+              pr_body,
+          )
+
+          description = f"""## What this change does
+{plain_summary}
+
+## Technical details
+| | |
+|---|---|
+| **PR** | [#{pr_number}]({pr_url}) |
+| **Author** | {os.environ["PR_AUTHOR"]} |
+| **Branch** | `{os.environ["PR_BRANCH"]}` → `{os.environ["PR_BASE"]}` |
+| **Files changed** | {os.environ["PR_FILES"]} (+{os.environ["PR_ADDITIONS"]} / -{os.environ["PR_DELETIONS"]}) |
+| **Commits** | {os.environ["PR_COMMITS"]} |
+
+## PR description
+{pr_body or "_No description provided._"}"""
 
           issue = create_linear_issue(
               os.environ["LINEAR_API_KEY"],
               "",
               os.environ["LINEAR_PROJECT_NAME"],
-              os.environ["PR_TITLE"],
-              f"GitHub PR #{os.environ['PR_NUMBER']}: {os.environ['PR_URL']}\n\n{os.environ.get('PR_BODY', '')}",
+              pr_title,
+              description,
               fail_on_error=True,
           )
 

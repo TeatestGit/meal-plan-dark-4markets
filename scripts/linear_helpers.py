@@ -34,6 +34,38 @@ def gql(query: str, api_key: str, variables: Optional[Dict[str, Any]] = None) ->
     return result
 
 
+def plain_english_summary(anthropic_api_key: str, pr_title: str, pr_body: str) -> str:
+    if not anthropic_api_key:
+        return pr_title
+    prompt = (
+        f"PR title: {pr_title}\n\nPR description:\n{pr_body or 'None'}\n\n"
+        "Write 1-2 sentences explaining what this change does in plain English "
+        "for someone non-technical. No jargon, no code, just what changes for the user or the project."
+    )
+    payload = {
+        "model": "claude-haiku-5-5",
+        "max_tokens": 120,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    request = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "x-api-key": anthropic_api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            return result["content"][0]["text"].strip()
+    except Exception as exc:
+        print(f"Warning: could not generate plain summary: {exc}", file=sys.stderr)
+        return pr_title
+
+
 def resolve_linear_id(kind: str, api_key: str, lookup_value: str, field_name: str) -> str:
     response = gql(f"{{ {kind}s {{ nodes {{ id {field_name} }} }} }}", api_key)
     nodes = response["data"][f"{kind}s"]["nodes"]
