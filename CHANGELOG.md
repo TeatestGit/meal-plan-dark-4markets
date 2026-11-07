@@ -64,3 +64,4 @@
 - Added `localStorage` persistence for shopping list and planned meals (survives page refresh)
 - Removed redundant `pricedItems` alias (was `const pricedItems = shoppingListItems`)
 - Removed `interactionCount` / `bump()` — the counter was not meaningful and labeled "views" incorrectly in the footer
+

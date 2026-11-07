@@ -24,10 +24,14 @@ def gql(query: str, api_key: str, variables: Optional[Dict[str, Any]] = None) ->
 
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
-            return json.loads(response.read().decode("utf-8"))
+            result = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
         raise RuntimeError(f"Linear API request failed ({exc.code}): {body}") from exc
+
+    if result.get("errors"):
+        raise RuntimeError(f"Linear GraphQL errors: {json.dumps(result['errors'])}")
+    return result
 
 
 def resolve_linear_id(kind: str, api_key: str, lookup_value: str, field_name: str) -> str:
@@ -47,8 +51,17 @@ def create_linear_issue(
     description: str,
     fail_on_error: bool = True,
 ) -> Optional[Dict[str, Any]]:
-    team_id = resolve_linear_id("team", api_key, team_key, "key")
-    project_id = resolve_linear_id("project", api_key, project_name, "name")
+    # Resolve project and derive team from it to guarantee they match
+    response = gql("{ projects { nodes { id name teams { nodes { id key } } } } }", api_key)
+    projects = response["data"]["projects"]["nodes"]
+    project = next((p for p in projects if p["name"].lower() == project_name.lower()), None)
+    if project is None:
+        raise SystemExit(f"ERROR: {project_name} not found in Linear project list.")
+    project_id = project["id"]
+    team_nodes = project["teams"]["nodes"]
+    if not team_nodes:
+        raise SystemExit(f"ERROR: project {project_name} has no associated team.")
+    team_id = team_nodes[0]["id"]
 
     issue_response = gql(
         """
