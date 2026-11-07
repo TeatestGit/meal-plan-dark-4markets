@@ -5,7 +5,7 @@ import { MealDetail } from "./components/MealDetail";
 import { MealSelector } from "./components/MealSelector";
 import { ShoppingListPanel } from "./components/ShoppingListPanel";
 import type { Meal, MarketKey, MarketInfo, PricedItem } from "./types";
-import { calculateIngredientCost, formatIngredientQuantity } from "./pricing";
+import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
 import { testIds } from "./testIds";
 
@@ -140,6 +140,7 @@ export default function App() {
 
       const found = findPriceEntry(ingredient);
       const cost = found ? calculateIngredientCost(ingredient, found.entry) : null;
+      const qty = cost?.quantity ?? parseIngredientQuantity(ingredient);
       const groupId = cost && found ? `${found.key}:${cost.quantity.unit}` : sourceId;
       const current = grouped.get(groupId);
 
@@ -148,7 +149,7 @@ export default function App() {
           id: groupId,
           sourceIds: [sourceId],
           original: cost && found ? found.key : ingredient,
-          unit: cost ? formatIngredientQuantity(cost.quantity) : "",
+          unit: qty ? formatIngredientQuantity(qty) : "",
           prices: cost && found
             ? { unit: formatIngredientQuantity(cost.quantity), ...cost.prices }
             : null,

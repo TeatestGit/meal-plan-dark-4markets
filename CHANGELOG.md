@@ -1,5 +1,16 @@
 e Changelog
 
+## 2026-11-07 — Show quantity for unpriced shopping list items
+
+- Unpriced items (e.g. "1 small onion (80g), diced") now show their parsed quantity (e.g. `1 PCS · EST.`) instead of "No compatible unit". Quantity is derived by falling back to `parseIngredientQuantity` when `calculateIngredientCost` returns null.
+- Restored `@testing-library/dom` dev dependency inadvertently removed during ESLint cleanup.
+
+## 2026-11-07 — CI: add typecheck job
+
+- Added a parallel `Type Check` job (`tsc --noEmit`) to `.github/workflows/ci.yml`.
+- e2e job now gates on both `typecheck` and `unit` passing.
+- ESLint deferred: `@typescript-eslint` does not yet support TypeScript 7.0 (tracking: typescript-eslint#10940).
+
 ## 2026-11-07 — UI fixes and additional pricing coverage
 
 ### Shopping panel market cards (`src/components/ShoppingListPanel.tsx`)
