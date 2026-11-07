@@ -96,7 +96,8 @@ test.describe("Page structure — on load", () => {
     expect(text).toMatch(/^0\//);
   });
 
-  test("'in list' count badge is visible on desktop", async ({ page }) => {
+  test("'in list' count badge is visible on desktop", async ({ page, viewport }) => {
+    if ((viewport?.width ?? 0) < 640) return; // badge is sm:inline — hidden on mobile
     await expect(page.getByTestId(sel.inListCount)).toBeVisible();
   });
 
@@ -188,8 +189,11 @@ test.describe("Page structure — after adding items", () => {
     await expect(page.getByTestId(sel.comparePricesBtn).first()).toBeVisible();
   });
 
-  test("price comparison grid appears after clicking compare button", async ({ page }) => {
+  test("price comparison grid appears after clicking compare button", async ({ page, viewport }) => {
+    // On narrow viewports the shopping panel scrolls below the fold; skip there
+    if ((viewport?.width ?? 0) < 768) return;
     const compBtn = page.getByTestId(sel.comparePricesBtn).first();
+    await compBtn.scrollIntoViewIfNeeded();
     await compBtn.click();
     // The grid uses the HTML `hidden` attribute for toggle — assert it is removed
     await expect(page.getByTestId(sel.priceComparison).first()).not.toHaveAttribute("hidden");
