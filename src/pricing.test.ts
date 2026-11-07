@@ -42,9 +42,13 @@ describe("ingredient cost estimates", () => {
     expect(parseIngredientQuantity("2 whole wheat wraps")).toEqual({ amount: 2, unit: "count" });
   });
 
-  it("leaves compound or incompatible quantities unpriced", () => {
-    expect(parseIngredientQuantity("30g tomatoes + 30g feta")).toBeNull();
+  it("leaves incompatible unit quantities unpriced", () => {
     expect(calculateIngredientCost("1/2 lemon", chickenPrice)).toBeNull();
+  });
+
+  it("prices only the first component of a measured compound ingredient", () => {
+    // "30g tomatoes + 30g feta" → prices 30g (tomatoes); second component is ignored
+    expect(parseIngredientQuantity("30g tomatoes + 30g feta")).toEqual({ amount: 30, unit: "g" });
   });
 });
 
@@ -54,10 +58,11 @@ describe("parseIngredientQuantity — + suffix fix", () => {
     expect(parseIngredientQuantity("1/2 lemon, juice + zest")).toEqual({ amount: 0.5, unit: "count" });
   });
 
-  it("still returns null for genuine compound measured ingredients", () => {
-    // '1 tbsp oil + lime juice' — tbsp is a unit keyword, so + signals a real compound
-    expect(parseIngredientQuantity("1 tbsp olive oil + lime juice")).toBeNull();
-    expect(parseIngredientQuantity("1 tsp cumin + 1 tsp turmeric")).toBeNull();
+  it("prices the first component of a compound measured ingredient", () => {
+    // '1 tbsp oil + lime juice' → 15ml (oil); '1 tsp sesame oil + 1 tbsp seeds' → 5ml
+    expect(parseIngredientQuantity("1 tbsp olive oil + lime juice")).toEqual({ amount: 15, unit: "ml" });
+    expect(parseIngredientQuantity("1 tsp sesame oil + 1 tbsp sesame seeds")).toEqual({ amount: 5, unit: "ml" });
+    expect(parseIngredientQuantity("1 tsp cumin + 1 tsp turmeric")).toEqual({ amount: 5, unit: "ml" });
   });
 
   it("parses plural count words correctly", () => {
@@ -138,4 +143,6 @@ describe("qualitative quantities (handful / pinch)", () => {
   });
   it("resolves salt from price map", () => expect(findPriceEntry("pinch salt & pepper")).not.toBeNull());
   it("resolves pepper via alias", () => expect(findPriceEntry("pinch black pepper")).not.toBeNull());
+  it("resolves sesame oil via alias", () => expect(findPriceEntry("1 tsp sesame oil + 1 tbsp sesame seeds")).not.toBeNull());
+  it("resolves celery by weight", () => expect(findPriceEntry("60g celery, thinly sliced")).not.toBeNull());
 });

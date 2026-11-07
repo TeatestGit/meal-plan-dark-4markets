@@ -1,4 +1,23 @@
-# Changelog
+e Changelog
+
+## 2026-11-07 — UI fixes and additional pricing coverage
+
+### Shopping panel market cards (`src/components/ShoppingListPanel.tsx`)
+- Added `truncate` to market name span so long names (CARREFOUR, SPINNEYS) clip cleanly instead of hard-wrapping.
+- Split fee and delivery text onto separate `whitespace-nowrap` divs to prevent mid-string line breaks.
+- Added `shrink-0` to cheapest indicator dot so it never gets squeezed.
+
+### Week stats card (`src/App.tsx`)
+- Changed time value div from `break-words` to `whitespace-nowrap` so "119m" renders on one line.
+
+### Pricing fixes (`src/pricing.ts`, `src/data/prices.ts`)
+- Added qualitative quantity parser: `Small handful parsley` → 1 count; `pinch salt & pepper` → 1g.
+- Measured compound ingredients (`1 tsp sesame oil + 1 tbsp sesame seeds`) now price the first component instead of returning PRICE UNAVAILABLE.
+- Changed celery unit from `bunch` to `kg` so weight-based quantities (e.g. `60g celery`) calculate correctly.
+- Added price entries for `salt` and `black pepper`; added aliases `pepper → black pepper`, `sesame oil → sesame`, `sesame seeds → sesame`.
+
+### Tests (`src/pricing.test.ts`)
+- Expanded to 36 unit tests covering qualitative quantities, celery by weight, sesame oil alias resolution, and compound measured ingredient first-component pricing.
 
 ## 2026-11-07 — PR review, merge, and Linear ticket coverage
 

@@ -39,9 +39,9 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
   const rest = amountMatch[2].toLowerCase();
 
   const measure = rest.match(/^(kg|g|ml|l|tbsp|tablespoons?|tsp|teaspoons?|cups?)\b/);
-  // bail on measured compound ingredients (e.g. "1 tbsp oil + lime juice") but not
-  // on count-type ingredients where + is a descriptive suffix (e.g. "1/2 lemon, juice + zest")
-  if (measure && rest.includes("+")) return null;
+  // for measured compound ingredients (e.g. "1 tsp sesame oil + 1 tbsp seeds"),
+  // price only the first component; count-type compounds (e.g. "1/2 lemon, juice + zest")
+  // never reach here because they have no measure keyword
 
   if (measure) {
     switch (measure[1]) {

@@ -38,7 +38,7 @@ test.describe("Ingredient pricing — no PRICE UNAVAILABLE regressions", () => {
     const rows = page.getByTestId(sel.ingredientRow);
     const unavailable = rows.filter({ hasText: "PRICE UNAVAILABLE" });
     // Only free-form garnishes (Small handful, squeeze lemon, side:) may be unpriceable
-    await expect(unavailable).toHaveCount(1); // only "Small handful parsley..."
+    await expect(unavailable).toHaveCount(0); // handful/pinch quantities now priced
   });
 
   test("Week 2 meal shows prices for spice ingredients (tsp→ml fix)", async ({ page }) => {
