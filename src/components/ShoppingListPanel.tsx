@@ -162,6 +162,9 @@ export function ShoppingListPanel({
           <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] shrink-0">
             {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
           </button>
+          <button data-testid={testIds.clearListBtn} onClick={onClearList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] shrink-0">
+            Clear list
+          </button>
         </div>
       </div>
 
@@ -300,9 +303,6 @@ export function ShoppingListPanel({
                 );
               })}
             </div>
-            <button data-testid={testIds.clearListBtn} onClick={onClearList} className="mt-2 w-full h-[40px] sm:h-9 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
-              Clear list
-            </button>
           </>
         )}
 

@@ -61,6 +61,20 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
   });
 
+  test("clear list button is in the action row (after copy button)", async ({ page }) => {
+    const row = page.locator(".mt-5.flex.gap-2");
+    await expect(row.getByTestId(sel.clearListBtn)).toBeVisible();
+  });
+
+  test("clear list button appears after copy button in DOM order", async ({ page }) => {
+    const buttons = page.locator(".mt-5.flex.gap-2 button");
+    const labels = await buttons.allTextContents();
+    const copyIdx = labels.findIndex(t => t.trim() === "Copy");
+    const clearIdx = labels.findIndex(t => t.trim() === "Clear list");
+    expect(copyIdx).toBeGreaterThanOrEqual(0);
+    expect(clearIdx).toBeGreaterThan(copyIdx);
+  });
+
   test("remove button removes an item from the list", async ({ page }) => {
     await page.getByTestId(sel.addWeekBtn).click();
     const countBefore = await page.getByTestId(sel.listItem).count();
