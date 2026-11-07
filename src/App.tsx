@@ -112,7 +112,6 @@ export default function App() {
 
   useEffect(() => {
     setActiveStepIdx(0);
-    setTab("ingredients");
   }, [selectedId]);
 
   const stats = useMemo(() => {
@@ -312,7 +311,6 @@ export default function App() {
                         setWeek(weekNumber as 1 | 2);
                         const firstMeal = meals.find((meal) => meal.week === weekNumber);
                         if (firstMeal) setSelectedId(firstMeal.id);
-                        setTab("ingredients");
                         setActiveStepIdx(0);
                       }}
                       className={`flex-1 sm:flex-none h-[36px] sm:h-[32px] px-5 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] ${
@@ -407,7 +405,6 @@ export default function App() {
                   plannedMeals={plannedMeals}
                   onSelect={(id) => {
                     setSelectedId(id);
-                    setTab("ingredients");
                     setActiveStepIdx(0);
                   }}
                 />

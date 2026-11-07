@@ -114,11 +114,10 @@ test.describe("Meal detail tabs", () => {
     await expect(link).toHaveAttribute("href", "https://fdc.nal.usda.gov/");
   });
 
-  test("nutrition tab: switching meals keeps nutrition content valid", async ({ page }) => {
+  test("nutrition tab: switching meals keeps nutrition tab active", async ({ page }) => {
     await page.getByTestId(sel.tabNutrition).click();
     await page.getByTestId(sel.mealCard).nth(1).click();
-    // tab resets to ingredients on meal change — navigate back to nutrition
-    await page.getByTestId(sel.tabNutrition).click();
+    // tab stays on nutrition — no need to re-click
     const pill = page.getByTestId("nutrition-kcal-pill");
     await expect(pill).toBeVisible();
     await expect(pill.getByText("Total")).toBeVisible();
@@ -139,10 +138,10 @@ test.describe("Meal detail tabs", () => {
     expect(sum).toBeLessThanOrEqual(103);
   });
 
-  test("selecting a new meal resets tab to ingredients", async ({ page }) => {
+  test("selecting a new meal keeps the active tab", async ({ page }) => {
     await page.getByTestId(sel.tabSteps).click();
     await expect(page.getByRole("heading", { name: "Method" })).toBeVisible();
     await page.getByTestId(sel.mealCard).nth(1).click();
-    await expect(page.getByRole("heading", { name: "Ingredients" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Method" })).toBeVisible();
   });
 });
