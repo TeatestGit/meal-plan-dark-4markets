@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "changed=$(git diff --name-only HEAD 2>/dev/null | grep -v CHANGELOG.md); changelog=$(git diff --name-only HEAD 2>/dev/null | grep CHANGELOG.md); if [ -n \"$changed\" ] && [ -z \"$changelog\" ]; then echo '{\"systemMessage\": \"CHANGELOG.md was not updated. Update it before committing.\"}'; fi",
+            "statusMessage": "Checking CHANGELOG..."
+          }
+        ]
+      }
+    ]
+  }
+}
