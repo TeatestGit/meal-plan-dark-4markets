@@ -29,7 +29,6 @@
 - Unit job runs first; e2e job starts only after unit passes (`needs: [unit]`), keeping them independent but sequenced.
 - Playwright installs only Chromium on CI for speed; e2e artifacts (HTML report) are uploaded on failure with 7-day retention.
 - Triggers on push and PR to `master` and `develop`.
-
 ## 2026-11-07 — Linear GitHub integration
 
 - Added `.github/workflows/linear-pr-ticket.yml`: on every PR opened or reopened, automatically creates a Linear issue inside the configured project and posts the issue URL as a PR comment.
