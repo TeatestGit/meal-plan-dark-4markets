@@ -23,14 +23,25 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
   );
   if (packageMatch) return { amount: numericAmount(packageMatch[1]), unit: "count" };
 
-  const amountMatch = ingredient.match(/^\s*(\d+(?:\.\d+)?|\d+\/\d+)\s*(.*)$/i);
+  // qualitative quantities with no numeric prefix (pinch ≈ 1g, handful ≈ 1 bunch)
+  const qualMatch = ingredient.match(/^\s*(?:small\s+|large\s+)?(handful|pinch|dash)\b/i);
+  if (qualMatch) {
+    return qualMatch[1].toLowerCase() === "handful"
+      ? { amount: 1, unit: "count" }
+      : { amount: 1, unit: "g" };
+  }
+
+  // fractions must be tried before plain integers so "1/2" isn't captured as "1"
+  const amountMatch = ingredient.match(/^\s*(\d+\/\d+|\d+(?:\.\d+)?)\s*(.*)$/i);
   if (!amountMatch) return null;
 
   const amount = numericAmount(amountMatch[1]);
   const rest = amountMatch[2].toLowerCase();
-  if (rest.includes("+")) return null;
 
   const measure = rest.match(/^(kg|g|ml|l|tbsp|tablespoons?|tsp|teaspoons?|cups?)\b/);
+  // for measured compound ingredients (e.g. "1 tsp sesame oil + 1 tbsp seeds"),
+  // price only the first component; count-type compounds (e.g. "1/2 lemon, juice + zest")
+  // never reach here because they have no measure keyword
 
   if (measure) {
     switch (measure[1]) {
@@ -60,7 +71,7 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
     return { amount, unit: "count" };
   }
 
-  if (/\b(?:cans?|pieces?|pcs|wraps?|bagels?|eggs?|cloves?|avocados?|apples?|lemons?|onions?|carrots?|each)\b/i.test(rest)) {
+  if (/\b(?:cans?|pieces?|pcs|wraps?|bagels?|eggs?|cloves?|avocados?|apples?|lemons?|limes?|onions?|carrots?|each)\b/i.test(rest)) {
     return { amount, unit: "count" };
   }
 

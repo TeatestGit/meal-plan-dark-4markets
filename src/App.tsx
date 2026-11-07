@@ -5,7 +5,7 @@ import { MealDetail } from "./components/MealDetail";
 import { MealSelector } from "./components/MealSelector";
 import { ShoppingListPanel } from "./components/ShoppingListPanel";
 import type { Meal, MarketKey, MarketInfo, PricedItem } from "./types";
-import { calculateIngredientCost, formatIngredientQuantity } from "./pricing";
+import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
 import { testIds } from "./testIds";
 
@@ -76,7 +76,7 @@ export default function App() {
   const [week, setWeek] = useState<1 | 2>(1);
   const [selectedId, setSelectedId] = useState<string>("w1-mon");
   const [search, setSearch] = useState("");
-  const [tab, setTab] = useState<"ingredients" | "steps" | "storage">("ingredients");
+  const [tab, setTab] = useState<"ingredients" | "steps" | "storage" | "nutrition">("ingredients");
   const [shoppingSet, setShoppingSet] = useState<Set<string>>(() => loadSet("shopping-set"));
   const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
@@ -112,7 +112,6 @@ export default function App() {
 
   useEffect(() => {
     setActiveStepIdx(0);
-    setTab("ingredients");
   }, [selectedId]);
 
   const stats = useMemo(() => {
@@ -122,9 +121,11 @@ export default function App() {
     const totalTime = wm.reduce((sum, meal) => sum + parseTime(meal.time), 0);
     return {
       totalKcal,
-      avgProtein: Math.round(totalProtein / wm.length),
+      totalProtein: Math.round(totalProtein),
       totalTime,
       avgKcal: Math.round(totalKcal / wm.length),
+      avgProtein: Math.round(totalProtein / wm.length),
+      avgTime: Math.round(totalTime / wm.length),
     };
   }, [week]);
 
@@ -140,6 +141,7 @@ export default function App() {
 
       const found = findPriceEntry(ingredient);
       const cost = found ? calculateIngredientCost(ingredient, found.entry) : null;
+      const qty = cost?.quantity ?? parseIngredientQuantity(ingredient);
       const groupId = cost && found ? `${found.key}:${cost.quantity.unit}` : sourceId;
       const current = grouped.get(groupId);
 
@@ -148,7 +150,7 @@ export default function App() {
           id: groupId,
           sourceIds: [sourceId],
           original: cost && found ? found.key : ingredient,
-          unit: cost ? formatIngredientQuantity(cost.quantity) : "",
+          unit: qty ? formatIngredientQuantity(qty) : "",
           prices: cost && found
             ? { unit: formatIngredientQuantity(cost.quantity), ...cost.prices }
             : null,
@@ -247,6 +249,19 @@ export default function App() {
     });
   };
 
+  const addAllMealsToList = () => {
+    setShoppingSet((prev) => {
+      const next = new Set(prev);
+      meals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
+      return next;
+    });
+    setPlannedMeals((prev) => {
+      const next = new Set(prev);
+      meals.forEach((meal) => next.add(meal.id));
+      return next;
+    });
+  };
+
   const copyList = async () => {
     const text =
       `Shopping list — ${shoppingListItems.length} items — ${marketPrices[selectedMarket].name} AED ${selectedTotal.toFixed(2)}\n\n` +
@@ -296,7 +311,6 @@ export default function App() {
                         setWeek(weekNumber as 1 | 2);
                         const firstMeal = meals.find((meal) => meal.week === weekNumber);
                         if (firstMeal) setSelectedId(firstMeal.id);
-                        setTab("ingredients");
                         setActiveStepIdx(0);
                       }}
                       className={`flex-1 sm:flex-none h-[36px] sm:h-[32px] px-5 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] ${
@@ -342,12 +356,12 @@ export default function App() {
 
             <div className="lg:max-w-[42ch] flex flex-col gap-5 sm:gap-6 min-w-0">
               <p className="font-dm text-[14px] leading-[1.8] text-ink-secondary break-words">
-                A quiet archive of midday meals — now with Dubai grocery pricing. Dark clay, linen, soft paper. Photographs kept in their original light, priced by market with real anchors from Carrefour &amp; Spinneys.
+                14 no-red-meat lunches across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
               </p>
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} kcal</span>
-                <span data-testid={testIds.statAvgProtein} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">{stats.avgProtein}g protein</span>
-                <span data-testid={testIds.statTotalTime} className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">{stats.totalTime} min total</span>
+                <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} · {stats.totalKcal} kcal</span>
+                <span data-testid={testIds.statAvgProtein} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgProtein}g · {stats.totalProtein}g protein</span>
+                <span data-testid={testIds.statTotalTime} className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">Avg {stats.avgTime} · {stats.totalTime} min</span>
               </div>
             </div>
           </div>
@@ -356,6 +370,24 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)_400px] gap-5 md:gap-6 lg:gap-8 pb-12 min-w-0 overflow-hidden max-w-full">
           <div className="min-w-0 order-1 md:order-1 lg:sticky lg:top-6 lg:self-start">
             <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
+              <div data-testid={testIds.weekGlance} className="m-3 mb-0 rounded-[18px] bg-page border border-rim p-4 sm:p-5 min-w-0">
+                <div className="font-newsreader italic text-[13px] text-ink-secondary mb-4 break-words">Week {week} glance — soft numbers</div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">kcal</div>
+                    <div data-testid={testIds.weekGlanceKcal} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalKcal}</div>
+                  </div>
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
+                    <div data-testid={testIds.weekGlanceProtein} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalProtein}g</div>
+                  </div>
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
+                    <div data-testid={testIds.weekGlanceTime} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular whitespace-nowrap">{stats.totalTime}m</div>
+                  </div>
+                </div>
+              </div>
+
               <div className="px-6 sm:px-8 py-5 sm:py-7 flex items-center justify-between border-b border-rim min-w-0">
                 <span className="font-instrument text-[18px] text-ink-primary tracking-[-0.02em]">Week {week}</span>
                 <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
@@ -373,28 +405,9 @@ export default function App() {
                   plannedMeals={plannedMeals}
                   onSelect={(id) => {
                     setSelectedId(id);
-                    setTab("ingredients");
                     setActiveStepIdx(0);
                   }}
                 />
-              </div>
-
-              <div className="m-3 mt-1 sm:mt-2 rounded-[18px] bg-page border border-rim p-4 sm:p-5 min-w-0">
-                <div className="font-newsreader italic text-[13px] text-ink-secondary mb-4 break-words">Week {week} glance — soft numbers</div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">kcal</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalKcal}</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.avgProtein}g</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalTime}m</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -452,6 +465,7 @@ export default function App() {
               hoveredItem={hoveredItem}
               onSelectMarket={setSelectedMarket}
               onAddWholeWeek={addWholeWeekToList}
+              onAddAllMeals={addAllMealsToList}
               onCopyList={() => { void copyList(); }}
               onHoverItem={setHoveredItem}
               onRemoveItem={(item) => {
@@ -469,10 +483,8 @@ export default function App() {
         </div>
 
         <footer className="pb-10 pt-2 flex flex-col sm:flex-row justify-between gap-3 font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted min-w-0 overflow-hidden">
-          <span className="font-newsreader normal-case tracking-[-0.01em] italic text-[12px] break-words">
-            Editorial Luxury · Newsreader italic 52px · Instrument Serif · DM Sans · Kinfolk / Cereal
-          </span>
-          <span className="font-dm tracking-[0.12em] break-words">paper · linen · clay · soft light · dark clay</span>
+          <span className="break-words">© 2026 · Dubai AED · Prices: Sep 2026</span>
+          <span className="break-words">No Red Meat · 14 Recipes · 2-Week Plan</span>
         </footer>
       </div>
     </div>

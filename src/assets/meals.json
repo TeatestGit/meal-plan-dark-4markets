@@ -7,6 +7,8 @@
     "time": "25 min",
     "protein": "42g protein",
     "kcal": "520 kcal",
+    "fat": "12g fat",
+    "carbs": "61g carbs",
     "ingredients": [
       "300g chicken breast, cubed",
       "1.5 tbsp harissa paste",
@@ -36,6 +38,8 @@
     "time": "12 min",
     "protein": "38g protein",
     "kcal": "445 kcal",
+    "fat": "7g fat",
+    "carbs": "58g carbs",
     "ingredients": [
       "2 x 145g cans tuna in water, drained well (total 290g drained ~180g)",
       "120g 0% Greek yogurt",
@@ -61,8 +65,10 @@
     "day": "Wed \u2014 Week 1",
     "title": "Rotisserie chicken quinoa crunch salad",
     "time": "15 min",
-    "protein": "36g protein",
+    "protein": "28g protein",
     "kcal": "480 kcal",
+    "fat": "14g fat",
+    "carbs": "60g carbs",
     "ingredients": [
       "250g rotisserie chicken, skin removed & shredded",
       "160g cooked quinoa (80g dry)",
@@ -94,6 +100,8 @@
     "time": "12 min",
     "protein": "34g protein",
     "kcal": "465 kcal",
+    "fat": "15g fat",
+    "carbs": "48g carbs",
     "ingredients": [
       "1 x 400g can cannellini beans, drained & rinsed (240g)",
       "145g tuna in olive oil, drained",
@@ -119,8 +127,10 @@
     "day": "Fri \u2014 Week 1",
     "title": "Pesto chicken salad with crackers",
     "time": "15 min",
-    "protein": "35g protein",
+    "protein": "33g protein",
     "kcal": "495 kcal",
+    "fat": "16g fat",
+    "carbs": "55g carbs",
     "ingredients": [
       "250g cooked chicken breast, diced",
       "40g basil pesto",
@@ -147,6 +157,8 @@
     "time": "20 min",
     "protein": "18g protein",
     "kcal": "510 kcal",
+    "fat": "15g fat",
+    "carbs": "76g carbs",
     "ingredients": [
       "1 x 400g can chickpeas, drained (240g)",
       "150g couscous (75g dry) or bulgur",
@@ -174,6 +186,8 @@
     "time": "20 min",
     "protein": "38g protein",
     "kcal": "505 kcal",
+    "fat": "10g fat",
+    "carbs": "66g carbs",
     "ingredients": [
       "300g chicken thigh fillets, cut 2cm",
       "80g 0% Greek yogurt + 1 tbsp tikka paste + 1 tsp lemon",
@@ -203,6 +217,8 @@
     "time": "22 min",
     "protein": "36g protein",
     "kcal": "545 kcal",
+    "fat": "20g fat",
+    "carbs": "55g carbs",
     "ingredients": [
       "300g salmon fillet, skin off, 2cm cubes",
       "200g cooked sushi or jasmine rice (100g dry)",
@@ -229,6 +245,8 @@
     "time": "12 min",
     "protein": "32g protein",
     "kcal": "430 kcal",
+    "fat": "10g fat",
+    "carbs": "53g carbs",
     "ingredients": [
       "200g sliced roast turkey breast (deli, low sodium)",
       "80g hummus (classic)",
@@ -257,8 +275,10 @@
     "day": "Wed \u2014 Week 2",
     "title": "Chicken Waldorf toast",
     "time": "15 min",
-    "protein": "33g protein",
+    "protein": "27g protein",
     "kcal": "460 kcal",
+    "fat": "16g fat",
+    "carbs": "52g carbs",
     "ingredients": [
       "220g cooked chicken breast, diced",
       "1 small apple (120g), diced",
@@ -289,6 +309,8 @@
     "time": "30 min",
     "protein": "22g protein",
     "kcal": "420 kcal",
+    "fat": "9g fat",
+    "carbs": "63g carbs",
     "ingredients": [
       "150g red lentils, rinsed",
       "1 small onion (80g), diced",
@@ -320,8 +342,10 @@
     "time": "10 min",
     "protein": "30g protein",
     "kcal": "410 kcal",
+    "fat": "8g fat",
+    "carbs": "54g carbs",
     "ingredients": [
-      "145g tuna in water, drained",
+      "145g can tuna in water (drained ~85g)",
       "2 tbsp 0% Greek yogurt",
       "10g capers, chopped",
       "30g green olives, chopped",
@@ -350,6 +374,8 @@
     "time": "20 min",
     "protein": "32g protein",
     "kcal": "485 kcal",
+    "fat": "14g fat",
+    "carbs": "58g carbs",
     "ingredients": [
       "280g shrimp, peeled & deveined",
       "1 tsp smoked paprika + pinch garlic powder",
@@ -380,6 +406,8 @@
     "time": "18 min",
     "protein": "28g protein",
     "kcal": "445 kcal",
+    "fat": "9g fat",
+    "carbs": "63g carbs",
     "ingredients": [
       "6 egg whites + 2 whole eggs (about 300g liquid)",
       "200g cannellini beans, drained",

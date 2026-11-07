@@ -12,6 +12,14 @@ What this repo does: This is a browser-based two-week lunch planner with recipe 
 - Regression tests cover price conversions, no-result searches, quantity totals, and clipboard failures.
 - Recipe selector photos now load lazily.
 
+## Known CI warnings (non-blocking)
+
+**`actions/checkout@v4` and `actions/setup-node@v4` Node 20 deprecation warning**
+
+GitHub deprecated Node.js 20 on Actions runners (Sep 2025). These action binaries have their own internal Node 20 runtime baked in, separate from the `node-version: 24` we set for the project build. GitHub now forces those action binaries to run on Node 24 and surfaces the mismatch as a warning annotation.
+
+CI still passes. No code change is needed. Fix: upgrade to `actions/checkout@v5` and `actions/setup-node@v5` once those versions ship with a Node 24 runtime. Update the two `uses:` lines in `.github/workflows/ci.yml` at that point.
+
 ## Remaining limitations
 
 - Prices remain manually maintained estimates, with Sep 2026 reference data; they are not checked against live retailer catalogs.

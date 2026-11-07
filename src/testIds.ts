@@ -12,6 +12,12 @@ export const testIds = {
   statAvgProtein: "stat-avg-protein",
   statTotalTime: "stat-total-time",
 
+  // Week glance panel
+  weekGlance: "week-glance",
+  weekGlanceKcal: "week-glance-kcal",
+  weekGlanceProtein: "week-glance-protein",
+  weekGlanceTime: "week-glance-time",
+
   // Meal cards
   mealCard: "meal-card",
 
@@ -19,6 +25,7 @@ export const testIds = {
   tabIngredients: "tab-ingredients",
   tabSteps: "tab-steps",
   tabStorage: "tab-storage",
+  tabNutrition: "tab-nutrition",
 
   // Meal detail — ingredients
   ingredientRow: "ingredient-row",
@@ -32,12 +39,16 @@ export const testIds = {
   // Meal detail — steps
   stepRow: "step-row",
 
+  // Meal detail — nutrition
+  nutritionKcalPill: "nutrition-kcal-pill",
+
   // Meal detail — storage
   storageKeepLabel: "storage-keep-label",
   storageText: "storage-text",
 
   // Shopping list — controls
   addWeekBtn: "add-week-btn",
+  addAllBtn: "add-all-btn",
   copyBtn: "copy-btn",
   clearListBtn: "clear-list-btn",
   emptyState: "empty-state",

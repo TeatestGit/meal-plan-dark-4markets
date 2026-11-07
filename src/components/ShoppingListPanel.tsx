@@ -14,6 +14,7 @@ type ShoppingListPanelProps = {
   hoveredItem: string | null;
   onSelectMarket: (market: MarketKey) => void;
   onAddWholeWeek: () => void;
+  onAddAllMeals: () => void;
   onCopyList: () => void;
   onHoverItem: (item: string | null) => void;
   onRemoveItem: (item: PricedItem) => void;
@@ -35,6 +36,7 @@ export function ShoppingListPanel({
   hoveredItem,
   onSelectMarket,
   onAddWholeWeek,
+  onAddAllMeals,
   onCopyList,
   onHoverItem,
   onRemoveItem,
@@ -115,15 +117,18 @@ export function ShoppingListPanel({
                       <span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: market.color }}>
                         {market.logo}
                       </span>
-                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary">{market.name.split(" ")[0]}</span>
+                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary truncate">{market.name.split(" ")[0]}</span>
                     </span>
-                    {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />}
+                    {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0" />}
                   </div>
                   <div className={`font-dm text-[16px] font-medium tabular-nums mt-2 ${isSelected ? "text-ink-primary" : "text-ink-secondary"}`}>
                     AED {total.toFixed(2)}
                   </div>
-                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5">
-                    {market.fee} fee · {market.delivery}
+                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5 whitespace-nowrap">
+                    {market.fee} fee
+                  </div>
+                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted whitespace-nowrap">
+                    {market.delivery}
                   </div>
                 </button>
               );
@@ -151,8 +156,14 @@ export function ShoppingListPanel({
           <button data-testid={testIds.addWeekBtn} onClick={onAddWholeWeek} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition shadow-[0_8px_20px_rgba(0,0,0,0.25)] active:scale-[0.98] min-w-0">
             Add week
           </button>
+          <button data-testid={testIds.addAllBtn} onClick={onAddAllMeals} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] min-w-0">
+            Add all
+          </button>
           <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] shrink-0">
             {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
+          </button>
+          <button data-testid={testIds.clearListBtn} onClick={onClearList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] shrink-0">
+            Clear list
           </button>
         </div>
       </div>
@@ -179,7 +190,8 @@ export function ShoppingListPanel({
             </div>
           </div>
         ) : (
-          <div className="rounded-[18px] bg-page border border-rim overflow-hidden divide-y divide-rim/70 min-w-0">
+          <div className="rounded-[18px] bg-page border border-rim overflow-hidden min-w-0">
+            <div className="overflow-y-auto max-h-[420px] divide-y divide-rim/70">
             {pricedItems.map((item, idx) => {
               const selectedPrice = item.prices?.[selectedMarket];
               const prices = item.prices;
@@ -255,7 +267,8 @@ export function ShoppingListPanel({
                 </div>
               );
             })}
-            <div className="p-4 bg-card flex items-center justify-between">
+            </div>
+            <div className="p-4 bg-card border-t border-rim/70 flex items-center justify-between">
               <span className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary">Estimated ingredient cost at {marketPrices[selectedMarket].name}</span>
               <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">AED {selectedTotal.toFixed(2)}</span>
             </div>
@@ -290,9 +303,6 @@ export function ShoppingListPanel({
                 );
               })}
             </div>
-            <button data-testid={testIds.clearListBtn} onClick={onClearList} className="mt-2 w-full h-[40px] sm:h-9 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
-              Clear list
-            </button>
           </>
         )}
 

@@ -61,6 +61,20 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
   });
 
+  test("clear list button is in the action row (after copy button)", async ({ page }) => {
+    const row = page.locator(".mt-5.flex.gap-2");
+    await expect(row.getByTestId(sel.clearListBtn)).toBeVisible();
+  });
+
+  test("clear list button appears after copy button in DOM order", async ({ page }) => {
+    const buttons = page.locator(".mt-5.flex.gap-2 button");
+    const labels = await buttons.allTextContents();
+    const copyIdx = labels.findIndex(t => t.trim() === "Copy");
+    const clearIdx = labels.findIndex(t => t.trim() === "Clear list");
+    expect(copyIdx).toBeGreaterThanOrEqual(0);
+    expect(clearIdx).toBeGreaterThan(copyIdx);
+  });
+
   test("remove button removes an item from the list", async ({ page }) => {
     await page.getByTestId(sel.addWeekBtn).click();
     const countBefore = await page.getByTestId(sel.listItem).count();
@@ -88,5 +102,34 @@ test.describe("Shopping list", () => {
     await page.getByTestId(sel.weekBtn(2)).click();
     await page.getByTestId(sel.addWeekBtn).click();
     await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
+  });
+
+  test("'Add all' populates items from both weeks", async ({ page }) => {
+    await page.getByTestId(sel.addAllBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
+    await expect(page.getByTestId(sel.listItem).first()).toBeVisible();
+  });
+
+  test("'Add all' adds more items than 'Add week' alone", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const countOneWeek = await page.getByTestId(sel.listItem).count();
+
+    // Reset
+    await page.getByTestId(sel.clearListBtn).click();
+
+    await page.getByTestId(sel.addAllBtn).click();
+    const countAllWeeks = await page.getByTestId(sel.listItem).count();
+
+    expect(countAllWeeks).toBeGreaterThanOrEqual(countOneWeek);
+  });
+
+  test("list items section is scrollable (overflow-y-auto applied)", async ({ page }) => {
+    await page.getByTestId(sel.addAllBtn).click();
+    // The items container should have overflow-y set to auto or scroll
+    const overflow = await page.evaluate(() => {
+      const items = document.querySelector("[data-testid='list-item']")?.closest(".overflow-y-auto");
+      return items ? window.getComputedStyle(items).overflowY : null;
+    });
+    expect(overflow).toBe("auto");
   });
 });

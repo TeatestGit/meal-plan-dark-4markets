@@ -77,10 +77,71 @@ test.describe("Meal detail tabs", () => {
     await expect(page.getByTestId(sel.inListCount)).not.toHaveText("0 in list");
   });
 
-  test("selecting a new meal resets tab to ingredients", async ({ page }) => {
+  test("nutrition tab shows macro bars and USDA note", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    await expect(page.getByText(/Protein/i).first()).toBeVisible();
+    await expect(page.getByText(/Carbs/i).first()).toBeVisible();
+    await expect(page.getByText(/Fat/i).first()).toBeVisible();
+    await expect(page.getByText(/USDA/i).first()).toBeVisible();
+  });
+
+  test("nutrition tab: Nutrition heading and per-serving subtitle visible", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    await expect(page.getByRole("heading", { name: /nutrition/i })).toBeVisible();
+    await expect(page.getByText(/per serving/i)).toBeVisible();
+    await expect(page.getByText(/recipe makes 2/i)).toBeVisible();
+  });
+
+  test("nutrition tab: kcal total pill is visible and non-zero", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    const pill = page.getByTestId("nutrition-kcal-pill");
+    await expect(pill).toBeVisible();
+    await expect(pill.getByText("Total")).toBeVisible();
+    await expect(pill.getByText("kcal")).toBeVisible();
+  });
+
+  test("nutrition tab: each macro row shows grams and kcal contribution", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    // each row has "{n}g" and "{n} kcal" text
+    await expect(page.getByText(/\d+g/).first()).toBeVisible();
+    await expect(page.getByText(/\d+ kcal · \d+%/).first()).toBeVisible();
+  });
+
+  test("nutrition tab: USDA FoodData Central link is present and points to fdc.nal.usda.gov", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    const link = page.getByRole("link", { name: /USDA FoodData Central/i });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", "https://fdc.nal.usda.gov/");
+  });
+
+  test("nutrition tab: switching meals keeps nutrition tab active", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    await page.getByTestId(sel.mealCard).nth(1).click();
+    // tab stays on nutrition — no need to re-click
+    const pill = page.getByTestId("nutrition-kcal-pill");
+    await expect(pill).toBeVisible();
+    await expect(pill.getByText("Total")).toBeVisible();
+    await expect(page.getByText(/Protein/i).first()).toBeVisible();
+  });
+
+  test("nutrition tab: macro percentage values sum to roughly 100", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    // collect all "N kcal · N%" strings and parse the percentages
+    const pctTexts = await page.getByText(/\d+ kcal · \d+%/).allTextContents();
+    expect(pctTexts).toHaveLength(3);
+    const sum = pctTexts.reduce((acc, t) => {
+      const m = t.match(/(\d+)%/);
+      return acc + (m ? parseInt(m[1]) : 0);
+    }, 0);
+    // rounding means sum is 99–101
+    expect(sum).toBeGreaterThanOrEqual(97);
+    expect(sum).toBeLessThanOrEqual(103);
+  });
+
+  test("selecting a new meal keeps the active tab", async ({ page }) => {
     await page.getByTestId(sel.tabSteps).click();
     await expect(page.getByRole("heading", { name: "Method" })).toBeVisible();
     await page.getByTestId(sel.mealCard).nth(1).click();
-    await expect(page.getByRole("heading", { name: "Ingredients" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Method" })).toBeVisible();
   });
 });
