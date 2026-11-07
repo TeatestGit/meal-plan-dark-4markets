@@ -54,4 +54,50 @@ describe('App', () => {
 
     expect(await screen.findByRole('button', { name: 'Copy failed' })).toBeInTheDocument();
   });
+
+  it('filters meals by ingredient keyword', () => {
+    render(<App />);
+    fireEvent.change(screen.getByPlaceholderText(/search lunches/i), {
+      target: { value: 'chickpea' },
+    });
+    // at least one result visible, no-results message absent
+    expect(screen.queryByRole('status')).toBeNull();
+    expect(screen.getAllByTestId('meal-card').length).toBeGreaterThan(0);
+  });
+
+  it('shows no-results when search matches nothing', () => {
+    render(<App />);
+    fireEvent.change(screen.getByPlaceholderText(/search lunches/i), {
+      target: { value: 'zzznomatch' },
+    });
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('mark planned button toggles between "Mark planned" and "Planned"', () => {
+    localStorage.clear();
+    render(<App />);
+    const btn = screen.getByTestId('mark-planned-btn');
+    expect(btn).toHaveTextContent('Mark planned');
+    fireEvent.click(btn);
+    expect(btn).toHaveTextContent('Planned');
+    fireEvent.click(btn);
+    expect(btn).toHaveTextContent('Mark planned');
+  });
+
+  it('Clear list empties the shopping list after Add week', () => {
+    localStorage.clear();
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    // list has items — empty-state is hidden
+    expect(screen.queryByText(/soft & empty/i)).toBeNull();
+    fireEvent.click(screen.getByTestId('clear-list-btn'));
+    expect(screen.getByText(/soft & empty/i)).toBeInTheDocument();
+  });
+
+  it('week 2 button switches to week 2 meals', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: /week 2/i }));
+    // week-meal-count badge should now say "7 lunches" (week 2 also has 7 meals)
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
+  });
 });

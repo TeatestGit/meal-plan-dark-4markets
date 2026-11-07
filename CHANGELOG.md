@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-07 — Unit tests: expand coverage to 94 tests across 4 files
+
+**pricing.test.ts** (30 → 49 tests): added `formatIngredientQuantity` suite (5 tests), `parseIngredientQuantity` unit conversion suite (7 tests — kg→g, l→ml, cups, fractions, null, egg/avocado counts), and `calculateIngredientCost` edge cases suite (7 tests — unit mismatch, no quantity, large gram scale, ml scale, each-based, doubles, rounding).
+
+**MealDetail.test.tsx** (7 → 22 tests): added Ingredients tab (5 tests — row count, title, buttons, in-list count, highlighted row from shopping set), Steps tab (4 tests — row count, heading, active/inactive highlight), Storage tab (2 tests — keep label, storage text), and tab bar (4 tests — all 4 buttons present, active style, inactive style, Planned state).
+
+**App.test.tsx** (6 → 11 tests): added ingredient keyword search, no-results for unmatched search, mark-planned toggle, Clear list empties state, week-2 switch updates meal count.
+
 ## 2026-11-07 — Playwright: 525/525 passing across 5 viewports
 
 All tests green after the following fixes and additions:
