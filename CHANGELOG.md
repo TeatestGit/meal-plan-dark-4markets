@@ -1,5 +1,10 @@
 e Changelog
 
+## 2026-11-07 — Nutrition tab: restore macro colors without legend
+
+- Restored color dot and colored progress bar on each macro row (protein blue, carbs orange, fat red).
+- Legend (percentage labels row) remains removed.
+
 ## 2026-11-07 — Nutrition tab: remove color bar/legend; add USDA FoodData Central link
 
 - Removed stacked color bar and color legend from the kcal row in the Nutrition tab (was visually redundant with the per-macro rows below).

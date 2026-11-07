@@ -186,9 +186,9 @@ export function MealDetail({
           const carbsKcal = carbs * 4;
           const fatKcal = fat * 9;
           const macros = [
-            { label: "Protein", g: protein, kcal: proteinKcal, pct: Math.round(proteinKcal / kcal * 100) },
-            { label: "Carbs", g: carbs, kcal: carbsKcal, pct: Math.round(carbsKcal / kcal * 100) },
-            { label: "Fat", g: fat, kcal: fatKcal, pct: Math.round(fatKcal / kcal * 100) },
+            { label: "Protein", g: protein, kcal: proteinKcal, pct: Math.round(proteinKcal / kcal * 100), color: "#4a9fd4" },
+            { label: "Carbs", g: carbs, kcal: carbsKcal, pct: Math.round(carbsKcal / kcal * 100), color: "#e8923a" },
+            { label: "Fat", g: fat, kcal: fatKcal, pct: Math.round(fatKcal / kcal * 100), color: "#d45a5a" },
           ];
           return (
             <>
@@ -211,6 +211,7 @@ export function MealDetail({
                   <div key={m.label} className="rounded-[16px] bg-page border border-rim p-4 min-w-0">
                     <div className="flex items-center justify-between mb-2.5 gap-2">
                       <div className="flex items-center gap-2">
+                        <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: m.color }} />
                         <span className="font-dm text-[11px] font-medium tracking-[0.1em] uppercase text-ink-secondary">{m.label}</span>
                       </div>
                       <div className="flex items-baseline gap-2 shrink-0">
@@ -219,7 +220,7 @@ export function MealDetail({
                       </div>
                     </div>
                     <div className="h-[6px] rounded-full bg-rim overflow-hidden">
-                      <div className="h-full rounded-full transition-all bg-ink-muted/40" style={{ width: `${m.pct}%` }} />
+                      <div className="h-full rounded-full transition-all" style={{ width: `${m.pct}%`, background: m.color }} />
                     </div>
                   </div>
                 ))}
