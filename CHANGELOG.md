@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-07 — PR review, merge, and Linear ticket coverage
+
+- Reviewed all GitHub PRs against Linear tickets; identified PR #4 (pricing fix) had no ticket.
+- Created Linear tickets TT-23 (pricing fix) and TT-24 (CI pipeline) in the `tt-space1/meal-plan` project.
+- Resolved `CHANGELOG.md` merge conflict between `develop` and `master`; merged PR #5 (CI pipeline) into `master`.
+- Consolidated duplicate CI pipeline entries in CHANGELOG.
+
 ## 2026-11-07 — Ingredient pricing fixes and test coverage
 
 ### Pricing fixes
