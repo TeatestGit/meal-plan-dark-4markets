@@ -248,6 +248,19 @@ export default function App() {
     });
   };
 
+  const addAllMealsToList = () => {
+    setShoppingSet((prev) => {
+      const next = new Set(prev);
+      meals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
+      return next;
+    });
+    setPlannedMeals((prev) => {
+      const next = new Set(prev);
+      meals.forEach((meal) => next.add(meal.id));
+      return next;
+    });
+  };
+
   const copyList = async () => {
     const text =
       `Shopping list — ${shoppingListItems.length} items — ${marketPrices[selectedMarket].name} AED ${selectedTotal.toFixed(2)}\n\n` +
@@ -453,6 +466,7 @@ export default function App() {
               hoveredItem={hoveredItem}
               onSelectMarket={setSelectedMarket}
               onAddWholeWeek={addWholeWeekToList}
+              onAddAllMeals={addAllMealsToList}
               onCopyList={() => { void copyList(); }}
               onHoverItem={setHoveredItem}
               onRemoveItem={(item) => {

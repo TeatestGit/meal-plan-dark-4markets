@@ -14,6 +14,7 @@ type ShoppingListPanelProps = {
   hoveredItem: string | null;
   onSelectMarket: (market: MarketKey) => void;
   onAddWholeWeek: () => void;
+  onAddAllMeals: () => void;
   onCopyList: () => void;
   onHoverItem: (item: string | null) => void;
   onRemoveItem: (item: PricedItem) => void;
@@ -35,6 +36,7 @@ export function ShoppingListPanel({
   hoveredItem,
   onSelectMarket,
   onAddWholeWeek,
+  onAddAllMeals,
   onCopyList,
   onHoverItem,
   onRemoveItem,
@@ -153,6 +155,9 @@ export function ShoppingListPanel({
         <div className="mt-5 flex gap-2 min-w-0">
           <button data-testid={testIds.addWeekBtn} onClick={onAddWholeWeek} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition shadow-[0_8px_20px_rgba(0,0,0,0.25)] active:scale-[0.98] min-w-0">
             Add week
+          </button>
+          <button onClick={onAddAllMeals} className="flex-1 h-[44px] sm:h-[36px] rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] min-w-0">
+            Add all
           </button>
           <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] shrink-0">
             {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
