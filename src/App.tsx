@@ -122,9 +122,11 @@ export default function App() {
     const totalTime = wm.reduce((sum, meal) => sum + parseTime(meal.time), 0);
     return {
       totalKcal,
-      avgProtein: Math.round(totalProtein / wm.length),
+      totalProtein: Math.round(totalProtein),
       totalTime,
       avgKcal: Math.round(totalKcal / wm.length),
+      avgProtein: Math.round(totalProtein / wm.length),
+      avgTime: Math.round(totalTime / wm.length),
     };
   }, [week]);
 
@@ -356,12 +358,12 @@ export default function App() {
 
             <div className="lg:max-w-[42ch] flex flex-col gap-5 sm:gap-6 min-w-0">
               <p className="font-dm text-[14px] leading-[1.8] text-ink-secondary break-words">
-                A quiet archive of midday meals — now with Dubai grocery pricing. Dark clay, linen, soft paper. Photographs kept in their original light, priced by market with real anchors from Carrefour &amp; Spinneys.
+                14 no-red-meat lunches across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
               </p>
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
-                <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} kcal</span>
-                <span data-testid={testIds.statAvgProtein} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">{stats.avgProtein}g protein</span>
-                <span data-testid={testIds.statTotalTime} className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">{stats.totalTime} min total</span>
+                <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} · {stats.totalKcal} kcal</span>
+                <span data-testid={testIds.statAvgProtein} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgProtein}g · {stats.totalProtein}g protein</span>
+                <span data-testid={testIds.statTotalTime} className="inline-flex h-[28px] px-4 rounded-full bg-ink-primary text-page font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular shadow-[0_6px_16px_rgba(0,0,0,0.25)]">Avg {stats.avgTime} · {stats.totalTime} min</span>
               </div>
             </div>
           </div>
