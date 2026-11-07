@@ -1,5 +1,17 @@
 e Changelog
 
+## 2026-11-07 — Tests: meal data integrity (protein & kcal consistency)
+
+- Added `src/mealData.test.ts` (12 unit tests) verifying protein/kcal values are consistent across every parsing path:
+  - String format validation (`Ng protein`, `N kcal`, `Ng fat`, `Ng carbs`) for all 14 meals
+  - `parseInt(meal.kcal)` === `parseKcal(meal.kcal)` — Nutrition tab and week-glance stats agree
+  - `parseInt(meal.protein)` === `parseProtein(meal.protein)` — same cross-check for protein
+  - Macro kcal balance within ±5 kcal of stated kcal for every meal (protein×4 + carbs×4 + fat×9)
+  - Per-serving protein in realistic range (15–60g) and kcal in range (300–800)
+  - Week 1/2 totals computed both ways are identical
+
+**Review findings:** No inconsistencies found. All 14 meals have matching values across all display paths. Macro-derived kcal is within ±2 kcal of stated kcal (rounding only). Formats are uniform.
+
 ## 2026-11-07 — Tests: nutrition tab unit + Playwright coverage
 
 - Added `src/components/MealDetail.test.tsx` (7 unit tests): heading/subtitle, kcal pill content, macro labels, gram values, kcal contributions, USDA link href, tab button presence.
