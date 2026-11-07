@@ -42,15 +42,15 @@ npm test
 ```
 
 ## Structure
-- src/App.tsx - full app (dark #121110, cards #1e1c1a, border #2a2724, text #f5f0e8)
-  - Fonts: Newsreader italic 52px + Instrument Serif + DM Sans (Kinfolk/Cereal)
-  - Responsive: grid-cols-1 md:[280px_1fr] lg:[300px_1fr_340px]
-  - Hero title: font-newsreader italic 30/38/44px (fixed from previous)
-  - Day cards: horizontal swipe mobile (72vw, snap-x)
-- src/assets/meals.json - 14 meals
-- src/assets/w*.webp - 14 images
-- src/components/MarketSelector.jsx - reusable market pills
-- src/index.css - Tailwind + font vars
+- `src/App.tsx` — full app; meal state, shopping list, localStorage persistence
+- `src/data/prices.ts` — `ingredientPriceMap`, `findPriceEntry` (alias resolution)
+- `src/testIds.ts` — single source of truth for all `data-testid` strings
+- `src/components/` — `MealDetail`, `MealSelector`, `ShoppingListPanel`
+- `src/assets/meals.json` — 14 meal definitions
+- `src/assets/w*.webp` — 14 food images
+- `src/index.css` — Tailwind + font variables
+- `e2e/` — Playwright end-to-end specs (desktop + tablet + mobile)
+- `scripts/linear_helpers.py` — Linear API helper used by the GitHub Actions workflow
 
 ## Markets (4) - Kibsons removed
 - Carrefour: chicken breast 42 AED/kg, Spinneys Fresh 59.25 AED
@@ -84,4 +84,13 @@ npm run build
 dist/ -> deploy to Vercel/Netlify
 
 ## Customize Prices
-Edit ingredientPriceMap in App.tsx around line 50-150, or move to src/data/prices.json
+Edit `src/data/prices.ts` — `ingredientPriceMap` holds all per-market prices; `aliasMap` maps ingredient name aliases to canonical keys.
+
+## CI / Linear Integration
+Opening a PR automatically creates a Linear issue in the configured project and posts its URL as a PR comment.
+
+Required GitHub secrets:
+| Secret | Value |
+|--------|-------|
+| `LINEAR_API_KEY` | Linear personal API key (Settings → API) |
+| `LINEAR_PROJECT_NAME` | Exact project name in Linear (e.g. `meal-plan`) |

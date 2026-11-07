@@ -2,7 +2,9 @@
 
 ## 2026-11-07 — Linear GitHub integration
 
-- Added `.github/workflows/linear-pr-ticket.yml`: creates a Linear issue and posts its URL as a PR comment whenever a PR is opened.
+- Added `.github/workflows/linear-pr-ticket.yml`: on every PR opened or reopened, automatically creates a Linear issue inside the configured project and posts the issue URL as a PR comment.
+- Added `scripts/linear_helpers.py`: reusable helper that resolves project name → team → creates the Linear issue via GraphQL API.
+- Team ID is derived from the project itself, so only two GitHub secrets are needed: `LINEAR_API_KEY` and `LINEAR_PROJECT_NAME`.
 
 ## 2026-11-07 — Centralised test ID constants
 
