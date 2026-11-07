@@ -223,7 +223,7 @@ export function MealDetail({
         >
           {plannedMeals.has(selectedMeal.id) ? "✓ Planned" : "○ Mark planned"}
         </button>
-        <span className="hidden md:block font-newsreader italic text-[12px] text-ink-muted min-w-0">session only · soft list</span>
+
         <button data-testid={testIds.addListFooterBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
       </div>
     </div>

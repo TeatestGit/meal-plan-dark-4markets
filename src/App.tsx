@@ -484,10 +484,8 @@ export default function App() {
         </div>
 
         <footer className="pb-10 pt-2 flex flex-col sm:flex-row justify-between gap-3 font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted min-w-0 overflow-hidden">
-          <span className="font-newsreader normal-case tracking-[-0.01em] italic text-[12px] break-words">
-            Editorial Luxury · Newsreader italic 52px · Instrument Serif · DM Sans · Kinfolk / Cereal
-          </span>
-          <span className="font-dm tracking-[0.12em] break-words">paper · linen · clay · soft light · dark clay</span>
+          <span className="break-words">© 2026 · Dubai AED · Prices: Sep 2026</span>
+          <span className="break-words">No Red Meat · 14 Recipes · 2-Week Plan</span>
         </footer>
       </div>
     </div>
