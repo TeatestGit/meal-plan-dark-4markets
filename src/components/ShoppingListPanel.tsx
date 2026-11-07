@@ -115,15 +115,18 @@ export function ShoppingListPanel({
                       <span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: market.color }}>
                         {market.logo}
                       </span>
-                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary">{market.name.split(" ")[0]}</span>
+                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary truncate">{market.name.split(" ")[0]}</span>
                     </span>
-                    {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />}
+                    {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0" />}
                   </div>
                   <div className={`font-dm text-[16px] font-medium tabular-nums mt-2 ${isSelected ? "text-ink-primary" : "text-ink-secondary"}`}>
                     AED {total.toFixed(2)}
                   </div>
-                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5">
-                    {market.fee} fee · {market.delivery}
+                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5 whitespace-nowrap">
+                    {market.fee} fee
+                  </div>
+                  <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted whitespace-nowrap">
+                    {market.delivery}
                   </div>
                 </button>
               );
