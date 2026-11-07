@@ -11,6 +11,9 @@ customization-migration-recovery/
 .env.*
 !.env.example
 
+# VS Code local settings (machine-specific paths)
+.vscode/settings.json
+
 # OS files
 .DS_Store
 Thumbs.db
