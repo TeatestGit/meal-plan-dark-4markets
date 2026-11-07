@@ -5,7 +5,7 @@ import sys
 import urllib.error
 import urllib.request
 
-from scripts.linear_helpers import create_linear_issue, plain_english_summary
+from scripts.linear_helpers import attach_link, create_linear_issue, plain_english_summary
 
 pr_title = os.environ["PR_TITLE"]
 pr_body = os.environ.get("PR_BODY", "")
@@ -62,6 +62,8 @@ if issue is None:
 
 issue_id = issue["identifier"]
 issue_url = issue["url"]
+
+attach_link(linear_api_key, issue["id"], pr_url, f"GitHub PR #{pr_number}")
 
 comment_payload = json.dumps({"body": f"🔗 Linear issue created: [{issue_id}]({issue_url})"}).encode("utf-8")
 comment_request = urllib.request.Request(

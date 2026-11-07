@@ -66,6 +66,20 @@ def plain_english_summary(anthropic_api_key: str, pr_title: str, pr_body: str) -
         return pr_title
 
 
+def attach_link(api_key: str, issue_id: str, url: str, title: str) -> None:
+    gql(
+        """
+        mutation CreateAttachment($issueId: String!, $url: String!, $title: String!) {
+          attachmentCreate(input: { issueId: $issueId, url: $url, title: $title }) {
+            success
+          }
+        }
+        """,
+        api_key,
+        {"issueId": issue_id, "url": url, "title": title},
+    )
+
+
 def resolve_linear_id(kind: str, api_key: str, lookup_value: str, field_name: str) -> str:
     response = gql(f"{{ {kind}s {{ nodes {{ id {field_name} }} }} }}", api_key)
     nodes = response["data"][f"{kind}s"]["nodes"]
