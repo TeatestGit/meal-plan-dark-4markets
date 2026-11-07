@@ -228,21 +228,7 @@ export function MealDetail({
 
               {/* USDA note */}
               <div className="mt-5 flex items-start gap-3 rounded-[14px] bg-card border border-rim px-4 py-3 min-w-0">
-                {/* USDA shield logo */}
-                <svg className="shrink-0 mt-[1px]" width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="USDA">
-                  {/* Shield outline */}
-                  <path d="M14 1L2 5.5V16C2 23 8 28.5 14 31C20 28.5 26 23 26 16V5.5L14 1Z" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.2"/>
-                  {/* Wheat stalk left */}
-                  <path d="M10 22V13" stroke="currentColor" strokeOpacity="0.5" strokeWidth="0.8" strokeLinecap="round"/>
-                  <ellipse cx="9" cy="12" rx="1.2" ry="2" transform="rotate(-15 9 12)" fill="currentColor" fillOpacity="0.4"/>
-                  <ellipse cx="11" cy="11" rx="1.2" ry="2" transform="rotate(15 11 11)" fill="currentColor" fillOpacity="0.4"/>
-                  {/* Wheat stalk right */}
-                  <path d="M18 22V13" stroke="currentColor" strokeOpacity="0.5" strokeWidth="0.8" strokeLinecap="round"/>
-                  <ellipse cx="17" cy="12" rx="1.2" ry="2" transform="rotate(-15 17 12)" fill="currentColor" fillOpacity="0.4"/>
-                  <ellipse cx="19" cy="11" rx="1.2" ry="2" transform="rotate(15 19 11)" fill="currentColor" fillOpacity="0.4"/>
-                  {/* USDA text */}
-                  <text x="14" y="27" textAnchor="middle" fontFamily="sans-serif" fontSize="5.5" fontWeight="700" letterSpacing="0.5" fill="currentColor" fillOpacity="0.6">USDA</text>
-                </svg>
+                <img src="https://fdc.nal.usda.gov/img/usda-symbol.svg" alt="USDA" className="shrink-0 mt-[1px] w-7 h-7 opacity-70" />
                 <span className="font-dm text-[12px] text-ink-muted leading-[1.6] break-words">Macros estimated from ingredient list using USDA reference values. All 14 meals cross-checked; values accurate within ±15%. <a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener noreferrer" className="text-ink-secondary underline underline-offset-2">USDA FoodData Central →</a></span>
               </div>
             </>
