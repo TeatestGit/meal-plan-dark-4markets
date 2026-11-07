@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-07 — UI polish and footer cleanup
+
+- Removed "session only · soft list" dev label from the meal detail action bar (`src/components/MealDetail.tsx`).
+- Replaced page footer design/font notes with user-facing copy: `© 2026 · Dubai AED · Prices: Sep 2026` and `No Red Meat · 14 Recipes · 2-Week Plan`.
+- Moved week glance stats (kcal / protein / time) to above the "Week N · N lunches" header in the left panel.
+- Added "Add all" button to shopping panel — adds all 14 meals (both weeks) to the list at once, alongside the existing "Add week" (current week only).
+- Made shopping list items section scrollable (`max-h-[420px] overflow-y-auto`); totals footer stays pinned below.
+
 ## 2026-11-07 — Show quantity for unpriced shopping list items
 
 - Unpriced items (e.g. "1 small onion (80g), diced") now show their parsed quantity (e.g. `1 PCS · EST.`) instead of "No compatible unit". Quantity is derived by falling back to `parseIngredientQuantity` when `calculateIngredientCost` returns null.
