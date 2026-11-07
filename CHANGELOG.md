@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-07 — Linear GitHub integration
+
+- Added `.github/workflows/linear-pr-ticket.yml`: creates a Linear issue and posts its URL as a PR comment whenever a PR is opened.
+
 ## 2026-11-07 — Centralised test ID constants
 
 - Created `src/testIds.ts` as the single source of truth for all `data-testid` strings used across the app and tests.
