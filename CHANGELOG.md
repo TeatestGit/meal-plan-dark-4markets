@@ -1,5 +1,12 @@
 e Changelog
 
+## 2026-11-07 — Nutrition tab: per-meal macro breakdown with USDA verification
+
+- Added `fat` and `carbs` fields to all 14 meals in `meals.json` (estimated from ingredient list using USDA reference data; kcal-balanced).
+- Extended `Meal` type in `types.ts` with `fat: string` and `carbs: string`.
+- Added **Nutrition** tab (4th tab) to `MealDetail`: kcal total, stacked macro bar (protein/carbs/fat), individual macro rows with percentage bars, USDA-sourced note ("Per serving · recipe makes 2").
+- Added `tabNutrition` testId; e2e test verifies macro labels and USDA note render.
+
 ## 2026-11-07 — Correct meal protein values (label-density audit)
 
 - w1-wed Rotisserie chicken quinoa salad: 36g → **28g** protein (rotisserie chicken lower density than raw breast)

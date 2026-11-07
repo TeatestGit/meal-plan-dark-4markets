@@ -25,6 +25,7 @@ export const testIds = {
   tabIngredients: "tab-ingredients",
   tabSteps: "tab-steps",
   tabStorage: "tab-storage",
+  tabNutrition: "tab-nutrition",
 
   // Meal detail — ingredients
   ingredientRow: "ingredient-row",

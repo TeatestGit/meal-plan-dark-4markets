@@ -76,7 +76,7 @@ export default function App() {
   const [week, setWeek] = useState<1 | 2>(1);
   const [selectedId, setSelectedId] = useState<string>("w1-mon");
   const [search, setSearch] = useState("");
-  const [tab, setTab] = useState<"ingredients" | "steps" | "storage">("ingredients");
+  const [tab, setTab] = useState<"ingredients" | "steps" | "storage" | "nutrition">("ingredients");
   const [shoppingSet, setShoppingSet] = useState<Set<string>>(() => loadSet("shopping-set"));
   const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);

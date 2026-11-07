@@ -6,6 +6,8 @@ export type Meal = {
   time: string;
   protein: string;
   kcal: string;
+  fat: string;
+  carbs: string;
   ingredients: string[];
   steps: string[];
   storage: string;

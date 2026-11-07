@@ -77,6 +77,14 @@ test.describe("Meal detail tabs", () => {
     await expect(page.getByTestId(sel.inListCount)).not.toHaveText("0 in list");
   });
 
+  test("nutrition tab shows macro bars and USDA note", async ({ page }) => {
+    await page.getByTestId(sel.tabNutrition).click();
+    await expect(page.getByText(/Protein/i).first()).toBeVisible();
+    await expect(page.getByText(/Carbs/i).first()).toBeVisible();
+    await expect(page.getByText(/Fat/i).first()).toBeVisible();
+    await expect(page.getByText(/USDA/i).first()).toBeVisible();
+  });
+
   test("selecting a new meal resets tab to ingredients", async ({ page }) => {
     await page.getByTestId(sel.tabSteps).click();
     await expect(page.getByRole("heading", { name: "Method" })).toBeVisible();
