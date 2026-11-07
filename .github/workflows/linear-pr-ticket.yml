@@ -17,7 +17,6 @@ jobs:
       - name: Create Linear issue and comment on PR
         env:
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
-          LINEAR_TEAM_KEY: ${{ secrets.LINEAR_TEAM_KEY }}
           LINEAR_PROJECT_NAME: ${{ secrets.LINEAR_PROJECT_NAME }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.html_url }}
@@ -39,7 +38,7 @@ jobs:
 
           issue = create_linear_issue(
               os.environ["LINEAR_API_KEY"],
-              os.environ["LINEAR_TEAM_KEY"],
+              "",
               os.environ["LINEAR_PROJECT_NAME"],
               os.environ["PR_TITLE"],
               f"GitHub PR #{os.environ['PR_NUMBER']}: {os.environ['PR_URL']}\n\n{os.environ.get('PR_BODY', '')}",
