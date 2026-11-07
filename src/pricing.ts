@@ -28,9 +28,11 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
 
   const amount = numericAmount(amountMatch[1]);
   const rest = amountMatch[2].toLowerCase();
-  if (rest.includes("+")) return null;
 
   const measure = rest.match(/^(kg|g|ml|l|tbsp|tablespoons?|tsp|teaspoons?|cups?)\b/);
+  // bail on measured compound ingredients (e.g. "1 tbsp oil + lime juice") but not
+  // on count-type ingredients where + is a descriptive suffix (e.g. "1/2 lemon, juice + zest")
+  if (measure && rest.includes("+")) return null;
 
   if (measure) {
     switch (measure[1]) {
