@@ -23,6 +23,14 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
   );
   if (packageMatch) return { amount: numericAmount(packageMatch[1]), unit: "count" };
 
+  // qualitative quantities with no numeric prefix (pinch ≈ 1g, handful ≈ 1 bunch)
+  const qualMatch = ingredient.match(/^\s*(?:small\s+|large\s+)?(handful|pinch|dash)\b/i);
+  if (qualMatch) {
+    return qualMatch[1].toLowerCase() === "handful"
+      ? { amount: 1, unit: "count" }
+      : { amount: 1, unit: "g" };
+  }
+
   // fractions must be tried before plain integers so "1/2" isn't captured as "1"
   const amountMatch = ingredient.match(/^\s*(\d+\/\d+|\d+(?:\.\d+)?)\s*(.*)$/i);
   if (!amountMatch) return null;

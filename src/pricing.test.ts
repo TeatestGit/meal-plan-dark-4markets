@@ -124,3 +124,18 @@ describe("findPriceEntry — newly added ingredients", () => {
   it("resolves lettuce", () => expect(findPriceEntry("40g lettuce")).not.toBeNull());
   it("resolves mixed leaves", () => expect(findPriceEntry("40g mixed leaves")).not.toBeNull());
 });
+
+describe("qualitative quantities (handful / pinch)", () => {
+  it("parses 'Small handful parsley' as 1 count", () => {
+    expect(parseIngredientQuantity("Small handful parsley, chopped")).toEqual({ amount: 1, unit: "count" });
+  });
+  it("prices a small handful of parsley via findPriceEntry", () => {
+    const entry = findPriceEntry("Small handful parsley, chopped");
+    expect(entry?.key).toBe("parsley");
+  });
+  it("parses 'pinch salt' as 1g", () => {
+    expect(parseIngredientQuantity("pinch salt & pepper")).toEqual({ amount: 1, unit: "g" });
+  });
+  it("resolves salt from price map", () => expect(findPriceEntry("pinch salt & pepper")).not.toBeNull());
+  it("resolves pepper via alias", () => expect(findPriceEntry("pinch black pepper")).not.toBeNull());
+});

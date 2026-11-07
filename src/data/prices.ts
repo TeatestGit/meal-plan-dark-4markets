@@ -70,6 +70,8 @@ const rawPriceMap: Record<string, PriceEntry> = {
   "jasmine rice":      { unit: "1kg",      carrefour: 12,   lulu: 10.5, spinneys: 15,    geant: 13 },
   "crackers":          { unit: "200g",     carrefour: 11,   lulu: 9.5,  spinneys: 14,    geant: 12 },
   "apple cider vinegar": { unit: "500ml",  carrefour: 14,   lulu: 12.5, spinneys: 18,    geant: 15.2 },
+  "salt":          { unit: "100g",    carrefour: 0.5,  lulu: 0.4,  spinneys: 0.7,   geant: 0.5 },
+  "black pepper":  { unit: "50g",     carrefour: 8,    lulu: 7,    spinneys: 10,    geant: 8.5 },
 };
 
 const aliasMap: Record<string, string> = {
@@ -90,6 +92,7 @@ const aliasMap: Record<string, string> = {
   "stock":           "vegetable stock",
   "vinegar":         "apple cider vinegar",
   "cider vinegar":   "apple cider vinegar",
+  "pepper":          "black pepper",
 };
 
 export const ingredientPriceMap: Record<string, PriceEntry> = {
