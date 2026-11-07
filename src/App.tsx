@@ -370,6 +370,24 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)_400px] gap-5 md:gap-6 lg:gap-8 pb-12 min-w-0 overflow-hidden max-w-full">
           <div className="min-w-0 order-1 md:order-1 lg:sticky lg:top-6 lg:self-start">
             <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
+              <div data-testid={testIds.weekGlance} className="m-3 mb-0 rounded-[18px] bg-page border border-rim p-4 sm:p-5 min-w-0">
+                <div className="font-newsreader italic text-[13px] text-ink-secondary mb-4 break-words">Week {week} glance — soft numbers</div>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">kcal</div>
+                    <div data-testid={testIds.weekGlanceKcal} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalKcal}</div>
+                  </div>
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
+                    <div data-testid={testIds.weekGlanceProtein} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.avgProtein}g</div>
+                  </div>
+                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
+                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
+                    <div data-testid={testIds.weekGlanceTime} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular whitespace-nowrap">{stats.totalTime}m</div>
+                  </div>
+                </div>
+              </div>
+
               <div className="px-6 sm:px-8 py-5 sm:py-7 flex items-center justify-between border-b border-rim min-w-0">
                 <span className="font-instrument text-[18px] text-ink-primary tracking-[-0.02em]">Week {week}</span>
                 <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
@@ -391,24 +409,6 @@ export default function App() {
                     setActiveStepIdx(0);
                   }}
                 />
-              </div>
-
-              <div className="m-3 mt-1 sm:mt-2 rounded-[18px] bg-page border border-rim p-4 sm:p-5 min-w-0">
-                <div className="font-newsreader italic text-[13px] text-ink-secondary mb-4 break-words">Week {week} glance — soft numbers</div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">kcal</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalKcal}</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.avgProtein}g</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
-                    <div className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular whitespace-nowrap">{stats.totalTime}m</div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
