@@ -1,5 +1,15 @@
 e Changelog
 
+## 2026-11-07 — Playwright: 525/525 passing across 5 viewports
+
+All tests green after the following fixes and additions:
+- Moved "Clear list" button into action row (after Copy); removed full-width version from market summary footer.
+- Added 2 Playwright specs verifying "Clear list" position in DOM order.
+- Active tab now persists when switching meals or weeks (removed three `setTab("ingredients")` resets in `App.tsx`); updated e2e tests to match.
+- Added USDA official symbol (`fdc.nal.usda.gov/img/usda-symbol.svg`) with white background to Nutrition tab note.
+- Restored macro colors (protein blue, carbs orange, fat red) on row dots and progress bars; legend row remains removed.
+- Fixed 2 viewport-specific e2e failures: `in-list-count` badge skipped below 640px (`hidden sm:inline`); price comparison grid test skipped below 768px where shopping panel scrolls off-screen.
+
 ## 2026-11-07 — Tests: meal data integrity (protein & kcal consistency)
 
 - Added `src/mealData.test.ts` (12 unit tests) verifying protein/kcal values are consistent across every parsing path:
