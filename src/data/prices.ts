@@ -80,13 +80,10 @@ const rawPriceMap: Record<string, PriceEntry> = {
   "chia seeds":    { unit: "150g",    carrefour: 14,   lulu: 12.5, spinneys: 18,    geant: 15.5 },
   "smoked salmon": { unit: "100g",    carrefour: 22,   lulu: 19.5, spinneys: 29,    geant: 24 },
   "butter":        { unit: "250g",    carrefour: 7,    lulu: 6.5,  spinneys: 9.5,   geant: 7.5 },
-  "pita":          { unit: "6 pcs",   carrefour: 4.5,  lulu: 3.5,  spinneys: 6.5,   geant: 5 },
-  "fava beans":    { unit: "400g can", carrefour: 5.5, lulu: 4.5,  spinneys: 7.5,   geant: 6 },
   "banana":        { unit: "kg",      carrefour: 8,    lulu: 7,    spinneys: 11,    geant: 8.5 },
   "halloumi":      { unit: "250g",    carrefour: 18.5, lulu: 16.5, spinneys: 25,    geant: 19.5 },
   "granola":       { unit: "300g",    carrefour: 16.5, lulu: 14.5, spinneys: 22,    geant: 17.5 },
   "cheddar":       { unit: "200g",    carrefour: 11.5, lulu: 10,   spinneys: 15,    geant: 12.5 },
-  "medjool dates": { unit: "200g",    carrefour: 22,   lulu: 18.5, spinneys: 30,    geant: 24 },
   "maple syrup":   { unit: "250ml",   carrefour: 28,   lulu: 24.5, spinneys: 36,    geant: 30 },
   "almond milk":   { unit: "1L",      carrefour: 12.5, lulu: 11,   spinneys: 16.5,  geant: 13.5 },
 };
@@ -113,10 +110,7 @@ const aliasMap: Record<string, string> = {
   "sesame oil":      "sesame",
   "sesame seeds":    "sesame",
   "oats":            "rolled oats",
-  "ful":             "fava beans",
-  "fava":            "fava beans",
   "bananas":         "banana",
-  "dates":           "medjool dates",
   "cheddar cheese":  "cheddar",
 };
 
