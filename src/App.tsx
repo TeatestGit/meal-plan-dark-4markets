@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 
+import carrefourLogo from "./assets/hypermarkets/carrefour-logo.webp";
+import luluLogo from "./assets/hypermarkets/lulu-logo.png";
+import spinneysLogo from "./assets/hypermarkets/spinneys-logo.jpg";
+import geantLogo from "./assets/hypermarkets/geant-logo.webp";
 import mealsData from "./assets/meals.json";
 import { MealDetail } from "./components/MealDetail";
 import { MealSelector } from "./components/MealSelector";
@@ -34,10 +38,10 @@ const meals: Meal[] = (mealsData as RawMeal[]).map((meal) => ({
 }));
 
 const marketPrices: Record<MarketKey, MarketInfo> = {
-  carrefour: { name: "Carrefour",   color: "#0a4da1", logo: "C", delivery: "30-45 min", fee: "AED 7",  url: "https://www.carrefouruae.com" },
-  lulu:      { name: "LuLu Hyper",  color: "#e30613", logo: "L", delivery: "45-60 min", fee: "AED 10", url: "https://www.luluhypermarket.com" },
-  spinneys:  { name: "Spinneys",    color: "#006a4e", logo: "S", delivery: "25-40 min", fee: "AED 12", url: "https://www.spinneys.com" },
-  geant:     { name: "Géant",       color: "#c41230", logo: "G", delivery: "40-55 min", fee: "AED 9",  url: "https://www.geantuae.com" },
+  carrefour: { name: "Carrefour",   color: "#0a4da1", logo: "C", logoImg: carrefourLogo, delivery: "30-45 min", fee: "د.إ 7",  url: "https://www.carrefouruae.com" },
+  lulu:      { name: "LuLu Hyper",  color: "#e30613", logo: "L", logoImg: luluLogo, delivery: "45-60 min", fee: "د.إ 10", url: "https://www.luluhypermarket.com" },
+  spinneys:  { name: "Spinneys",    color: "#006a4e", logo: "S", logoImg: spinneysLogo, delivery: "25-40 min", fee: "د.إ 12", url: "https://www.spinneys.com" },
+  geant:     { name: "Géant",       color: "#c41230", logo: "G", logoImg: geantLogo, delivery: "40-55 min", fee: "د.إ 9",  url: "https://www.geantuae.com" },
 };
 
 const marketOrder: MarketKey[] = ["carrefour", "lulu", "spinneys", "geant"];
@@ -281,11 +285,11 @@ export default function App() {
 
   const copyList = async () => {
     const text =
-      `Shopping list — ${shoppingListItems.length} items — ${marketPrices[selectedMarket].name} AED ${selectedTotal.toFixed(2)}\n\n` +
+      `Shopping list — ${shoppingListItems.length} items — ${marketPrices[selectedMarket].name} د.إ ${selectedTotal.toFixed(2)}\n\n` +
       shoppingListItems.map((item) =>
-        `· ${item.original} ${item.unit ? `(${item.unit})` : ""} — ${item.prices ? `AED ${item.prices[selectedMarket]}` : "price unavailable"}`
+        `· ${item.original} ${item.unit ? `(${item.unit})` : ""} — ${item.prices ? `د.إ ${item.prices[selectedMarket]}` : "price unavailable"}`
       ).join("\n") +
-      `\n\nEstimated total for priced quantities at ${marketPrices[selectedMarket].name}: AED ${selectedTotal.toFixed(2)}` +
+      `\n\nEstimated total for priced quantities at ${marketPrices[selectedMarket].name}: د.إ ${selectedTotal.toFixed(2)}` +
       (shoppingListItems.some((item) => !item.prices) ? "\nSome ingredients are excluded because no compatible price is available." : "");
 
     try {
@@ -312,7 +316,7 @@ export default function App() {
               <div className="hidden md:flex items-center gap-3 min-w-0">
                 <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary">Editorial Lunch Series</span>
                 <span className="w-px h-4 bg-rim" />
-                <span className="font-newsreader italic text-[14px] text-ink-muted">Kinfolk / Cereal · Dubai AED</span>
+                <span className="font-newsreader italic text-[14px] text-ink-muted">Kinfolk / Cereal · Dubai د.إ</span>
               </div>
             </div>
 
@@ -391,7 +395,7 @@ export default function App() {
               <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
                 <span className="h-px w-8 bg-rim hidden sm:block" />
                 <span className="font-newsreader italic text-[13px] sm:text-[14px] leading-[1.5] text-ink-muted break-words">
-                  {planLabel} · {planMealCount} recipes · AED prices per market
+                  {planLabel} · {planMealCount} recipes · د.إ prices per market
                 </span>
               </div>
             </div>
@@ -525,7 +529,7 @@ export default function App() {
         </div>
 
         <footer className="pb-10 pt-2 flex flex-col sm:flex-row justify-between gap-3 font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted min-w-0 overflow-hidden">
-          <span className="break-words">© 2026 · Dubai AED · Prices: Sep 2026</span>
+          <span className="break-words">© 2026 · Dubai د.إ · Prices: Sep 2026</span>
           <span className="break-words">{planLabel} · {planMealCount} Recipes · 2-Week Plan</span>
         </footer>
       </div>

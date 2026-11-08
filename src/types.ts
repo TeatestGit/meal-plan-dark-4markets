@@ -22,6 +22,7 @@ export type MarketInfo = {
   name: string;
   color: string;
   logo: string;
+  logoImg?: string;
   delivery: string;
   fee: string;
   url: string;

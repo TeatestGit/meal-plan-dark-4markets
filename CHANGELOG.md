@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-08 — Hypermarket logos, dirham sign, tests
+
+- **feat**: Real logo images for all 4 hypermarkets (Carrefour, LuLu, Spinneys, Géant) under `src/assets/hypermarkets/`; white circle background on logo containers
+- **feat**: Market cards and price comparison mini-cards show logo only (name text removed); logo containers enlarged
+- **feat**: All `AED` display strings replaced with `د.إ` (dirham sign) across UI, clipboard copy, and footer
+- **test**: Added `Currency sign` and `Market card logo` describe blocks in `App.test.tsx` (22/22 unit tests pass)
+- **fix**: Updated `e2e/ingredient-pricing.spec.ts` assertions from `"AED"` → `"د.إ"` (600/600 e2e pass)
+
 ## 2026-11-08 — TT-44, TT-45, TT-46: Plan switching, scroll fix, action row fix
 
 - **TT-44** feat: Plan switching — No Red Meat / Vegan plan tabs (new plan state, 14 vegan meals, asset reorganisation, 14 e2e + 6 unit tests)

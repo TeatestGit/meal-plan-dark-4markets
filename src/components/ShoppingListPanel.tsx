@@ -52,7 +52,7 @@ export function ShoppingListPanel({
         <div className="flex items-center justify-between gap-3 min-w-0">
           <h3 className="font-instrument text-[18px] text-ink-primary">Grocery &amp; shopping</h3>
           <span data-testid={testIds.itemCountBadge} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page border border-rim rounded-full px-3 py-1 tabular shrink-0">
-            {pricedItems.length} items · {hasPrices ? `AED ${selectedTotal.toFixed(2)}` : "No prices"}
+            {pricedItems.length} items · {hasPrices ? `د.إ ${selectedTotal.toFixed(2)}` : "No prices"}
           </span>
         </div>
 
@@ -75,10 +75,10 @@ export function ShoppingListPanel({
                   }`}
                 >
                   <span
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-dm font-bold tracking-[0.02em] ${isSelected ? "bg-page text-ink-primary" : "text-white border border-rim-hover"}`}
-                    style={!isSelected ? { background: market.color } : undefined}
+                    className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-dm font-bold tracking-[0.02em] overflow-hidden ${isSelected || market.logoImg ? "bg-page text-ink-primary" : "text-white border border-rim-hover"}`}
+                    style={!isSelected && !market.logoImg ? { background: market.color } : undefined}
                   >
-                    {market.logo}
+                    {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                   </span>
                   <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase tabular whitespace-nowrap">{market.name}</span>
                   <span className="hidden sm:inline font-dm text-[10px] tracking-[0.06em] uppercase tabular whitespace-nowrap text-ink-muted">
@@ -112,17 +112,16 @@ export function ShoppingListPanel({
                     isSelected ? "bg-rim border-ink-primary/30 shadow-[0_6px_18px_rgba(0,0,0,0.25)]" : "bg-page border-rim hover:border-rim-hover"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2">
-                      <span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: market.color }}>
-                        {market.logo}
+                  <div className="flex items-center justify-between gap-2 min-w-0">
+                    <span className="flex items-center gap-2 min-w-0">
+                      <span className="w-9 h-9 rounded-[10px] flex items-center justify-center text-[9px] font-bold text-white shrink-0 overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                        {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain p-1" /> : market.logo}
                       </span>
-                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary truncate">{market.name.split(" ")[0]}</span>
                     </span>
                     {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0" />}
                   </div>
                   <div className={`font-dm text-[16px] font-medium tabular-nums mt-2 ${isSelected ? "text-ink-primary" : "text-ink-secondary"}`}>
-                    AED {total.toFixed(2)}
+                    د.إ {total.toFixed(2)}
                   </div>
                   <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5 whitespace-nowrap">
                     {market.fee} fee
@@ -147,7 +146,7 @@ export function ShoppingListPanel({
           <div data-testid={testIds.savingsBanner} className="mt-3 rounded-[12px] bg-[#1a2e1e]/60 border border-[#2a4a2e]/60 px-4 py-2.5 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-[#2a5a30] flex items-center justify-center text-[11px] text-emerald-200">↘</span>
             <span className="font-dm text-[11px] tracking-[0.04em] text-emerald-200/90">
-              Save <span className="font-medium tabular-nums text-emerald-100">AED {savings.toFixed(2)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
+              Save <span className="font-medium tabular-nums text-emerald-100">د.إ {savings.toFixed(2)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
             </span>
           </div>
         )}
@@ -180,8 +179,8 @@ export function ShoppingListPanel({
                 const market = marketPrices[mk];
                 return (
                   <span key={mk} className="inline-flex items-center gap-1.5 rounded-full bg-rim border border-rim-hover px-3 py-1 font-dm text-[10px] tracking-[0.08em] uppercase text-ink-secondary">
-                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white" style={{ background: market.color }}>
-                      {market.logo}
+                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                      {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                     </span>
                     {market.name}
                   </span>
@@ -210,7 +209,7 @@ export function ShoppingListPanel({
                         <span className="font-dm text-[13px] leading-[1.5] text-ink-secondary flex-1 min-w-0 break-words">{item.original}</span>
                         <span className="shrink-0 text-right">
                           <span className="font-dm text-[13px] font-medium tabular-nums text-ink-primary">
-                            {selectedPrice == null ? "Not priced" : `AED ${selectedPrice.toFixed(2)}`}
+                            {selectedPrice == null ? "Not priced" : `د.إ ${selectedPrice.toFixed(2)}`}
                           </span>
                           <span className="block font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
                             {item.unit ? `${item.unit} · est.` : "No compatible unit"}
@@ -238,14 +237,11 @@ export function ShoppingListPanel({
 
                             return (
                               <div key={mk} className={`rounded-[10px] border px-2 py-1.5 ${isSelected ? "bg-rim border-ink-primary/30" : "bg-card border-rim"}`}>
-                                <div className="flex items-center gap-1">
-                                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[7px] font-bold text-white" style={{ background: marketPrices[mk].color }}>
-                                    {marketPrices[mk].logo}
-                                  </span>
-                                  <span className="font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted truncate">{marketPrices[mk].name.split(" ")[0]}</span>
-                                </div>
+                                <span className="w-6 h-6 rounded-[6px] flex items-center justify-center text-[7px] font-bold text-white shrink-0 overflow-hidden" style={{ background: marketPrices[mk].logoImg ? undefined : marketPrices[mk].color }}>
+                                  {marketPrices[mk].logoImg ? <img src={marketPrices[mk].logoImg} alt={marketPrices[mk].name} className="w-full h-full object-contain p-0.5" /> : marketPrices[mk].logo}
+                                </span>
                                 <div className={`font-dm text-[11px] tabular-nums mt-1 ${isCheapest ? "text-emerald-300" : "text-ink-secondary"} ${isSelected ? "font-medium" : ""}`}>
-                                  AED {productPrice.toFixed(2)}
+                                  د.إ {productPrice.toFixed(2)}
                                 </div>
                               </div>
                             );
@@ -270,7 +266,7 @@ export function ShoppingListPanel({
             </div>
             <div className="p-4 bg-card border-t border-rim/70 flex items-center justify-between">
               <span className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary">Estimated ingredient cost at {marketPrices[selectedMarket].name}</span>
-              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">AED {selectedTotal.toFixed(2)}</span>
+              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">د.إ {selectedTotal.toFixed(2)}</span>
             </div>
           </div>
         )}
@@ -283,8 +279,8 @@ export function ShoppingListPanel({
             <div className="mt-2 grid grid-cols-2 gap-2">
               {marketOrder.filter((mk) => mk !== selectedMarket).slice(0, 3).map((mk) => (
                 <a key={mk} href={marketPrices[mk].url} target="_blank" rel="noopener noreferrer" className="h-[36px] rounded-full bg-page border border-rim font-dm text-[10px] font-medium tracking-[0.08em] uppercase text-ink-secondary hover:border-rim-hover hover:text-ink-primary flex items-center justify-center gap-1.5 transition active:scale-[0.98]">
-                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white" style={{ background: marketPrices[mk].color }}>
-                    {marketPrices[mk].logo}
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white overflow-hidden" style={{ background: marketPrices[mk].logoImg ? undefined : marketPrices[mk].color }}>
+                    {marketPrices[mk].logoImg ? <img src={marketPrices[mk].logoImg} alt={marketPrices[mk].name} className="w-full h-full object-contain" /> : marketPrices[mk].logo}
                   </span>
                   {marketPrices[mk].name} ↗
                 </a>
@@ -295,8 +291,8 @@ export function ShoppingListPanel({
                 const market = marketPrices[mk];
                 return (
                   <a key={`foot-${mk}`} href={market.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-full bg-page border border-rim px-2.5 py-1 font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted hover:text-ink-secondary hover:border-rim-hover transition">
-                    <span className="w-3 h-3 rounded-full flex items-center justify-center text-[6px] text-white" style={{ background: market.color }}>
-                      {market.logo}
+                    <span className="w-3 h-3 rounded-full flex items-center justify-center text-[6px] text-white overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                      {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                     </span>
                     {market.name} ↗
                   </a>
@@ -309,7 +305,7 @@ export function ShoppingListPanel({
         <div className="mt-3 mx-1 rounded-[14px] bg-page border border-rim/60 px-4 py-3">
           <div className="font-dm text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted mb-1.5">Price estimate basis</div>
           <div className="font-dm text-[11px] leading-[1.6] text-ink-secondary">
-            Static estimate based on Dubai market data from Sep 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 AED/kg, Géant 45 AED/kg, Spinneys 59.25 AED; feta Spinneys 135 AED/kg, Géant 90 AED.
+            Static estimate based on Dubai market data from Sep 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 د.إ/kg, Géant 45 د.إ/kg, Spinneys 59.25 د.إ; feta Spinneys 135 د.إ/kg, Géant 90 د.إ.
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             <span className="inline-flex rounded-full bg-card border border-rim px-2.5 py-1 font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted">Carrefour UAE</span>

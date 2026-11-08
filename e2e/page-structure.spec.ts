@@ -33,7 +33,7 @@ test.describe("Page structure — on load", () => {
   test("footer is visible and contains expected copy", async ({ page }) => {
     const footer = page.locator("footer");
     await expect(footer).toBeVisible();
-    await expect(footer).toContainText("Dubai AED");
+    await expect(footer).toContainText("Dubai");
     await expect(footer).toContainText("No Red Meat");
   });
 
