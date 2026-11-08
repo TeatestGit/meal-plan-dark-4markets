@@ -98,7 +98,6 @@ export default function App() {
   const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
   const [selectedMarket, setSelectedMarket] = useState<MarketKey>("carrefour");
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   useEffect(() => { saveSet("shopping-set", shoppingSet); }, [shoppingSet]);
   useEffect(() => { saveSet("planned-meals", plannedMeals); }, [plannedMeals]);
@@ -483,11 +482,9 @@ export default function App() {
               selectedTotal={selectedTotal}
               savings={savings}
               mostExpensive={mostExpensive}
-              hoveredItem={hoveredItem}
               onSelectMarket={setSelectedMarket}
               onAddWholeWeek={addWholeWeekToList}
               onAddAllMeals={addAllMealsToList}
-              onHoverItem={setHoveredItem}
               onRemoveItem={(item) => {
                 setShoppingSet((prev) => {
                   const next = new Set(prev);

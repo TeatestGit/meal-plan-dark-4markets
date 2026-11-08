@@ -13,11 +13,9 @@ type ShoppingListPanelProps = {
   selectedTotal: number;
   savings: number;
   mostExpensive: { key: MarketKey; val: number };
-  hoveredItem: string | null;
   onSelectMarket: (market: MarketKey) => void;
   onAddWholeWeek: () => void;
   onAddAllMeals: () => void;
-  onHoverItem: (item: string | null) => void;
   onRemoveItem: (item: PricedItem) => void;
   onClearList: () => void;
 };
@@ -32,11 +30,9 @@ export function ShoppingListPanel({
   selectedTotal,
   savings,
   mostExpensive,
-  hoveredItem,
   onSelectMarket,
   onAddWholeWeek,
   onAddAllMeals,
-  onHoverItem,
   onRemoveItem,
   onClearList,
 }: ShoppingListPanelProps) {
@@ -192,69 +188,19 @@ export function ShoppingListPanel({
           <div className="rounded-[18px] bg-page border border-rim overflow-hidden min-w-0">
             <div className="overflow-y-auto max-h-[420px] divide-y divide-rim/70">
             {pricedItems.map((item, idx) => {
-              const selectedPrice = item.prices?.[selectedMarket];
-              const prices = item.prices;
-              const cheapestPrice = prices
-                ? Math.min(...marketOrder.map((marketKey) => prices[marketKey]))
-                : null;
-              const isHovered = hoveredItem === item.id;
-              const comparisonId = `market-comparison-${idx}`;
-
               return (
-                <div key={item.id} data-testid={testIds.listItem} data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0" onMouseEnter={() => onHoverItem(item.id)} onMouseLeave={() => onHoverItem(null)}>
+                <div key={item.id} data-testid={testIds.listItem} data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0">
                   <div className="flex gap-3 min-w-0">
                     <span className="font-newsreader text-[11px] text-ink-muted mt-[2px] italic tabular shrink-0">{String(idx + 1).padStart(2, "0")}</span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3 min-w-0">
                         <span className="font-dm text-[13px] leading-[1.5] text-ink-secondary flex-1 min-w-0 break-words">{item.original}</span>
-                        <span className="shrink-0 text-right">
-                          <span className="font-dm text-[13px] font-medium tabular-nums text-ink-primary">
-                            {selectedPrice == null ? "Not priced" : `est. AED ${Math.round(selectedPrice)}`}
+                        {item.unit && (
+                          <span className="shrink-0 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
+                            {item.unit}
                           </span>
-                          <span className="block font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
-                            {item.unit ? `${item.unit} · est.` : "No compatible unit"}
-                          </span>
-                        </span>
+                        )}
                       </div>
-                      {prices && (
-                        <button
-                          type="button"
-                          data-testid={testIds.comparePricesBtn}
-                          aria-expanded={isHovered}
-                          aria-controls={comparisonId}
-                          onClick={() => onHoverItem(isHovered ? null : item.id)}
-                          className="mt-2 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-secondary underline underline-offset-2"
-                        >
-                          {isHovered ? "Hide market prices" : "Compare market prices"}
-                        </button>
-                      )}
-                      {prices && (
-                        <div id={comparisonId} data-testid={testIds.priceComparison} hidden={!isHovered} className={`mt-2.5 grid grid-cols-4 gap-1.5 ${isHovered ? "" : "hidden"}`}>
-                          {marketOrder.map((mk) => {
-                            const productPrice = prices[mk];
-                            const isCheapest = productPrice === cheapestPrice;
-                            const isSelected = mk === selectedMarket;
-
-                            return (
-                              <div key={mk} className={`rounded-[10px] border px-2 py-1.5 ${isSelected ? "bg-rim border-ink-primary/30" : "bg-card border-rim"}`}>
-                                <span className="w-6 h-6 rounded-[6px] flex items-center justify-center text-[7px] font-bold text-white shrink-0 overflow-hidden" style={{ background: marketPrices[mk].logoImg ? undefined : marketPrices[mk].color }}>
-                                  {marketPrices[mk].logoImg ? <img src={marketPrices[mk].logoImg} alt={marketPrices[mk].name} className="w-full h-full object-contain p-0.5" /> : marketPrices[mk].logo}
-                                </span>
-                                <div className={`font-dm text-[11px] tabular-nums mt-1 ${isCheapest ? "text-emerald-300" : "text-ink-secondary"} ${isSelected ? "font-medium" : ""}`}>
-                                  ~{Math.round(productPrice)}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                      {!item.prices && (
-                        <div className="mt-1.5 flex items-center gap-2">
-                          <span className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted">
-                            No comparable market price for this quantity.
-                          </span>
-                        </div>
-                      )}
                     </div>
                     <button data-testid={testIds.itemRemoveBtn} onClick={() => onRemoveItem(item)} className="font-dm text-[11px] tracking-[0.08em] uppercase text-ink-muted hover:text-ink-primary md:opacity-0 md:group-hover:opacity-100 transition shrink-0 active:scale-[0.98] self-start mt-0.5">
                       remove

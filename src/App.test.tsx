@@ -28,18 +28,17 @@ describe('App', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
 
-    expect(screen.getAllByText('est. AED 13').length).toBeGreaterThan(0);
-    expect(screen.getByText('300g')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /compare market prices/i }));
-    expect(screen.getByRole('button', { name: /hide market prices/i })).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getAllByText('300g').length).toBeGreaterThan(0);
+    // per-ingredient prices are hidden; total badge shows est. AED
+    expect(screen.getByTestId('item-count-badge')).toHaveTextContent(/est\. AED/);
   });
 
   it('combines quantities for the same ingredient across selected meals', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'Add week' }));
 
-    // Priced items show "{amount}{unit} · est." — verify at least one combined quantity appears
-    expect(screen.getAllByText(/\d+g · est\./).length).toBeGreaterThan(0);
+    // Priced items show combined quantity in the row — verify at least one appears
+    expect(screen.getAllByText(/^\d+g$/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/est\. AED \d+/).length).toBeGreaterThan(0);
   });
 
@@ -146,16 +145,16 @@ describe('Plan switching', () => {
 });
 
 describe('Currency display', () => {
-  it('displays est. AED for ingredient prices', () => {
+  it('displays est. AED in the badge after selecting an ingredient', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
-    expect(screen.getAllByText('est. AED 13').length).toBeGreaterThan(0);
+    expect(screen.getByTestId('item-count-badge')).toHaveTextContent(/est\. AED/);
   });
 
-  it('displays est. AED in the shopping list total after Add week', () => {
+  it('displays est. AED in the market cards and total after Add week', () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('add-week-btn'));
-    expect(screen.getAllByText(/est\. AED \d+/).length).toBeGreaterThan(0);
+    expect(screen.getByTestId('market-card-carrefour')).toHaveTextContent(/est\. AED \d+/);
   });
 });
 

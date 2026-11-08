@@ -60,9 +60,6 @@ export const testIds = {
   // Shopping list — items
   listItem: "list-item",
   itemRemoveBtn: "item-remove-btn",
-  comparePricesBtn: "compare-prices-btn",
-  priceComparison: "price-comparison",
-
   // Markets
   marketPill: (mk: string) => `market-pill-${mk}`,
   marketCard: (mk: string) => `market-card-${mk}`,
