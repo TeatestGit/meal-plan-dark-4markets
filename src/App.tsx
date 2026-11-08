@@ -314,9 +314,9 @@ export default function App() {
                 <span className="font-instrument text-[16px] tracking-[-0.02em] text-ink-primary">2W</span>
               </div>
               <div className="hidden md:flex items-center gap-3 min-w-0">
-                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary">Editorial Lunch Series</span>
+                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary">Dubai Meal Planner</span>
                 <span className="w-px h-4 bg-rim" />
-                <span className="font-newsreader italic text-[14px] text-ink-muted">Kinfolk / Cereal · Dubai AED</span>
+                <span className="font-newsreader italic text-[14px] text-ink-muted">{planLabel} · AED · 4 Markets</span>
               </div>
             </div>
 
@@ -387,7 +387,7 @@ export default function App() {
           <div className="rounded-[20px] sm:rounded-[24px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] px-6 sm:px-10 lg:px-12 py-8 sm:py-12 lg:py-14 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 lg:gap-12 min-w-0 overflow-hidden">
             <div className="max-w-[30ch] min-w-0">
               <div className="mb-4 sm:mb-6">
-                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary break-words">Editorial Lunch Series · {planLabel} · Dubai Pricing</span>
+                <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary break-words">Dubai Meal Planner · {planLabel} · AED · 4 Markets</span>
               </div>
               <h1 className="font-newsreader italic font-normal text-[36px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.1] sm:leading-[1.02] lg:leading-[0.95] tracking-[-0.03em] text-ink-primary break-words">
                 2-Week Lunch<br />Plan
