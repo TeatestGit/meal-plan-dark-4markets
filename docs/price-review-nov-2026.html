@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dubai Price Review — Nov 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #f9f9f8; --surface: #ffffff; --border: #e5e5e3;
+    --fg: #1a1a18; --fg-muted: #6b6b68;
+    --up: #c0392b; --down: #16a34a; --warn: #b45309; --warn-bg: #fffbeb;
+    --high-bg: #f0fdf4; --high-fg: #15803d;
+    --med-bg: #eff6ff;  --med-fg: #1d4ed8;
+    --low-bg: #fff7ed;  --low-fg: #c2410c;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111110; --surface: #1c1c1a; --border: #2e2e2b;
+      --fg: #f0efed; --fg-muted: #8a8a85;
+      --up: #f87171; --down: #4ade80; --warn: #fbbf24; --warn-bg: #1c1a0e;
+      --high-bg: #0a1f0e; --high-fg: #4ade80;
+      --med-bg: #0d1626;  --med-fg: #93c5fd;
+      --low-bg: #1f130a;  --low-fg: #fb923c;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: 'Inter', system-ui, sans-serif; font-size: 14px; line-height: 1.5;
+    padding: 32px max(16px, 5vw);
+  }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .subtitle { color: var(--fg-muted); font-size: 13px; margin-bottom: 28px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  }
+  .badge.high { background: var(--high-bg); color: var(--high-fg); }
+  .badge.med  { background: var(--med-bg);  color: var(--med-fg); }
+  .badge.low  { background: var(--low-bg);  color: var(--low-fg); }
+  .note-box {
+    background: var(--warn-bg); border: 1px solid var(--border);
+    border-left: 3px solid var(--warn); border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 24px; color: var(--fg-muted); font-size: 12px; line-height: 1.6;
+  }
+  section { margin-bottom: 32px; }
+  section h2 {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--fg-muted); margin: 0 0 10px;
+  }
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; min-width: 580px; }
+  thead th {
+    background: var(--surface); padding: 9px 12px; text-align: left;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--fg-muted); border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface); }
+  td { padding: 9px 12px; vertical-align: middle; }
+  td.item { font-weight: 500; }
+  td.unit { color: var(--fg-muted); font-size: 12px; white-space: nowrap; }
+  td.mono {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .arrow-up   { color: var(--up); }
+  .arrow-down { color: var(--down); }
+  .arrow-flat { color: var(--fg-muted); }
+  .delta { font-size: 11px; }
+  .no-data { color: var(--fg-muted); font-style: italic; font-size: 12px; }
+  .skip-list { color: var(--fg-muted); font-size: 13px; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<h1>Dubai Supermarket Price Review</h1>
+<p class="subtitle">Suggested updates vs. <code>src/data/prices.ts</code> — Nov 2026 · Sources: carrefouruae.com, luluhypermarket.com, spinneys.com product pages + two price-comparison blogs · Géant: no data found online</p>
+
+<div class="note-box">
+  <strong>How to read this:</strong> Values come from product pages (Nov 2026) and price-comparison blogs (early/mid 2026). Blog-derived figures may reflect budget or promotional prices. Géant prices not found online — existing estimates kept. Verify large changes (maple syrup, walnuts, almonds, almond milk) in-store before applying.
+</div>
+
+<div class="legend">
+  <span class="badge high">● High — product page</span>
+  <span class="badge med">● Medium — 2+ sources</span>
+  <span class="badge low">● Low — 1 source / extrapolated</span>
+</div>
+
+<section>
+  <h2>Protein &amp; Dairy</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Unit</th><th>Conf.</th><th>Carrefour old→new</th><th>LuLu old→new</th><th>Spinneys old→new</th><th>Géant</th></tr></thead>
+    <tbody>
+      <tr><td class="item">chicken breast</td><td class="unit">kg</td><td><span class="badge low">Low</span></td><td class="mono">42 → <strong>48</strong> <span class="arrow-up delta">▲</span></td><td class="mono">38 → <strong>35</strong> <span class="arrow-down delta">▼</span></td><td class="mono">59.25 → <strong>55</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">45 (keep)</td></tr>
+      <tr><td class="item">salmon</td><td class="unit">kg</td><td><span class="badge low">Low</span></td><td class="mono">89 → <strong>115</strong> <span class="arrow-up delta">▲</span></td><td class="mono">85 → <strong>92</strong> <span class="arrow-up delta">▲</span></td><td class="mono">110 → <strong>136</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">96 (keep)</td></tr>
+      <tr><td class="item">smoked salmon</td><td class="unit">100g</td><td><span class="badge high">High</span></td><td class="mono">22 → <strong>23</strong> <span class="arrow-flat delta">→</span></td><td class="mono">19.5 → <strong>28</strong> <span class="arrow-up delta">▲</span></td><td class="mono">29 → <strong>25</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">24 (keep)</td></tr>
+      <tr><td class="item">halloumi</td><td class="unit">250g</td><td><span class="badge high">High</span></td><td class="mono">18.5 → <strong>17</strong> <span class="arrow-down delta">▼</span></td><td class="mono">16.5 → <strong>20</strong> <span class="arrow-up delta">▲</span></td><td class="mono">25 → <strong>22</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">19.5 (keep)</td></tr>
+      <tr><td class="item">feta</td><td class="unit">kg</td><td><span class="badge high">High</span></td><td class="mono">85 → <strong>95</strong> <span class="arrow-up delta">▲</span></td><td class="mono">78 → <strong>80</strong> <span class="arrow-flat delta">→</span></td><td class="mono">135 → <strong>110</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">90 (keep)</td></tr>
+      <tr><td class="item">eggs</td><td class="unit">12 pcs</td><td><span class="badge med">Med</span></td><td class="mono">18 → <strong>10</strong> <span class="arrow-down delta">▼</span></td><td class="mono">16 → <strong>8</strong> <span class="arrow-down delta">▼</span></td><td class="mono">23 → <strong>12</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">19.5 (keep)</td></tr>
+      <tr><td class="item">milk</td><td class="unit">1L</td><td><span class="badge med">Med</span></td><td class="mono">4.5 → <strong>6.5</strong> <span class="arrow-up delta">▲</span></td><td class="mono">4 → <strong>6.25</strong> <span class="arrow-up delta">▲</span></td><td class="mono">6 → <strong>7.75</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">5 (keep)</td></tr>
+      <tr><td class="item">almond milk</td><td class="unit">1L</td><td><span class="badge high">High</span></td><td class="mono">12.5 → <strong>20.5</strong> <span class="arrow-up delta">▲</span></td><td class="mono">11 → <strong>18</strong> <span class="arrow-up delta">▲</span></td><td class="mono">16.5 → <strong>22</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">13.5 (keep)</td></tr>
+      <tr><td class="item">cheddar</td><td class="unit">200g</td><td><span class="badge med">Med</span></td><td class="mono">11.5 → <strong>12</strong> <span class="arrow-flat delta">→</span></td><td class="mono">10 → <strong>11</strong> <span class="arrow-flat delta">→</span></td><td class="mono">15 → <strong>16.5</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">12.5 (keep)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Pantry &amp; Staples</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Unit</th><th>Conf.</th><th>Carrefour old→new</th><th>LuLu old→new</th><th>Spinneys old→new</th><th>Géant</th></tr></thead>
+    <tbody>
+      <tr><td class="item">maple syrup</td><td class="unit">250ml</td><td><span class="badge high">High</span></td><td class="mono">28 → <strong>64</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono">24.5 → <strong>58</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono">36 → <strong>72</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono no-data">30 → <strong>65</strong></td></tr>
+      <tr><td class="item">olive oil</td><td class="unit">500ml</td><td><span class="badge med">Med</span></td><td class="mono">26 → <strong>25</strong> <span class="arrow-flat delta">→</span></td><td class="mono">24 → <strong>18</strong> <span class="arrow-down delta">▼</span></td><td class="mono">32 → <strong>25</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">28 (keep)</td></tr>
+      <tr><td class="item">rolled oats</td><td class="unit">500g</td><td><span class="badge med">Med</span></td><td class="mono">7.5 → <strong>10</strong> <span class="arrow-up delta">▲</span></td><td class="mono">6.5 → <strong>9</strong> <span class="arrow-up delta">▲</span></td><td class="mono">10 → <strong>12</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">8 (keep)</td></tr>
+      <tr><td class="item">quinoa</td><td class="unit">500g</td><td><span class="badge med">Med</span></td><td class="mono">18.5 → <strong>28</strong> <span class="arrow-up delta">▲</span></td><td class="mono">16.9 → <strong>25</strong> <span class="arrow-up delta">▲</span></td><td class="mono">22.5 → <strong>35</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">19.5 → <strong>30</strong></td></tr>
+      <tr><td class="item">chia seeds</td><td class="unit">150g</td><td><span class="badge high">High</span></td><td class="mono">14 → <strong>23</strong> <span class="arrow-up delta">▲</span></td><td class="mono">12.5 → <strong>21</strong> <span class="arrow-up delta">▲</span></td><td class="mono">18 → <strong>26</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">15.5 → <strong>24</strong></td></tr>
+      <tr><td class="item">capers</td><td class="unit">100g</td><td><span class="badge high">High</span></td><td class="mono">9.5 → <strong>6.5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">8.2 → <strong>6</strong> <span class="arrow-down delta">▼</span></td><td class="mono">12.5 → <strong>10</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">10.3 → <strong>9</strong></td></tr>
+      <tr><td class="item">lentils</td><td class="unit">500g</td><td><span class="badge low">Low</span></td><td class="mono">6.5 → <strong>5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">5.5 → <strong>4.5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">8.5 → <strong>7</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">7 (keep)</td></tr>
+      <tr><td class="item">chickpeas</td><td class="unit">400g can</td><td><span class="badge med">Med</span></td><td class="mono">3.5 → <strong>4</strong> <span class="arrow-flat delta">→</span></td><td class="mono">2.95 → <strong>3.5</strong> <span class="arrow-up delta">▲</span></td><td class="mono">4.5 → <strong>5</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">3.8 (keep)</td></tr>
+      <tr><td class="item">hummus</td><td class="unit">250g</td><td><span class="badge low">Low</span></td><td class="mono">8.5 → <strong>10</strong> <span class="arrow-up delta">▲</span></td><td class="mono">7.5 → <strong>9</strong> <span class="arrow-up delta">▲</span></td><td class="mono">12 → <strong>14</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">9.2 (keep)</td></tr>
+      <tr><td class="item">sourdough</td><td class="unit">loaf</td><td><span class="badge low">Low</span></td><td class="mono">16 → <strong>14</strong> <span class="arrow-down delta">▼</span></td><td class="mono">14 → <strong>13</strong> <span class="arrow-flat delta">→</span></td><td class="mono">22 → <strong>20</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">17.3 (keep)</td></tr>
+      <tr><td class="item">bagels</td><td class="unit">4 pcs</td><td><span class="badge low">Low</span></td><td class="mono">12 → <strong>19</strong> <span class="arrow-up delta">▲</span></td><td class="mono">10.5 → <strong>17</strong> <span class="arrow-up delta">▲</span></td><td class="mono">16 → <strong>22</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">13 → <strong>18</strong></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Nuts, Produce &amp; Other</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Unit</th><th>Conf.</th><th>Carrefour old→new</th><th>LuLu old→new</th><th>Spinneys old→new</th><th>Géant</th></tr></thead>
+    <tbody>
+      <tr><td class="item">walnuts</td><td class="unit">200g</td><td><span class="badge high">High</span></td><td class="mono">15 → <strong>28</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono">13.5 → <strong>26</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono">20 → <strong>35</strong> <span class="arrow-up delta">▲▲</span></td><td class="mono no-data">16 → <strong>30</strong></td></tr>
+      <tr><td class="item">almonds</td><td class="unit">200g</td><td><span class="badge high">High</span></td><td class="mono">14 → <strong>22</strong> <span class="arrow-up delta">▲</span></td><td class="mono">12.5 → <strong>20</strong> <span class="arrow-up delta">▲</span></td><td class="mono">19 → <strong>26</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">15 → <strong>23</strong></td></tr>
+      <tr><td class="item">avocado</td><td class="unit">each</td><td><span class="badge med">Med</span></td><td class="mono">6.5 → <strong>5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">6 → <strong>7.5</strong> <span class="arrow-up delta">▲</span></td><td class="mono">9 → <strong>9</strong> <span class="arrow-flat delta">→</span></td><td class="mono no-data">7 (keep)</td></tr>
+      <tr><td class="item">banana</td><td class="unit">kg</td><td><span class="badge med">Med</span></td><td class="mono">8 → <strong>7</strong> <span class="arrow-down delta">▼</span></td><td class="mono">7 → <strong>5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">11 → <strong>7.5</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">8.5 (keep)</td></tr>
+      <tr><td class="item">tomatoes</td><td class="unit">kg</td><td><span class="badge med">Med</span></td><td class="mono">7.5 → <strong>6.5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">6.5 → <strong>5.5</strong> <span class="arrow-down delta">▼</span></td><td class="mono">10.5 → <strong>9</strong> <span class="arrow-down delta">▼</span></td><td class="mono no-data">8 (keep)</td></tr>
+      <tr><td class="item">granola</td><td class="unit">300g</td><td><span class="badge low">Low</span></td><td class="mono">16.5 → <strong>18</strong> <span class="arrow-up delta">▲</span></td><td class="mono">14.5 → <strong>17</strong> <span class="arrow-up delta">▲</span></td><td class="mono">22 → <strong>24</strong> <span class="arrow-up delta">▲</span></td><td class="mono no-data">17.5 → <strong>20</strong></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>No change suggested</h2>
+  <p class="skip-list">
+    chicken thigh · rotisserie chicken · turkey breast · shrimp · tuna canned · greek yogurt · mint yogurt ·
+    cannellini beans · black beans · couscous · freekeh · sushi rice · whole wheat wrap · edamame ·
+    harissa · dijon · sesame · cumin · turmeric · paprika · za'atar · cucumber · sun-dried tomatoes ·
+    lemon · parsley · cilantro · mint · rocket · carrots · celery · bell pepper · corn · kalamata olives ·
+    green olives · honeycrisp apple · apple · garlic · red onion · onion · honey · lime · ginger ·
+    whole-grain bread · bread · soy sauce · lettuce · mixed leaves · vegetable stock · jasmine rice ·
+    crackers · apple cider vinegar · salt · black pepper · mixed berries · butter
+  </p>
+</section>
+
+</body>
+</html>
