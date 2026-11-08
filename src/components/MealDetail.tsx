@@ -125,7 +125,7 @@ export function MealDetail({
                     </span>
                     <span className="ml-auto pl-3 flex flex-col items-end shrink-0">
                       <span className={`font-dm text-[13px] tabular-nums font-medium ${inList ? "text-ink-primary" : "text-ink-secondary"}`}>
-                        {price == null ? "N/A" : `⃃ ${price.toFixed(2)}`}
+                        {price == null ? "N/A" : `AED ${price.toFixed(2)}`}
                       </span>
                       <span className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">{unit}</span>
                     </span>

@@ -17,21 +17,21 @@ test.describe("Ingredient pricing — no PRICE UNAVAILABLE regressions", () => {
     const rows = page.getByTestId(sel.ingredientRow);
     const harisaRow = rows.filter({ hasText: "harissa paste" });
     await expect(harisaRow).not.toContainText("PRICE UNAVAILABLE");
-    await expect(harisaRow).toContainText("⃃");
+    await expect(harisaRow).toContainText("AED");
   });
 
   test("lemon shows a price (each-based unit fix)", async ({ page }) => {
     const rows = page.getByTestId(sel.ingredientRow);
     const lemonRow = rows.filter({ hasText: "lemon" });
     await expect(lemonRow.first()).not.toContainText("PRICE UNAVAILABLE");
-    await expect(lemonRow.first()).toContainText("⃃");
+    await expect(lemonRow.first()).toContainText("AED");
   });
 
   test("olive oil shows a price (tbsp→ml vs 500ml price)", async ({ page }) => {
     const rows = page.getByTestId(sel.ingredientRow);
     const oilRow = rows.filter({ hasText: "olive oil" });
     await expect(oilRow.first()).not.toContainText("PRICE UNAVAILABLE");
-    await expect(oilRow.first()).toContainText("⃃");
+    await expect(oilRow.first()).toContainText("AED");
   });
 
   test("at most 3 unpriceable garnish ingredients across Week 1 meal 1", async ({ page }) => {
