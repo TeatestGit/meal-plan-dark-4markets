@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { Meal } from "../types";
-import { formatIngredientQuantity, type IngredientCost } from "../pricing";
+import { formatIngredientQuantity, parseIngredientQuantity, type IngredientCost } from "../pricing";
 import { testIds } from "../testIds";
 
 type MealDetailProps = {
@@ -97,7 +97,8 @@ export function MealDetail({
               {selectedMeal.ingredients.map((ingredient, idx) => {
                 const inList = shoppingSet.has(`${selectedMeal.id}:${idx}`);
                 const priceInfo = getIngredientPrice(ingredient);
-                const unit = priceInfo ? formatIngredientQuantity(priceInfo.quantity) : null;
+                const qty = priceInfo?.quantity ?? parseIngredientQuantity(ingredient);
+                const unit = qty ? formatIngredientQuantity(qty) : null;
 
                 return (
                   <button
