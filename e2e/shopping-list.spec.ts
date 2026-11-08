@@ -57,6 +57,20 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.savingsBanner)).toBeVisible();
   });
 
+  test("savings banner uses dirham sign (U+20C3) not AED", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const banner = page.getByTestId(sel.savingsBanner);
+    await expect(banner).toContainText("⃃");
+    await expect(banner).not.toContainText("AED");
+  });
+
+  test("market card total and fee use dirham sign (U+20C3) not AED", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const card = page.getByTestId(sel.marketCard("carrefour"));
+    await expect(card).toContainText("⃃");
+    await expect(card).not.toContainText("AED");
+  });
+
   test("copy button is visible", async ({ page }) => {
     await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
   });
