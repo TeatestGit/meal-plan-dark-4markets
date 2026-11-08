@@ -67,6 +67,28 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.marketCard("carrefour"))).toContainText("AED");
   });
 
+  test("all four market cards show logo images (no market name text)", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const markets = [
+      { key: "carrefour", name: "Carrefour" },
+      { key: "lulu",      name: "LuLu Hyper" },
+      { key: "spinneys",  name: "Spinneys" },
+      { key: "geant",     name: "Géant" },
+    ];
+    for (const { key, name } of markets) {
+      const card = page.getByTestId(sel.marketCard(key));
+      await expect(card.locator(`img[alt="${name}"]`)).toBeVisible();
+      await expect(card).not.toContainText(name);
+    }
+  });
+
+  test("market pill tabs show all four market names", async ({ page }) => {
+    await expect(page.getByTestId(sel.marketPill("carrefour"))).toContainText("Carrefour");
+    await expect(page.getByTestId(sel.marketPill("lulu"))).toContainText("LuLu");
+    await expect(page.getByTestId(sel.marketPill("spinneys"))).toContainText("Spinneys");
+    await expect(page.getByTestId(sel.marketPill("geant"))).toContainText("Géant");
+  });
+
   test("copy button is visible", async ({ page }) => {
     await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
   });

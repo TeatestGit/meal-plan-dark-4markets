@@ -171,18 +171,41 @@ describe('Currency display', () => {
 });
 
 describe('Market card logo', () => {
-  it('market cards show logo images and not the market name text', () => {
+  const markets = [
+    { key: 'carrefour', name: 'Carrefour' },
+    { key: 'lulu',      name: 'LuLu Hyper' },
+    { key: 'spinneys',  name: 'Spinneys' },
+    { key: 'geant',     name: 'Géant' },
+  ] as const;
+
+  it('all market cards show a logo image after Add week', () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('add-week-btn'));
-    const carrefourCard = screen.getByTestId('market-card-carrefour');
-    expect(carrefourCard.querySelector('img[alt="Carrefour"]')).toBeTruthy();
-    // name text should not appear inside the card
-    expect(carrefourCard).not.toHaveTextContent('Carrefour');
+    for (const { key, name } of markets) {
+      const card = screen.getByTestId(`market-card-${key}`);
+      expect(card.querySelector(`img[alt="${name}"]`)).toBeTruthy();
+    }
   });
 
-  it('market pill tabs still show market names', () => {
+  it('market card header shows no market name text (logo-only)', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    for (const { key, name } of markets) {
+      expect(screen.getByTestId(`market-card-${key}`)).not.toHaveTextContent(name);
+    }
+  });
+
+  it('market pill tabs show all four market names', () => {
     render(<App />);
     expect(screen.getByTestId('market-pill-carrefour')).toHaveTextContent('Carrefour');
     expect(screen.getByTestId('market-pill-lulu')).toHaveTextContent('LuLu');
+    expect(screen.getByTestId('market-pill-spinneys')).toHaveTextContent('Spinneys');
+    expect(screen.getByTestId('market-pill-geant')).toHaveTextContent('Géant');
+  });
+
+  it('AED appears in market card price total', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    expect(screen.getByTestId('market-card-carrefour')).toHaveTextContent(/AED/);
   });
 });
