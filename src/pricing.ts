@@ -71,7 +71,7 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
     return { amount, unit: "count" };
   }
 
-  if (/\b(?:cans?|pieces?|pcs|wraps?|bagels?|eggs?|cloves?|avocados?|apples?|lemons?|limes?|onions?|carrots?|each)\b/i.test(rest)) {
+  if (/\b(?:cans?|pieces?|pcs|slices?|wraps?|bagels?|eggs?|cloves?|avocados?|apples?|lemons?|limes?|onions?|carrots?|each)\b/i.test(rest)) {
     return { amount, unit: "count" };
   }
 
