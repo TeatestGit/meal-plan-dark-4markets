@@ -89,22 +89,9 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.marketPill("geant"))).toContainText("Géant");
   });
 
-  test("copy button is visible", async ({ page }) => {
-    await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
-  });
-
-  test("clear list button is in the action row (after copy button)", async ({ page }) => {
+  test("clear list button is in the action row", async ({ page }) => {
     const row = page.getByTestId(sel.actionRow);
     await expect(row.getByTestId(sel.clearListBtn)).toBeVisible();
-  });
-
-  test("clear list button appears after copy button in DOM order", async ({ page }) => {
-    const buttons = page.getByTestId(sel.actionRow).locator("button");
-    const labels = await buttons.allTextContents();
-    const copyIdx = labels.findIndex(t => t.trim() === "Copy");
-    const clearIdx = labels.findIndex(t => t.trim() === "Clear list");
-    expect(copyIdx).toBeGreaterThanOrEqual(0);
-    expect(clearIdx).toBeGreaterThan(copyIdx);
   });
 
   test("remove button removes an item from the list", async ({ page }) => {

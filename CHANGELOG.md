@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-08 — Remove Copy button
+
+- **feat**: Removed Copy-to-clipboard button from ShoppingListPanel (unused; no current sharing flow)
+- **refactor**: Removed `copyList` async function, `copied`/`copyFailed` state, and all prop plumbing in `App.tsx`
+- **refactor**: Removed `onCopyList`, `copied`, `copyFailed` from `ShoppingListPanel` props
+- **refactor**: Removed `copyBtn` test-id from `testIds.ts`
+- **test**: Removed all copy-button unit and e2e assertions
+
 ## 2026-11-08 — Hypermarket logos, dirham sign, tests
 
 - **feat**: Real logo images for all 4 hypermarkets (Carrefour, LuLu, Spinneys, Géant) under `src/assets/hypermarkets/`; white circle background on logo containers

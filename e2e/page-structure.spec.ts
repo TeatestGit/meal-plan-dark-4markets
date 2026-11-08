@@ -126,10 +126,6 @@ test.describe("Page structure — on load", () => {
     await expect(page.getByTestId(sel.addAllBtn)).toBeVisible();
   });
 
-  test("'Copy' button is visible", async ({ page }) => {
-    await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
-  });
-
   test("empty state is shown before any items are added", async ({ page }) => {
     await expect(page.getByTestId(sel.emptyState)).toBeVisible();
   });

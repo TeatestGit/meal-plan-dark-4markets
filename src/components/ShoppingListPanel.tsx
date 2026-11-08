@@ -15,12 +15,9 @@ type ShoppingListPanelProps = {
   onSelectMarket: (market: MarketKey) => void;
   onAddWholeWeek: () => void;
   onAddAllMeals: () => void;
-  onCopyList: () => void;
   onHoverItem: (item: string | null) => void;
   onRemoveItem: (item: PricedItem) => void;
   onClearList: () => void;
-  copied: boolean;
-  copyFailed: boolean;
 };
 
 export function ShoppingListPanel({
@@ -37,12 +34,9 @@ export function ShoppingListPanel({
   onSelectMarket,
   onAddWholeWeek,
   onAddAllMeals,
-  onCopyList,
   onHoverItem,
   onRemoveItem,
   onClearList,
-  copied,
-  copyFailed,
 }: ShoppingListPanelProps) {
   const hasPrices = pricedItems.some((item) => item.prices !== null);
 
@@ -157,9 +151,6 @@ export function ShoppingListPanel({
           </button>
           <button data-testid={testIds.addAllBtn} onClick={onAddAllMeals} className="sm:flex-1 h-[44px] sm:h-[36px] rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
             Add all
-          </button>
-          <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-3 sm:px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] sm:shrink-0">
-            {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
           </button>
           <button data-testid={testIds.clearListBtn} onClick={onClearList} className="h-[44px] sm:h-[36px] px-3 sm:px-5 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] sm:shrink-0">
             Clear list

@@ -53,7 +53,6 @@ export const testIds = {
   actionRow: "action-row",
   addWeekBtn: "add-week-btn",
   addAllBtn: "add-all-btn",
-  copyBtn: "copy-btn",
   clearListBtn: "clear-list-btn",
   emptyState: "empty-state",
   itemCountBadge: "item-count-badge",

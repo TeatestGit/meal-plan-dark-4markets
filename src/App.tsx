@@ -97,8 +97,6 @@ export default function App() {
   const [shoppingSet, setShoppingSet] = useState<Set<string>>(() => loadSet("shopping-set"));
   const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
-  const [copied, setCopied] = useState(false);
-  const [copyFailed, setCopyFailed] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<MarketKey>("carrefour");
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -281,27 +279,6 @@ export default function App() {
       planMeals.forEach((meal) => next.add(meal.id));
       return next;
     });
-  };
-
-  const copyList = async () => {
-    const text =
-      `Shopping list — ${shoppingListItems.length} items — ${marketPrices[selectedMarket].name} AED ${selectedTotal.toFixed(2)}\n\n` +
-      shoppingListItems.map((item) =>
-        `· ${item.original} ${item.unit ? `(${item.unit})` : ""} — ${item.prices ? `AED ${item.prices[selectedMarket]}` : "price unavailable"}`
-      ).join("\n") +
-      `\n\nEstimated total for priced quantities at ${marketPrices[selectedMarket].name}: AED ${selectedTotal.toFixed(2)}` +
-      (shoppingListItems.some((item) => !item.prices) ? "\nSome ingredients are excluded because no compatible price is available." : "");
-
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopyFailed(false);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-      setCopyFailed(true);
-      window.setTimeout(() => setCopyFailed(false), 3000);
-    }
   };
 
   return (
@@ -508,7 +485,6 @@ export default function App() {
               onSelectMarket={setSelectedMarket}
               onAddWholeWeek={addWholeWeekToList}
               onAddAllMeals={addAllMealsToList}
-              onCopyList={() => { void copyList(); }}
               onHoverItem={setHoveredItem}
               onRemoveItem={(item) => {
                 setShoppingSet((prev) => {
@@ -518,8 +494,6 @@ export default function App() {
                 });
               }}
               onClearList={() => setShoppingSet(new Set())}
-              copied={copied}
-              copyFailed={copyFailed}
             />
           </div>
         </div>

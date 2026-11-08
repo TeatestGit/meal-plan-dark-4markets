@@ -43,18 +43,6 @@ describe('App', () => {
     expect(screen.getAllByText(/AED \d+\.\d\d/).length).toBeGreaterThan(0);
   });
 
-  it('reports clipboard failures instead of showing success', async () => {
-    Object.defineProperty(navigator, 'clipboard', {
-      configurable: true,
-      value: { writeText: vi.fn().mockRejectedValue(new Error('permission denied')) },
-    });
-
-    render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
-
-    expect(await screen.findByRole('button', { name: 'Copy failed' })).toBeInTheDocument();
-  });
-
   it('filters meals by ingredient keyword', () => {
     render(<App />);
     fireEvent.change(screen.getByPlaceholderText(/search lunches/i), {
