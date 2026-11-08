@@ -1,6 +1,8 @@
 import type { MarketKey, MarketInfo, PricedItem } from "../types";
 import { testIds } from "../testIds";
 
+const roundToNearest5 = (val: number) => Math.round(val / 5) * 5;
+
 type ShoppingListPanelProps = {
   pricedItems: PricedItem[];
   selectedMarket: MarketKey;
@@ -46,11 +48,18 @@ export function ShoppingListPanel({
         <div className="flex items-center justify-between gap-3 min-w-0">
           <h3 className="font-instrument text-[18px] text-ink-primary">Grocery &amp; shopping</h3>
           <span data-testid={testIds.itemCountBadge} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page border border-rim rounded-full px-3 py-1 tabular shrink-0">
-            {pricedItems.length} items · {hasPrices ? `AED ${selectedTotal.toFixed(2)}` : "No prices"}
+            {pricedItems.length} items · {hasPrices ? `est. AED ${roundToNearest5(selectedTotal)}` : "No prices"}
           </span>
         </div>
 
-        <div className="mt-5 -mx-1">
+        <div className="mt-3 rounded-[10px] bg-amber-500/10 border border-amber-500/20 px-3 py-2 flex items-center gap-2">
+          <span className="text-amber-400 text-[13px] shrink-0">~</span>
+          <span className="font-dm text-[10px] tracking-[0.04em] text-amber-300/80 leading-[1.5]">
+            Prices are estimates based on Dubai market data (Sep 2026) — actual in-store prices may differ.
+          </span>
+        </div>
+
+        <div className="mt-4 -mx-1">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 px-1 snap-x snap-mandatory">
             {marketOrder.map((mk) => {
               const market = marketPrices[mk];
@@ -115,7 +124,7 @@ export function ShoppingListPanel({
                     {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0" />}
                   </div>
                   <div className={`font-dm text-[16px] font-medium tabular-nums mt-2 ${isSelected ? "text-ink-primary" : "text-ink-secondary"}`}>
-                    AED {total.toFixed(2)}
+                    est. AED {roundToNearest5(total)}
                   </div>
                   <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5 whitespace-nowrap">
                     {market.fee} fee
@@ -140,7 +149,7 @@ export function ShoppingListPanel({
           <div data-testid={testIds.savingsBanner} className="mt-3 rounded-[12px] bg-[#1a2e1e]/60 border border-[#2a4a2e]/60 px-4 py-2.5 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-[#2a5a30] flex items-center justify-center text-[11px] text-emerald-200">↘</span>
             <span className="font-dm text-[11px] tracking-[0.04em] text-emerald-200/90">
-              Save <span className="font-medium tabular-nums text-emerald-100">AED {savings.toFixed(2)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
+              Save approx. <span className="font-medium tabular-nums text-emerald-100">est. AED {roundToNearest5(savings)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
             </span>
           </div>
         )}
@@ -200,7 +209,7 @@ export function ShoppingListPanel({
                         <span className="font-dm text-[13px] leading-[1.5] text-ink-secondary flex-1 min-w-0 break-words">{item.original}</span>
                         <span className="shrink-0 text-right">
                           <span className="font-dm text-[13px] font-medium tabular-nums text-ink-primary">
-                            {selectedPrice == null ? "Not priced" : `AED ${selectedPrice.toFixed(2)}`}
+                            {selectedPrice == null ? "Not priced" : `est. AED ${Math.round(selectedPrice)}`}
                           </span>
                           <span className="block font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
                             {item.unit ? `${item.unit} · est.` : "No compatible unit"}
@@ -232,7 +241,7 @@ export function ShoppingListPanel({
                                   {marketPrices[mk].logoImg ? <img src={marketPrices[mk].logoImg} alt={marketPrices[mk].name} className="w-full h-full object-contain p-0.5" /> : marketPrices[mk].logo}
                                 </span>
                                 <div className={`font-dm text-[11px] tabular-nums mt-1 ${isCheapest ? "text-emerald-300" : "text-ink-secondary"} ${isSelected ? "font-medium" : ""}`}>
-                                  AED {productPrice.toFixed(2)}
+                                  ~{Math.round(productPrice)}
                                 </div>
                               </div>
                             );
@@ -257,7 +266,7 @@ export function ShoppingListPanel({
             </div>
             <div className="p-4 bg-card border-t border-rim/70 flex items-center justify-between">
               <span className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary">Estimated ingredient cost at {marketPrices[selectedMarket].name}</span>
-              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">AED {selectedTotal.toFixed(2)}</span>
+              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">est. AED {roundToNearest5(selectedTotal)}</span>
             </div>
           </div>
         )}

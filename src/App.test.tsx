@@ -28,7 +28,7 @@ describe('App', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
 
-    expect(screen.getAllByText('AED 12.60').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('est. AED 13').length).toBeGreaterThan(0);
     expect(screen.getByText('300g')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /compare market prices/i }));
     expect(screen.getByRole('button', { name: /hide market prices/i })).toHaveAttribute('aria-expanded', 'true');
@@ -40,7 +40,7 @@ describe('App', () => {
 
     // Priced items show "{amount}{unit} · est." — verify at least one combined quantity appears
     expect(screen.getAllByText(/\d+g · est\./).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/AED \d+\.\d\d/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/est\. AED \d+/).length).toBeGreaterThan(0);
   });
 
   it('filters meals by ingredient keyword', () => {
@@ -146,16 +146,16 @@ describe('Plan switching', () => {
 });
 
 describe('Currency display', () => {
-  it('displays AED for ingredient prices', () => {
+  it('displays est. AED for ingredient prices', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
-    expect(screen.getAllByText('AED 12.60').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('est. AED 13').length).toBeGreaterThan(0);
   });
 
-  it('displays AED in the shopping list total after Add week', () => {
+  it('displays est. AED in the shopping list total after Add week', () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('add-week-btn'));
-    expect(screen.getAllByText(/AED \d+\.\d\d/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/est\. AED \d+/).length).toBeGreaterThan(0);
   });
 });
 
