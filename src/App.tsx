@@ -444,7 +444,6 @@ export default function App() {
                 activeStepIdx={activeStepIdx}
                 shoppingSet={shoppingSet}
                 plannedMeals={plannedMeals}
-                selectedMarket={selectedMarket}
                 onTabChange={setTab}
                 onToggleIngredient={(index) => toggleIngredientInList(selectedMeal, index)}
                 onAddMealToList={addMealToList}
