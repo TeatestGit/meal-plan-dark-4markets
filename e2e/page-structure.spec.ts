@@ -33,7 +33,7 @@ test.describe("Page structure — on load", () => {
   test("footer is visible and contains expected copy", async ({ page }) => {
     const footer = page.locator("footer");
     await expect(footer).toBeVisible();
-    await expect(footer).toContainText("Dubai AED");
+    await expect(footer).toContainText("Dubai");
     await expect(footer).toContainText("No Red Meat");
   });
 
@@ -126,10 +126,6 @@ test.describe("Page structure — on load", () => {
     await expect(page.getByTestId(sel.addAllBtn)).toBeVisible();
   });
 
-  test("'Copy' button is visible", async ({ page }) => {
-    await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
-  });
-
   test("empty state is shown before any items are added", async ({ page }) => {
     await expect(page.getByTestId(sel.emptyState)).toBeVisible();
   });
@@ -185,19 +181,6 @@ test.describe("Page structure — after adding items", () => {
     await expect(page.getByTestId(sel.itemRemoveBtn).first()).toBeAttached();
   });
 
-  test("compare prices button is visible on list items", async ({ page }) => {
-    await expect(page.getByTestId(sel.comparePricesBtn).first()).toBeVisible();
-  });
-
-  test("price comparison grid appears after clicking compare button", async ({ page, viewport }) => {
-    // On narrow viewports the shopping panel scrolls below the fold; skip there
-    if ((viewport?.width ?? 0) < 768) return;
-    const compBtn = page.getByTestId(sel.comparePricesBtn).first();
-    await compBtn.scrollIntoViewIfNeeded();
-    await compBtn.click();
-    // The grid uses the HTML `hidden` attribute for toggle — assert it is removed
-    await expect(page.getByTestId(sel.priceComparison).first()).not.toHaveAttribute("hidden");
-  });
 });
 
 test.describe("Page structure — meal detail tabs", () => {

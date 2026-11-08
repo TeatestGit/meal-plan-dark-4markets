@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import type { Meal, MarketKey } from "../types";
-import { formatIngredientQuantity, type IngredientCost } from "../pricing";
+import type { Meal } from "../types";
+import { formatIngredientQuantity, parseIngredientQuantity, type IngredientCost } from "../pricing";
 import { testIds } from "../testIds";
 
 type MealDetailProps = {
@@ -9,7 +9,6 @@ type MealDetailProps = {
   activeStepIdx: number;
   shoppingSet: Set<string>;
   plannedMeals: Set<string>;
-  selectedMarket: MarketKey;
   onTabChange: (tab: "ingredients" | "steps" | "storage" | "nutrition") => void;
   onToggleIngredient: (index: number) => void;
   onAddMealToList: (meal: Meal) => void;
@@ -25,7 +24,6 @@ export function MealDetail({
   activeStepIdx,
   shoppingSet,
   plannedMeals,
-  selectedMarket,
   onTabChange,
   onToggleIngredient,
   onAddMealToList,
@@ -99,8 +97,8 @@ export function MealDetail({
               {selectedMeal.ingredients.map((ingredient, idx) => {
                 const inList = shoppingSet.has(`${selectedMeal.id}:${idx}`);
                 const priceInfo = getIngredientPrice(ingredient);
-                const price = priceInfo?.prices[selectedMarket];
-                const unit = priceInfo ? formatIngredientQuantity(priceInfo.quantity) : "price unavailable";
+                const qty = priceInfo?.quantity ?? parseIngredientQuantity(ingredient);
+                const unit = qty ? formatIngredientQuantity(qty) : null;
 
                 return (
                   <button
@@ -123,12 +121,9 @@ export function MealDetail({
                     <span className={`font-dm text-[15px] sm:text-[14px] leading-[1.6] sm:leading-[1.8] break-words min-w-0 flex-1 ${inList ? "line-through decoration-ink-muted/60" : ""}`}>
                       {ingredient}
                     </span>
-                    <span className="ml-auto pl-3 flex flex-col items-end shrink-0">
-                      <span className={`font-dm text-[13px] tabular-nums font-medium ${inList ? "text-ink-primary" : "text-ink-secondary"}`}>
-                        {price == null ? "N/A" : `AED ${price.toFixed(2)}`}
-                      </span>
-                      <span className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">{unit}</span>
-                    </span>
+                    {unit && (
+                      <span className="ml-auto pl-3 shrink-0 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">{unit}</span>
+                    )}
                   </button>
                 );
               })}

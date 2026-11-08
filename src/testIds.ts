@@ -53,7 +53,6 @@ export const testIds = {
   actionRow: "action-row",
   addWeekBtn: "add-week-btn",
   addAllBtn: "add-all-btn",
-  copyBtn: "copy-btn",
   clearListBtn: "clear-list-btn",
   emptyState: "empty-state",
   itemCountBadge: "item-count-badge",
@@ -61,9 +60,6 @@ export const testIds = {
   // Shopping list — items
   listItem: "list-item",
   itemRemoveBtn: "item-remove-btn",
-  comparePricesBtn: "compare-prices-btn",
-  priceComparison: "price-comparison",
-
   // Markets
   marketPill: (mk: string) => `market-pill-${mk}`,
   marketCard: (mk: string) => `market-card-${mk}`,

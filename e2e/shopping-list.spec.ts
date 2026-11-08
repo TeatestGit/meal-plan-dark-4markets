@@ -57,22 +57,41 @@ test.describe("Shopping list", () => {
     await expect(page.getByTestId(sel.savingsBanner)).toBeVisible();
   });
 
-  test("copy button is visible", async ({ page }) => {
-    await expect(page.getByTestId(sel.copyBtn)).toBeVisible();
+  test("savings banner shows AED currency", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.savingsBanner)).toContainText("AED");
   });
 
-  test("clear list button is in the action row (after copy button)", async ({ page }) => {
+  test("market card total and fee show AED currency", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.marketCard("carrefour"))).toContainText("AED");
+  });
+
+  test("all four market cards show logo images (no market name text)", async ({ page }) => {
+    await page.getByTestId(sel.addWeekBtn).click();
+    const markets = [
+      { key: "carrefour", name: "Carrefour" },
+      { key: "lulu",      name: "LuLu Hyper" },
+      { key: "spinneys",  name: "Spinneys" },
+      { key: "geant",     name: "Géant" },
+    ];
+    for (const { key, name } of markets) {
+      const card = page.getByTestId(sel.marketCard(key));
+      await expect(card.locator(`img[alt="${name}"]`)).toBeVisible();
+      await expect(card).not.toContainText(name);
+    }
+  });
+
+  test("market pill tabs show all four market names", async ({ page }) => {
+    await expect(page.getByTestId(sel.marketPill("carrefour"))).toContainText("Carrefour");
+    await expect(page.getByTestId(sel.marketPill("lulu"))).toContainText("LuLu");
+    await expect(page.getByTestId(sel.marketPill("spinneys"))).toContainText("Spinneys");
+    await expect(page.getByTestId(sel.marketPill("geant"))).toContainText("Géant");
+  });
+
+  test("clear list button is in the action row", async ({ page }) => {
     const row = page.getByTestId(sel.actionRow);
     await expect(row.getByTestId(sel.clearListBtn)).toBeVisible();
-  });
-
-  test("clear list button appears after copy button in DOM order", async ({ page }) => {
-    const buttons = page.getByTestId(sel.actionRow).locator("button");
-    const labels = await buttons.allTextContents();
-    const copyIdx = labels.findIndex(t => t.trim() === "Copy");
-    const clearIdx = labels.findIndex(t => t.trim() === "Clear list");
-    expect(copyIdx).toBeGreaterThanOrEqual(0);
-    expect(clearIdx).toBeGreaterThan(copyIdx);
   });
 
   test("remove button removes an item from the list", async ({ page }) => {

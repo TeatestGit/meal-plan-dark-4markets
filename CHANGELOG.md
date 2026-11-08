@@ -1,5 +1,41 @@
 e Changelog
 
+## 2026-11-08 — Ingredient quantity display fixes & full coverage tests
+
+- **fix**: Added `mango`, `tortillas?`, `flatbreads?` to count-unit word list in `parseIngredientQuantity` — `1 small mango, julienned`, `6 small corn tortillas`, `2 wholegrain flatbreads` now show quantity
+- **fix**: Normalize Unicode fraction characters (`½`, `¼`, `¾`, `⅓`, `⅔`, etc.) before parsing — `½ ripe avocado, sliced` and `¼ red onion, finely sliced` now show quantity
+- **test**: Added full meal ingredient coverage describe block to `pricing.test.ts` — iterates every unique ingredient in `meals.json`, asserts non-null parse for all quantifiable ingredients and null for 11 known garnish/seasoning lines (51 tests total)
+
+## 2026-11-08 — European breakfast plan, pricing docs
+
+- **feat**: Replaced 14 Middle-Eastern breakfast meals with 14 European high-protein easy-prep breakfasts — scrambled eggs & smoked salmon on sourdough, Greek yogurt parfait, poached eggs on avocado & feta toast, overnight oats, spinach & feta omelette, turkey & egg open sandwich, halloumi & tomato skillet (W1); cheddar & egg scramble, chia pudding, smoked salmon & avocado bagel, Greek yogurt with walnuts & banana, soft-boiled eggs with Dijon, bell pepper & feta omelette, poached eggs on wilted spinach & sourdough (W2). All ≥16g protein, 5–12 min prep.
+- **refactor**: Removed 4 unused price entries (`pita`, `fava beans`, `almond butter`, `medjool dates`) and their 3 aliases (`ful`, `fava`, `dates`) from `prices.ts`
+- **docs**: Added Pricing Logic section to README covering ingredient matching, quantity parsing, unit normalisation, the `g can` special case, and line cost formula
+
+## 2026-11-08 — Add Breakfast plan
+
+- **feat**: 14 Dubai breakfast meals (plan: "breakfast", IDs `b1-mon`–`b2-sun`) added to `meals.json` — Shakshuka, Avocado toast, Labneh bowl, Overnight oats, Smoked salmon scramble, Ful medames, Banana pancakes, Halloumi scramble, Yogurt parfait, Spinach & feta omelette, Bircher muesli, Breakfast quesadilla, Smoothie bowl, French toast
+- **feat**: 16 new breakfast ingredient prices in `prices.ts` (rolled oats, milk, mixed berries, almond butter, chia seeds, smoked salmon, butter, pita, fava beans, banana, halloumi, granola, cheddar, medjool dates, maple syrup, almond milk) + 6 aliases
+- **feat**: `mealType` / `mealTypePlural` computed from active plan — all "lunch"/"Lunch" UI strings are now plan-aware ("Breakfast"/"breakfasts" when breakfast plan active)
+- **fix**: `stats` useMemo dependency array was `[week]`, missing `plan` — stats now recompute on plan switch
+- **test**: 5 unit tests added for breakfast plan; plan-switching e2e extended with 6 breakfast tests; `plan-switching.spec.ts` tab visibility test updated for 3 plans
+
+## 2026-11-08 — Remove Copy button
+
+- **feat**: Removed Copy-to-clipboard button from ShoppingListPanel (unused; no current sharing flow)
+- **refactor**: Removed `copyList` async function, `copied`/`copyFailed` state, and all prop plumbing in `App.tsx`
+- **refactor**: Removed `onCopyList`, `copied`, `copyFailed` from `ShoppingListPanel` props
+- **refactor**: Removed `copyBtn` test-id from `testIds.ts`
+- **test**: Removed all copy-button unit and e2e assertions
+
+## 2026-11-08 — Hypermarket logos, dirham sign, tests
+
+- **feat**: Real logo images for all 4 hypermarkets (Carrefour, LuLu, Spinneys, Géant) under `src/assets/hypermarkets/`; white circle background on logo containers
+- **feat**: Market cards and price comparison mini-cards show logo only (name text removed); logo containers enlarged
+- **feat**: All `AED` display strings replaced with `د.إ` (dirham sign) across UI, clipboard copy, and footer
+- **test**: Added `Currency sign` and `Market card logo` describe blocks in `App.test.tsx` (22/22 unit tests pass)
+- **fix**: Updated `e2e/ingredient-pricing.spec.ts` assertions from `"AED"` → `"د.إ"` (600/600 e2e pass)
+
 ## 2026-11-08 — TT-44, TT-45, TT-46: Plan switching, scroll fix, action row fix
 
 - **TT-44** feat: Plan switching — No Red Meat / Vegan plan tabs (new plan state, 14 vegan meals, asset reorganisation, 14 e2e + 6 unit tests)

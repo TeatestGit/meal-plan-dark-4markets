@@ -1,6 +1,8 @@
 import type { MarketKey, MarketInfo, PricedItem } from "../types";
 import { testIds } from "../testIds";
 
+const roundToNearest5 = (val: number) => Math.round(val / 5) * 5;
+
 type ShoppingListPanelProps = {
   pricedItems: PricedItem[];
   selectedMarket: MarketKey;
@@ -11,16 +13,11 @@ type ShoppingListPanelProps = {
   selectedTotal: number;
   savings: number;
   mostExpensive: { key: MarketKey; val: number };
-  hoveredItem: string | null;
   onSelectMarket: (market: MarketKey) => void;
   onAddWholeWeek: () => void;
   onAddAllMeals: () => void;
-  onCopyList: () => void;
-  onHoverItem: (item: string | null) => void;
   onRemoveItem: (item: PricedItem) => void;
   onClearList: () => void;
-  copied: boolean;
-  copyFailed: boolean;
 };
 
 export function ShoppingListPanel({
@@ -33,16 +30,11 @@ export function ShoppingListPanel({
   selectedTotal,
   savings,
   mostExpensive,
-  hoveredItem,
   onSelectMarket,
   onAddWholeWeek,
   onAddAllMeals,
-  onCopyList,
-  onHoverItem,
   onRemoveItem,
   onClearList,
-  copied,
-  copyFailed,
 }: ShoppingListPanelProps) {
   const hasPrices = pricedItems.some((item) => item.prices !== null);
 
@@ -52,11 +44,18 @@ export function ShoppingListPanel({
         <div className="flex items-center justify-between gap-3 min-w-0">
           <h3 className="font-instrument text-[18px] text-ink-primary">Grocery &amp; shopping</h3>
           <span data-testid={testIds.itemCountBadge} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page border border-rim rounded-full px-3 py-1 tabular shrink-0">
-            {pricedItems.length} items · {hasPrices ? `AED ${selectedTotal.toFixed(2)}` : "No prices"}
+            {pricedItems.length} items · {hasPrices ? `est. AED ${roundToNearest5(selectedTotal)}` : "No prices"}
           </span>
         </div>
 
-        <div className="mt-5 -mx-1">
+        <div className="mt-3 rounded-[10px] bg-amber-500/10 border border-amber-500/20 px-3 py-2 flex items-center gap-2">
+          <span className="text-amber-400 text-[13px] shrink-0">~</span>
+          <span className="font-dm text-[10px] tracking-[0.04em] text-amber-300/80 leading-[1.5]">
+            Prices are estimates based on Dubai market data (Nov 2026) — actual in-store prices may differ.
+          </span>
+        </div>
+
+        <div className="mt-4 -mx-1">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 px-1 snap-x snap-mandatory">
             {marketOrder.map((mk) => {
               const market = marketPrices[mk];
@@ -75,10 +74,10 @@ export function ShoppingListPanel({
                   }`}
                 >
                   <span
-                    className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-dm font-bold tracking-[0.02em] ${isSelected ? "bg-page text-ink-primary" : "text-white border border-rim-hover"}`}
-                    style={!isSelected ? { background: market.color } : undefined}
+                    className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-dm font-bold tracking-[0.02em] overflow-hidden ${isSelected || market.logoImg ? "bg-page text-ink-primary" : "text-white border border-rim-hover"}`}
+                    style={!isSelected && !market.logoImg ? { background: market.color } : undefined}
                   >
-                    {market.logo}
+                    {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                   </span>
                   <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase tabular whitespace-nowrap">{market.name}</span>
                   <span className="hidden sm:inline font-dm text-[10px] tracking-[0.06em] uppercase tabular whitespace-nowrap text-ink-muted">
@@ -112,17 +111,16 @@ export function ShoppingListPanel({
                     isSelected ? "bg-rim border-ink-primary/30 shadow-[0_6px_18px_rgba(0,0,0,0.25)]" : "bg-page border-rim hover:border-rim-hover"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2">
-                      <span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: market.color }}>
-                        {market.logo}
+                  <div className="flex items-center justify-between gap-2 min-w-0">
+                    <span className="flex items-center gap-2 min-w-0">
+                      <span className="w-9 h-9 rounded-[10px] flex items-center justify-center text-[9px] font-bold text-white shrink-0 overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                        {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain p-1" /> : market.logo}
                       </span>
-                      <span className="font-dm text-[11px] font-medium tracking-[0.08em] uppercase text-ink-secondary truncate">{market.name.split(" ")[0]}</span>
                     </span>
                     {isCheap && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0" />}
                   </div>
                   <div className={`font-dm text-[16px] font-medium tabular-nums mt-2 ${isSelected ? "text-ink-primary" : "text-ink-secondary"}`}>
-                    AED {total.toFixed(2)}
+                    est. AED {roundToNearest5(total)}
                   </div>
                   <div className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted mt-0.5 whitespace-nowrap">
                     {market.fee} fee
@@ -147,7 +145,7 @@ export function ShoppingListPanel({
           <div data-testid={testIds.savingsBanner} className="mt-3 rounded-[12px] bg-[#1a2e1e]/60 border border-[#2a4a2e]/60 px-4 py-2.5 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-[#2a5a30] flex items-center justify-center text-[11px] text-emerald-200">↘</span>
             <span className="font-dm text-[11px] tracking-[0.04em] text-emerald-200/90">
-              Save <span className="font-medium tabular-nums text-emerald-100">AED {savings.toFixed(2)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
+              Save approx. <span className="font-medium tabular-nums text-emerald-100">est. AED {roundToNearest5(savings)}</span> vs {marketPrices[mostExpensive.key].name} · cheapest is {marketPrices[cheapestMarket].name}
             </span>
           </div>
         )}
@@ -158,9 +156,6 @@ export function ShoppingListPanel({
           </button>
           <button data-testid={testIds.addAllBtn} onClick={onAddAllMeals} className="sm:flex-1 h-[44px] sm:h-[36px] rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98]">
             Add all
-          </button>
-          <button data-testid={testIds.copyBtn} aria-live="polite" onClick={onCopyList} className="h-[44px] sm:h-[36px] px-3 sm:px-5 rounded-full bg-page border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition tabular active:scale-[0.98] sm:shrink-0">
-            {copyFailed ? "Copy failed" : copied ? "Copied" : "Copy"}
           </button>
           <button data-testid={testIds.clearListBtn} onClick={onClearList} className="h-[44px] sm:h-[36px] px-3 sm:px-5 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] sm:shrink-0">
             Clear list
@@ -173,15 +168,15 @@ export function ShoppingListPanel({
           <div data-testid={testIds.emptyState} className="rounded-[18px] border border-dashed border-rim bg-page/60 p-5 sm:p-6 mx-1 min-w-0">
             <div className="font-instrument text-[16px] text-ink-secondary mb-2 tracking-[-0.01em] break-words">Soft &amp; empty</div>
             <div className="font-dm text-[13px] text-ink-muted leading-[1.8] break-words">
-              Select ingredients or add a whole week. Prices are static Dubai estimates, not live retailer prices. Reference: Sep 2026.
+              Select ingredients or add a whole week. Prices are static Dubai estimates, not live retailer prices. Reference: Nov 2026.
             </div>
             <div className="mt-4 flex flex-wrap gap-1.5">
               {marketOrder.map((mk) => {
                 const market = marketPrices[mk];
                 return (
                   <span key={mk} className="inline-flex items-center gap-1.5 rounded-full bg-rim border border-rim-hover px-3 py-1 font-dm text-[10px] tracking-[0.08em] uppercase text-ink-secondary">
-                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white" style={{ background: market.color }}>
-                      {market.logo}
+                    <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                      {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                     </span>
                     {market.name}
                   </span>
@@ -193,72 +188,19 @@ export function ShoppingListPanel({
           <div className="rounded-[18px] bg-page border border-rim overflow-hidden min-w-0">
             <div className="overflow-y-auto max-h-[420px] divide-y divide-rim/70">
             {pricedItems.map((item, idx) => {
-              const selectedPrice = item.prices?.[selectedMarket];
-              const prices = item.prices;
-              const cheapestPrice = prices
-                ? Math.min(...marketOrder.map((marketKey) => prices[marketKey]))
-                : null;
-              const isHovered = hoveredItem === item.id;
-              const comparisonId = `market-comparison-${idx}`;
-
               return (
-                <div key={item.id} data-testid={testIds.listItem} data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0" onMouseEnter={() => onHoverItem(item.id)} onMouseLeave={() => onHoverItem(null)}>
+                <div key={item.id} data-testid={testIds.listItem} data-item-id={item.id} className="relative p-4 group hover:bg-white/[0.03] transition min-w-0">
                   <div className="flex gap-3 min-w-0">
                     <span className="font-newsreader text-[11px] text-ink-muted mt-[2px] italic tabular shrink-0">{String(idx + 1).padStart(2, "0")}</span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3 min-w-0">
                         <span className="font-dm text-[13px] leading-[1.5] text-ink-secondary flex-1 min-w-0 break-words">{item.original}</span>
-                        <span className="shrink-0 text-right">
-                          <span className="font-dm text-[13px] font-medium tabular-nums text-ink-primary">
-                            {selectedPrice == null ? "Not priced" : `AED ${selectedPrice.toFixed(2)}`}
+                        {item.unit && (
+                          <span className="shrink-0 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
+                            {item.unit}
                           </span>
-                          <span className="block font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">
-                            {item.unit ? `${item.unit} · est.` : "No compatible unit"}
-                          </span>
-                        </span>
+                        )}
                       </div>
-                      {prices && (
-                        <button
-                          type="button"
-                          data-testid={testIds.comparePricesBtn}
-                          aria-expanded={isHovered}
-                          aria-controls={comparisonId}
-                          onClick={() => onHoverItem(isHovered ? null : item.id)}
-                          className="mt-2 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-secondary underline underline-offset-2"
-                        >
-                          {isHovered ? "Hide market prices" : "Compare market prices"}
-                        </button>
-                      )}
-                      {prices && (
-                        <div id={comparisonId} data-testid={testIds.priceComparison} hidden={!isHovered} className={`mt-2.5 grid grid-cols-4 gap-1.5 ${isHovered ? "" : "hidden"}`}>
-                          {marketOrder.map((mk) => {
-                            const productPrice = prices[mk];
-                            const isCheapest = productPrice === cheapestPrice;
-                            const isSelected = mk === selectedMarket;
-
-                            return (
-                              <div key={mk} className={`rounded-[10px] border px-2 py-1.5 ${isSelected ? "bg-rim border-ink-primary/30" : "bg-card border-rim"}`}>
-                                <div className="flex items-center gap-1">
-                                  <span className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[7px] font-bold text-white" style={{ background: marketPrices[mk].color }}>
-                                    {marketPrices[mk].logo}
-                                  </span>
-                                  <span className="font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted truncate">{marketPrices[mk].name.split(" ")[0]}</span>
-                                </div>
-                                <div className={`font-dm text-[11px] tabular-nums mt-1 ${isCheapest ? "text-emerald-300" : "text-ink-secondary"} ${isSelected ? "font-medium" : ""}`}>
-                                  AED {productPrice.toFixed(2)}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                      {!item.prices && (
-                        <div className="mt-1.5 flex items-center gap-2">
-                          <span className="font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted">
-                            No comparable market price for this quantity.
-                          </span>
-                        </div>
-                      )}
                     </div>
                     <button data-testid={testIds.itemRemoveBtn} onClick={() => onRemoveItem(item)} className="font-dm text-[11px] tracking-[0.08em] uppercase text-ink-muted hover:text-ink-primary md:opacity-0 md:group-hover:opacity-100 transition shrink-0 active:scale-[0.98] self-start mt-0.5">
                       remove
@@ -270,7 +212,7 @@ export function ShoppingListPanel({
             </div>
             <div className="p-4 bg-card border-t border-rim/70 flex items-center justify-between">
               <span className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary">Estimated ingredient cost at {marketPrices[selectedMarket].name}</span>
-              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">AED {selectedTotal.toFixed(2)}</span>
+              <span className="font-newsreader italic text-[18px] text-ink-primary tabular-nums">est. AED {roundToNearest5(selectedTotal)}</span>
             </div>
           </div>
         )}
@@ -283,8 +225,8 @@ export function ShoppingListPanel({
             <div className="mt-2 grid grid-cols-2 gap-2">
               {marketOrder.filter((mk) => mk !== selectedMarket).slice(0, 3).map((mk) => (
                 <a key={mk} href={marketPrices[mk].url} target="_blank" rel="noopener noreferrer" className="h-[36px] rounded-full bg-page border border-rim font-dm text-[10px] font-medium tracking-[0.08em] uppercase text-ink-secondary hover:border-rim-hover hover:text-ink-primary flex items-center justify-center gap-1.5 transition active:scale-[0.98]">
-                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white" style={{ background: marketPrices[mk].color }}>
-                    {marketPrices[mk].logo}
+                  <span className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] text-white overflow-hidden" style={{ background: marketPrices[mk].logoImg ? undefined : marketPrices[mk].color }}>
+                    {marketPrices[mk].logoImg ? <img src={marketPrices[mk].logoImg} alt={marketPrices[mk].name} className="w-full h-full object-contain" /> : marketPrices[mk].logo}
                   </span>
                   {marketPrices[mk].name} ↗
                 </a>
@@ -295,8 +237,8 @@ export function ShoppingListPanel({
                 const market = marketPrices[mk];
                 return (
                   <a key={`foot-${mk}`} href={market.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-full bg-page border border-rim px-2.5 py-1 font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted hover:text-ink-secondary hover:border-rim-hover transition">
-                    <span className="w-3 h-3 rounded-full flex items-center justify-center text-[6px] text-white" style={{ background: market.color }}>
-                      {market.logo}
+                    <span className="w-3 h-3 rounded-full flex items-center justify-center text-[6px] text-white overflow-hidden" style={{ background: market.logoImg ? undefined : market.color }}>
+                      {market.logoImg ? <img src={market.logoImg} alt={market.name} className="w-full h-full object-contain" /> : market.logo}
                     </span>
                     {market.name} ↗
                   </a>
@@ -309,7 +251,7 @@ export function ShoppingListPanel({
         <div className="mt-3 mx-1 rounded-[14px] bg-page border border-rim/60 px-4 py-3">
           <div className="font-dm text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted mb-1.5">Price estimate basis</div>
           <div className="font-dm text-[11px] leading-[1.6] text-ink-secondary">
-            Static estimate based on Dubai market data from Sep 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 AED/kg, Géant 45 AED/kg, Spinneys 59.25 AED; feta Spinneys 135 AED/kg, Géant 90 AED.
+            Static estimate based on Dubai market data from Nov 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 AED/kg, Géant 45 AED/kg, Spinneys 59.25 AED; feta Spinneys 135 AED/kg, Géant 90 AED.
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             <span className="inline-flex rounded-full bg-card border border-rim px-2.5 py-1 font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted">Carrefour UAE</span>

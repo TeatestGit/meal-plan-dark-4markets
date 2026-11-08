@@ -4,6 +4,8 @@ import { sel } from "./selectors";
 test.describe("Meal detail tabs", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
   });
 
   test("ingredients tab is active by default", async ({ page }) => {

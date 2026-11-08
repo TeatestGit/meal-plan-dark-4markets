@@ -17,7 +17,15 @@ function numericAmount(value: string): number {
   return denominator ? Number(numerator) / Number(denominator) : Number(value);
 }
 
+const unicodeFractions: Record<string, string> = {
+  "½": "1/2", "¼": "1/4", "¾": "3/4",
+  "⅓": "1/3", "⅔": "2/3",
+  "⅛": "1/8", "⅜": "3/8", "⅝": "5/8", "⅞": "7/8",
+};
+
 export function parseIngredientQuantity(ingredient: string): IngredientQuantity | null {
+  const normalized = ingredient.replace(/[½¼¾⅓⅔⅛⅜⅝⅞]/g, (c) => unicodeFractions[c] ?? c);
+  ingredient = normalized;
   const packageMatch = ingredient.match(
     /^\s*(\d+(?:\.\d+)?|\d+\/\d+)\s*x\s*\d+(?:\.\d+)?\s*(?:g|kg|ml|l)\s*(?:cans?|pieces?|pcs)\b/i
   );
@@ -71,7 +79,7 @@ export function parseIngredientQuantity(ingredient: string): IngredientQuantity 
     return { amount, unit: "count" };
   }
 
-  if (/\b(?:cans?|pieces?|pcs|wraps?|bagels?|eggs?|cloves?|avocados?|apples?|lemons?|limes?|onions?|carrots?|each)\b/i.test(rest)) {
+  if (/\b(?:cans?|pieces?|pcs|slices?|sheets?|wraps?|tortillas?|flatbreads?|bagels?|eggs?|cloves?|avocados?|mangoes?|mangos?|apples?|bananas?|lemons?|limes?|onions?|tomatoes?|peppers?|cucumbers?|carrots?|cabbages?|falafels?|each)\b/i.test(rest)) {
     return { amount, unit: "count" };
   }
 

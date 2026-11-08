@@ -13,25 +13,25 @@ test.describe("Ingredient pricing — no PRICE UNAVAILABLE regressions", () => {
     await page.getByTestId(sel.tabIngredients).click();
   });
 
-  test("harissa paste shows a price (tbsp→ml unit fix)", async ({ page }) => {
+  test("harissa paste row shows parsed quantity (tbsp→ml unit fix)", async ({ page }) => {
     const rows = page.getByTestId(sel.ingredientRow);
     const harisaRow = rows.filter({ hasText: "harissa paste" });
     await expect(harisaRow).not.toContainText("PRICE UNAVAILABLE");
-    await expect(harisaRow).toContainText("AED");
+    await expect(harisaRow).toContainText("ml");
   });
 
-  test("lemon shows a price (each-based unit fix)", async ({ page }) => {
+  test("lemon row shows parsed quantity (each-based unit fix)", async ({ page }) => {
     const rows = page.getByTestId(sel.ingredientRow);
     const lemonRow = rows.filter({ hasText: "lemon" });
     await expect(lemonRow.first()).not.toContainText("PRICE UNAVAILABLE");
-    await expect(lemonRow.first()).toContainText("AED");
+    await expect(lemonRow.first()).toContainText("pcs");
   });
 
-  test("olive oil shows a price (tbsp→ml vs 500ml price)", async ({ page }) => {
+  test("olive oil row shows parsed quantity (tbsp→ml vs 500ml price)", async ({ page }) => {
     const rows = page.getByTestId(sel.ingredientRow);
     const oilRow = rows.filter({ hasText: "olive oil" });
     await expect(oilRow.first()).not.toContainText("PRICE UNAVAILABLE");
-    await expect(oilRow.first()).toContainText("AED");
+    await expect(oilRow.first()).toContainText("ml");
   });
 
   test("at most 3 unpriceable garnish ingredients across Week 1 meal 1", async ({ page }) => {

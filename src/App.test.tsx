@@ -6,7 +6,7 @@ describe('App', () => {
   it('renders the editorial title and week selector', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: /2-week lunch/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /week 1/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^w1$/i })).toBeInTheDocument();
   });
 
   it('shows the grocery panel with shopping totals', () => {
@@ -28,31 +28,18 @@ describe('App', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
 
-    expect(screen.getAllByText('AED 12.60').length).toBeGreaterThan(0);
-    expect(screen.getByText('300g')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /compare market prices/i }));
-    expect(screen.getByRole('button', { name: /hide market prices/i })).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getAllByText('300g').length).toBeGreaterThan(0);
+    // per-ingredient prices are hidden; total badge shows est. AED
+    expect(screen.getByTestId('item-count-badge')).toHaveTextContent(/est\. AED/);
   });
 
   it('combines quantities for the same ingredient across selected meals', () => {
     render(<App />);
     fireEvent.click(screen.getByRole('button', { name: 'Add week' }));
 
-    // Priced items show "{amount}{unit} · est." — verify at least one combined quantity appears
-    expect(screen.getAllByText(/\d+g · est\./).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/AED \d+\.\d\d/).length).toBeGreaterThan(0);
-  });
-
-  it('reports clipboard failures instead of showing success', async () => {
-    Object.defineProperty(navigator, 'clipboard', {
-      configurable: true,
-      value: { writeText: vi.fn().mockRejectedValue(new Error('permission denied')) },
-    });
-
-    render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: 'Copy' }));
-
-    expect(await screen.findByRole('button', { name: 'Copy failed' })).toBeInTheDocument();
+    // Priced items show combined quantity in the row — verify at least one appears
+    expect(screen.getAllByText(/^\d+g$/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/est\. AED \d+/).length).toBeGreaterThan(0);
   });
 
   it('filters meals by ingredient keyword', () => {
@@ -96,17 +83,18 @@ describe('App', () => {
 
   it('week 2 button switches to week 2 meals', () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: /week 2/i }));
+    fireEvent.click(screen.getByRole('button', { name: /^w2$/i }));
     // week-meal-count badge should now say "7 lunches" (week 2 also has 7 meals)
     expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
   });
 });
 
 describe('Plan switching', () => {
-  it('renders plan tabs for both plans', () => {
+  it('renders plan tabs for all three plans', () => {
     render(<App />);
     expect(screen.getByTestId('plan-btn-no-red-meat')).toBeInTheDocument();
     expect(screen.getByTestId('plan-btn-vegan')).toBeInTheDocument();
+    expect(screen.getByTestId('plan-btn-breakfast')).toBeInTheDocument();
   });
 
   it('No Red Meat plan is active by default', () => {
@@ -153,5 +141,91 @@ describe('Plan switching', () => {
     fireEvent.click(screen.getByTestId('plan-btn-vegan'));
     fireEvent.click(screen.getByTestId('plan-btn-no-red-meat'));
     expect(screen.getAllByText(/harissa chicken/i).length).toBeGreaterThan(0);
+  });
+});
+
+describe('Currency display', () => {
+  it('displays est. AED in the badge after selecting an ingredient', () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole('button', { name: /300g chicken breast, cubed/i }));
+    expect(screen.getByTestId('item-count-badge')).toHaveTextContent(/est\. AED/);
+  });
+
+  it('displays est. AED in the market cards and total after Add week', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    expect(screen.getByTestId('market-card-carrefour')).toHaveTextContent(/est\. AED \d+/);
+  });
+});
+
+describe('Market card logo', () => {
+  const markets = [
+    { key: 'carrefour', name: 'Carrefour' },
+    { key: 'lulu',      name: 'LuLu Hyper' },
+    { key: 'spinneys',  name: 'Spinneys' },
+    { key: 'geant',     name: 'Géant' },
+  ] as const;
+
+  it('all market cards show a logo image after Add week', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    for (const { key, name } of markets) {
+      const card = screen.getByTestId(`market-card-${key}`);
+      expect(card.querySelector(`img[alt="${name}"]`)).toBeTruthy();
+    }
+  });
+
+  it('market card header shows no market name text (logo-only)', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    for (const { key, name } of markets) {
+      expect(screen.getByTestId(`market-card-${key}`)).not.toHaveTextContent(name);
+    }
+  });
+
+  it('market pill tabs show all four market names', () => {
+    render(<App />);
+    expect(screen.getByTestId('market-pill-carrefour')).toHaveTextContent('Carrefour');
+    expect(screen.getByTestId('market-pill-lulu')).toHaveTextContent('LuLu');
+    expect(screen.getByTestId('market-pill-spinneys')).toHaveTextContent('Spinneys');
+    expect(screen.getByTestId('market-pill-geant')).toHaveTextContent('Géant');
+  });
+
+  it('AED appears in market card price total', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('add-week-btn'));
+    expect(screen.getByTestId('market-card-carrefour')).toHaveTextContent(/AED/);
+  });
+});
+
+describe('Breakfast plan', () => {
+  it('breakfast plan tab is present', () => {
+    render(<App />);
+    expect(screen.getByTestId('plan-btn-breakfast')).toBeInTheDocument();
+  });
+
+  it('switching to breakfast plan shows 7 breakfasts in the week badge', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7 breakfasts');
+  });
+
+  it('switching to breakfast plan changes heading to "2-Week Breakfast Plan"', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByRole('heading', { name: /2-week breakfast/i })).toBeInTheDocument();
+  });
+
+  it('switching to breakfast plan changes search placeholder to "Search breakfasts"', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByPlaceholderText(/search breakfasts/i)).toBeInTheDocument();
+  });
+
+  it('breakfast week 2 also shows 7 breakfasts', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    fireEvent.click(screen.getByTestId('week-btn-2'));
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7 breakfasts');
   });
 });
