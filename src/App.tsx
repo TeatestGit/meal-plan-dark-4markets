@@ -428,7 +428,7 @@ export default function App() {
                           : "text-ink-secondary hover:text-ink-primary"
                       }`}
                     >
-                      Week {weekNumber}
+                      W{weekNumber}
                     </button>
                   ))}
                 </div>

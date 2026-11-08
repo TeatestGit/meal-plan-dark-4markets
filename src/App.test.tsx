@@ -6,7 +6,7 @@ describe('App', () => {
   it('renders the editorial title and week selector', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: /2-week lunch/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /week 1/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^w1$/i })).toBeInTheDocument();
   });
 
   it('shows the grocery panel with shopping totals', () => {
@@ -96,7 +96,7 @@ describe('App', () => {
 
   it('week 2 button switches to week 2 meals', () => {
     render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: /week 2/i }));
+    fireEvent.click(screen.getByRole('button', { name: /^w2$/i }));
     // week-meal-count badge should now say "7 lunches" (week 2 also has 7 meals)
     expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7');
   });
