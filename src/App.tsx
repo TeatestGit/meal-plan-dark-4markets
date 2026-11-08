@@ -346,31 +346,6 @@ export default function App() {
                   ))}
                 </div>
               )}
-              <div className="flex gap-2 w-full sm:w-auto items-center">
-                <div className="flex items-center bg-card rounded-full p-1 border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex-1 sm:flex-none justify-center">
-                  {[1, 2].map((weekNumber) => (
-                    <button
-                      key={weekNumber}
-                      type="button"
-                      data-testid={testIds.weekBtn(weekNumber as 1 | 2)}
-                      onClick={() => {
-                        setWeek(weekNumber as 1 | 2);
-                        const firstMeal = meals.find((meal) => meal.plan === plan && meal.week === weekNumber);
-                        if (firstMeal) setSelectedId(firstMeal.id);
-                        setActiveStepIdx(0);
-                      }}
-                      className={`flex-1 sm:flex-none h-[36px] sm:h-[32px] px-5 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] ${
-                        week === weekNumber
-                          ? "bg-ink-primary text-page shadow-[0_8px_20px_rgba(0,0,0,0.25)]"
-                          : "bg-rim text-ink-secondary hover:text-ink-primary"
-                      }`}
-                    >
-                      Week {weekNumber}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="relative w-full sm:w-[240px] min-w-0">
                 <input
                   value={search}
@@ -434,8 +409,29 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="px-6 sm:px-8 py-5 sm:py-7 flex items-center justify-between border-b border-rim min-w-0">
-                <span className="font-instrument text-[18px] text-ink-primary tracking-[-0.02em]">Week {week}</span>
+              <div className="px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between border-b border-rim min-w-0 gap-3">
+                <div className="flex items-center bg-page rounded-full p-1 border border-rim shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
+                  {[1, 2].map((weekNumber) => (
+                    <button
+                      key={weekNumber}
+                      type="button"
+                      data-testid={testIds.weekBtn(weekNumber as 1 | 2)}
+                      onClick={() => {
+                        setWeek(weekNumber as 1 | 2);
+                        const firstMeal = meals.find((meal) => meal.plan === plan && meal.week === weekNumber);
+                        if (firstMeal) setSelectedId(firstMeal.id);
+                        setActiveStepIdx(0);
+                      }}
+                      className={`h-[30px] px-4 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] ${
+                        week === weekNumber
+                          ? "bg-ink-primary text-page shadow-[0_4px_12px_rgba(0,0,0,0.25)]"
+                          : "text-ink-secondary hover:text-ink-primary"
+                      }`}
+                    >
+                      Week {weekNumber}
+                    </button>
+                  ))}
+                </div>
                 <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
               </div>
 
