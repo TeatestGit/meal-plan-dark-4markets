@@ -1,11 +1,20 @@
+/* UAE Dirham Sign (U+20C3) micro-font — no system font has this glyph yet */
+@font-face {
+  font-family: 'DirhamMicro';
+  src: url('data:font/truetype;base64,AAEAAAAKAIAAAwAgT1MvMmWgZMsAAAEoAAAAYGNtYXAADCEWAAABkAAAADRnbHlmODGFpwAAAcwAAABUaGVhZGFoQ5wAAACsAAAANmhoZWEFQwHxAAAA5AAAACRobXR4AmwAAAAAAYgAAAAGbG9jYQAqAAAAAAHEAAAABm1heHAABwAcAAABCAAAACBuYW1lqITcJQAAAiAAAABscG9zdEXL3CwAAAKMAAAAMQABAAAAAQAAuqqJCF8PPPUAAQPoAAAAAAAAAAAAAAAAAAAAAAAZAAACOgK8AAAAAwACAAAAAQAAAAEAAAMg/zgAAAJsAAAASwIhAAEAAAAAAAAAAAAAAAAAAAABAAEAAAACABoABAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAwJsAZAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAPz8/PwAAIMMgwwMg/zgAAAMgAMgAAAAAAAAAAAAAAAAAAAAgAAACbAAAAAAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAIAAAAAQABAABAAAgw///AAAgw///3z4AAQAAAAAAAAAAACoAAAAEABkAAAI6ArwACAARABUAGQAAMxEzspYVlIYjJzOytjW0piMjByE1IREhNSFf0rlQULl4bpseHptuoAII/fgCCP34AryM0tKMPHiqqniyMP7CMAAAAAQANgABAAAAAAABAAsAAAABAAAAAAACAAcACwADAAEECQABABYAEgADAAEECQACAA4AKERpcmhhbU1pY3JvUmVndWxhcgBEAGkAcgBoAGEAbQBNAGkAYwByAG8AUgBlAGcAdQBsAGEAcgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAECCmRpcmhhbVNpZ24AAAA=') format('truetype');
+  unicode-range: U+20C3;
+  font-weight: normal;
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-newsreader: "Newsreader", Georgia, serif;
-  --font-instrument: "Instrument Serif", Georgia, serif;
-  --font-dm: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-newsreader: "DirhamMicro", "Newsreader", Georgia, serif;
+  --font-instrument: "DirhamMicro", "Instrument Serif", Georgia, serif;
+  --font-dm: "DirhamMicro", "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
