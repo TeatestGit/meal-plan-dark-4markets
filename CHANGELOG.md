@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-08 — Add Breakfast plan
+
+- **feat**: 14 Dubai breakfast meals (plan: "breakfast", IDs `b1-mon`–`b2-sun`) added to `meals.json` — Shakshuka, Avocado toast, Labneh bowl, Overnight oats, Smoked salmon scramble, Ful medames, Banana pancakes, Halloumi scramble, Yogurt parfait, Spinach & feta omelette, Bircher muesli, Breakfast quesadilla, Smoothie bowl, French toast
+- **feat**: 16 new breakfast ingredient prices in `prices.ts` (rolled oats, milk, mixed berries, almond butter, chia seeds, smoked salmon, butter, pita, fava beans, banana, halloumi, granola, cheddar, medjool dates, maple syrup, almond milk) + 6 aliases
+- **feat**: `mealType` / `mealTypePlural` computed from active plan — all "lunch"/"Lunch" UI strings are now plan-aware ("Breakfast"/"breakfasts" when breakfast plan active)
+- **fix**: `stats` useMemo dependency array was `[week]`, missing `plan` — stats now recompute on plan switch
+- **test**: 5 unit tests added for breakfast plan; plan-switching e2e extended with 6 breakfast tests; `plan-switching.spec.ts` tab visibility test updated for 3 plans
+
 ## 2026-11-08 — Remove Copy button
 
 - **feat**: Removed Copy-to-clipboard button from ShoppingListPanel (unused; no current sharing flow)

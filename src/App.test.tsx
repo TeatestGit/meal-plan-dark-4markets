@@ -91,10 +91,11 @@ describe('App', () => {
 });
 
 describe('Plan switching', () => {
-  it('renders plan tabs for both plans', () => {
+  it('renders plan tabs for all three plans', () => {
     render(<App />);
     expect(screen.getByTestId('plan-btn-no-red-meat')).toBeInTheDocument();
     expect(screen.getByTestId('plan-btn-vegan')).toBeInTheDocument();
+    expect(screen.getByTestId('plan-btn-breakfast')).toBeInTheDocument();
   });
 
   it('No Red Meat plan is active by default', () => {
@@ -195,5 +196,37 @@ describe('Market card logo', () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('add-week-btn'));
     expect(screen.getByTestId('market-card-carrefour')).toHaveTextContent(/AED/);
+  });
+});
+
+describe('Breakfast plan', () => {
+  it('breakfast plan tab is present', () => {
+    render(<App />);
+    expect(screen.getByTestId('plan-btn-breakfast')).toBeInTheDocument();
+  });
+
+  it('switching to breakfast plan shows 7 breakfasts in the week badge', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7 breakfasts');
+  });
+
+  it('switching to breakfast plan changes heading to "2-Week Breakfast Plan"', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByRole('heading', { name: /2-week breakfast/i })).toBeInTheDocument();
+  });
+
+  it('switching to breakfast plan changes search placeholder to "Search breakfasts"', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    expect(screen.getByPlaceholderText(/search breakfasts/i)).toBeInTheDocument();
+  });
+
+  it('breakfast week 2 also shows 7 breakfasts', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('plan-btn-breakfast'));
+    fireEvent.click(screen.getByTestId('week-btn-2'));
+    expect(screen.getByTestId('week-meal-count')).toHaveTextContent('7 breakfasts');
   });
 });

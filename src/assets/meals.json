@@ -2,7 +2,7 @@
   {
     "id": "w1-mon",
     "week": 1,
-    "day": "Mon \u2014 Week 1",
+    "day": "Mon — Week 1",
     "title": "Harissa chicken grain bowl",
     "time": "25 min",
     "protein": "42g protein",
@@ -34,7 +34,7 @@
   {
     "id": "w1-tue",
     "week": 1,
-    "day": "Tue \u2014 Week 1",
+    "day": "Tue — Week 1",
     "title": "High-protein tuna wrap no mayo",
     "time": "12 min",
     "protein": "38g protein",
@@ -53,7 +53,7 @@
       "1 tsp lemon juice + black pepper"
     ],
     "steps": [
-      "Mix tuna, yogurt, Dijon, capers, lemon, pepper \u2014 no mayo needed.",
+      "Mix tuna, yogurt, Dijon, capers, lemon, pepper — no mayo needed.",
       "Warm wraps 10 sec. Spread tuna mix, top with carrots, cucumber, leaves.",
       "Roll tight, slice diagonally. Secure with parchment for lunchbox."
     ],
@@ -64,7 +64,7 @@
   {
     "id": "w1-wed",
     "week": 1,
-    "day": "Wed \u2014 Week 1",
+    "day": "Wed — Week 1",
     "title": "Rotisserie chicken quinoa crunch salad",
     "time": "15 min",
     "protein": "28g protein",
@@ -98,7 +98,7 @@
   {
     "id": "w1-thu",
     "week": 1,
-    "day": "Thu \u2014 Week 1",
+    "day": "Thu — Week 1",
     "title": "White bean tuna salad",
     "time": "12 min",
     "protein": "34g protein",
@@ -121,14 +121,14 @@
       "Gently combine beans, tuna flakes, tomatoes, cucumber, onion, olives.",
       "Dress with EVOO, lemon, parsley. Rest 10 min for beans to absorb."
     ],
-    "storage": "Fridge 3 days \u2014 actually improves. No heating needed. Dubai-proof.",
+    "storage": "Fridge 3 days — actually improves. No heating needed. Dubai-proof.",
     "placeholder": null,
     "plan": "no-red-meat"
   },
   {
     "id": "w1-fri",
     "week": 1,
-    "day": "Fri \u2014 Week 1",
+    "day": "Fri — Week 1",
     "title": "Pesto chicken salad with crackers",
     "time": "15 min",
     "protein": "33g protein",
@@ -148,7 +148,7 @@
     "steps": [
       "Stir pesto + yogurt. Fold in chicken, celery, sun-dried tomatoes, lemon.",
       "Pack spinach separate. Serve salad scooped with crackers or over spinach.",
-      "Add pepper, extra lemon to taste \u2014 no extra salt needed."
+      "Add pepper, extra lemon to taste — no extra salt needed."
     ],
     "storage": "Fridge 3 days. Keep crackers in separate pouch to stay crisp.",
     "placeholder": null,
@@ -157,7 +157,7 @@
   {
     "id": "w1-sat",
     "week": 1,
-    "day": "Sat \u2014 Week 1",
+    "day": "Sat — Week 1",
     "title": "Mediterranean chickpea bowl",
     "time": "20 min",
     "protein": "18g protein",
@@ -180,14 +180,14 @@
       "Mix veg, olives, mint. Whisk lemon + remaining oil for dressing.",
       "Bowl up: couscous, chickpeas, salad, feta crumbled on top."
     ],
-    "storage": "Fridge 4 days. Plant-powered \u2014 holds best of the week. Good cold.",
+    "storage": "Fridge 4 days. Plant-powered — holds best of the week. Good cold.",
     "placeholder": null,
     "plan": "no-red-meat"
   },
   {
     "id": "w1-sun",
     "week": 1,
-    "day": "Sun \u2014 Week 1",
+    "day": "Sun — Week 1",
     "title": "Chicken tikka bagel",
     "time": "20 min",
     "protein": "38g protein",
@@ -219,7 +219,7 @@
   {
     "id": "w2-mon",
     "week": 2,
-    "day": "Mon \u2014 Week 2",
+    "day": "Mon — Week 2",
     "title": "Salmon avocado rice bowl",
     "time": "22 min",
     "protein": "36g protein",
@@ -248,7 +248,7 @@
   {
     "id": "w2-tue",
     "week": 2,
-    "day": "Tue \u2014 Week 2",
+    "day": "Tue — Week 2",
     "title": "Turkey hummus veggie wrap",
     "time": "12 min",
     "protein": "32g protein",
@@ -268,9 +268,9 @@
     "steps": [
       "Spread hummus on wraps. Layer turkey, peppers, cucumber, carrots, spinach.",
       "Crumble feta, squeeze lemon, roll tightly.",
-      "Slice in half \u2014 holds well for grab-and-go."
+      "Slice in half — holds well for grab-and-go."
     ],
-    "storage": "Wrap best day-of. Hummus base prevents soggy \u2014 still good next day wrapped.",
+    "storage": "Wrap best day-of. Hummus base prevents soggy — still good next day wrapped.",
     "placeholder": {
       "gradient": "from-[#d6e8d0] to-[#a8c9a0]",
       "emoji": "\\uD83C\\uDF2F",
@@ -281,7 +281,7 @@
   {
     "id": "w2-wed",
     "week": 2,
-    "day": "Wed \u2014 Week 2",
+    "day": "Wed — Week 2",
     "title": "Chicken Waldorf toast",
     "time": "15 min",
     "protein": "27g protein",
@@ -303,7 +303,7 @@
       "Toast sourdough. Top with leaves, then Waldorf chicken salad.",
       "Finish with remaining walnuts and drizzle honey if liked."
     ],
-    "storage": "Salad keeps 2 days. Toast bread fresh \u2014 pack components separately.",
+    "storage": "Salad keeps 2 days. Toast bread fresh — pack components separately.",
     "placeholder": {
       "gradient": "from-[#e8e0c8] to-[#d4c5a0]",
       "emoji": "\\uD83C\\uDF5E",
@@ -314,7 +314,7 @@
   {
     "id": "w2-thu",
     "week": 2,
-    "day": "Thu \u2014 Week 2",
+    "day": "Thu — Week 2",
     "title": "Lemony lentil soup + side salad",
     "time": "30 min",
     "protein": "22g protein",
@@ -333,9 +333,9 @@
       "Side: 80g cucumber, 80g tomatoes, 20g parsley, 1 tbsp olive oil, lemon"
     ],
     "steps": [
-      "Saut\u00e9 onion, carrot, garlic in 1 tbsp oil 4 min. Add spices, lentils, stock. Simmer 18 min.",
+      "Sauté onion, carrot, garlic in 1 tbsp oil 4 min. Add spices, lentils, stock. Simmer 18 min.",
       "Blend half for creaminess, stir lemon juice + zest + remaining oil.",
-      "Toss quick side salad \u2014 serve with soup, warm or room temp."
+      "Toss quick side salad — serve with soup, warm or room temp."
     ],
     "storage": "Soup keeps 4 days, freezes well. Side salad day-of.",
     "placeholder": {
@@ -348,7 +348,7 @@
   {
     "id": "w2-fri",
     "week": 2,
-    "day": "Fri \u2014 Week 2",
+    "day": "Fri — Week 2",
     "title": "Tuna olive cucumber sandwich",
     "time": "10 min",
     "protein": "30g protein",
@@ -381,7 +381,7 @@
   {
     "id": "w2-sat",
     "week": 2,
-    "day": "Sat \u2014 Week 2",
+    "day": "Sat — Week 2",
     "title": "Grilled shrimp power bowl",
     "time": "20 min",
     "protein": "32g protein",
@@ -414,7 +414,7 @@
   {
     "id": "w2-sun",
     "week": 2,
-    "day": "Sun \u2014 Week 2",
+    "day": "Sun — Week 2",
     "title": "Egg white bean skillet",
     "time": "18 min",
     "protein": "28g protein",
@@ -429,14 +429,14 @@
       "1 garlic clove, sliced",
       "1 tbsp olive oil",
       "30g feta, crumbled",
-      "1 tsp za\u2019atar + pinch chilli flakes"
+      "1 tsp za’atar + pinch chilli flakes"
     ],
     "steps": [
-      "Saut\u00e9 garlic in oil 1 min, add tomatoes, beans, spinach \u2014 wilt 2 min.",
-      "Pour eggs, scramble softly 2-3 min. Season with za\u2019atar, chilli.",
+      "Sauté garlic in oil 1 min, add tomatoes, beans, spinach — wilt 2 min.",
+      "Pour eggs, scramble softly 2-3 min. Season with za’atar, chilli.",
       "Top with feta. Serve warm or room temp with lemon wedge."
     ],
-    "storage": "Fridge 3 days. Reheats well \u2014 great for Sunday prep into Mon.",
+    "storage": "Fridge 3 days. Reheats well — great for Sunday prep into Mon.",
     "placeholder": {
       "gradient": "from-[#f7e7b4] to-[#e8c77a]",
       "emoji": "\\uD83C\\uDF73",
@@ -448,7 +448,7 @@
     "id": "v1-mon",
     "plan": "vegan",
     "week": 1,
-    "day": "Mon \u2014 Week 1",
+    "day": "Mon — Week 1",
     "title": "Spiced chickpea & quinoa power bowl",
     "time": "20 min",
     "protein": "40g protein",
@@ -473,14 +473,14 @@
       "Whisk tahini + lemon juice + 2 tbsp water + pinch salt into a dressing.",
       "Build bowl: quinoa, spinach, tomatoes, cucumber, crispy chickpeas. Drizzle dressing."
     ],
-    "storage": "Fridge 3 days. Keep dressing separate. Chickpeas lose crunch \u2014 re-crisp in a dry pan.",
+    "storage": "Fridge 3 days. Keep dressing separate. Chickpeas lose crunch — re-crisp in a dry pan.",
     "placeholder": null
   },
   {
     "id": "v1-tue",
     "plan": "vegan",
     "week": 1,
-    "day": "Tue \u2014 Week 1",
+    "day": "Tue — Week 1",
     "title": "Crispy tofu & mango rice paper rolls",
     "time": "28 min",
     "protein": "35g protein",
@@ -504,14 +504,14 @@
       "Soften rice paper in warm water 20 sec. Fill with noodles, tofu, mango, carrot, cucumber, herbs. Roll tight.",
       "Serve rolls with peanut dipping sauce."
     ],
-    "storage": "Fridge 1 day \u2014 wrap each roll in damp paper towel. Sauce fridge 4 days.",
+    "storage": "Fridge 1 day — wrap each roll in damp paper towel. Sauce fridge 4 days.",
     "placeholder": null
   },
   {
     "id": "v1-wed",
     "plan": "vegan",
     "week": 1,
-    "day": "Wed \u2014 Week 1",
+    "day": "Wed — Week 1",
     "title": "Lentil & roasted red pepper wrap",
     "time": "22 min",
     "protein": "35g protein",
@@ -536,14 +536,14 @@
       "Spread hummus on wrap. Layer lentils, roasted peppers, pickled onion, rocket.",
       "Fold sides in and roll tight. Slice on the diagonal."
     ],
-    "storage": "Fridge 2 days \u2014 wrap in foil. Pack rocket separately to avoid wilting.",
+    "storage": "Fridge 2 days — wrap in foil. Pack rocket separately to avoid wilting.",
     "placeholder": null
   },
   {
     "id": "v1-thu",
     "plan": "vegan",
     "week": 1,
-    "day": "Thu \u2014 Week 1",
+    "day": "Thu — Week 1",
     "title": "Edamame & avocado sushi bowl",
     "time": "15 min",
     "protein": "27g protein",
@@ -567,14 +567,14 @@
       "Build bowl: rice base, edamame, avocado, cucumber, carrot, nori strips.",
       "Drizzle dressing, scatter sesame seeds + pickled ginger."
     ],
-    "storage": "Fridge 1 day \u2014 avocado browns. Add avocado fresh. Rice keeps 2 days.",
+    "storage": "Fridge 1 day — avocado browns. Add avocado fresh. Rice keeps 2 days.",
     "placeholder": null
   },
   {
     "id": "v1-fri",
     "plan": "vegan",
     "week": 1,
-    "day": "Fri \u2014 Week 1",
+    "day": "Fri — Week 1",
     "title": "Black bean & corn burrito bowl",
     "time": "20 min",
     "protein": "33g protein",
@@ -606,7 +606,7 @@
     "id": "v1-sat",
     "plan": "vegan",
     "week": 1,
-    "day": "Sat \u2014 Week 1",
+    "day": "Sat — Week 1",
     "title": "Peanut noodles with crispy tofu",
     "time": "25 min",
     "protein": "48g protein",
@@ -631,14 +631,14 @@
       "Toss warm noodles with peanut sauce, red pepper, carrot, half the spring onions.",
       "Top with crispy tofu, sesame seeds, remaining spring onions + lime juice."
     ],
-    "storage": "Fridge 2 days. Noodles absorb sauce \u2014 add splash of water when reheating.",
+    "storage": "Fridge 2 days. Noodles absorb sauce — add splash of water when reheating.",
     "placeholder": null
   },
   {
     "id": "v1-sun",
     "plan": "vegan",
     "week": 1,
-    "day": "Sun \u2014 Week 1",
+    "day": "Sun — Week 1",
     "title": "Smoky red lentil soup & flatbread",
     "time": "30 min",
     "protein": "26g protein",
@@ -663,14 +663,14 @@
       "Blend half the soup for a creamy-chunky texture. Season with lemon juice + salt.",
       "Warm flatbreads. Serve soup topped with parsley + drizzle of oil."
     ],
-    "storage": "Fridge 4 days. Thickens overnight \u2014 thin with a little water when reheating.",
+    "storage": "Fridge 4 days. Thickens overnight — thin with a little water when reheating.",
     "placeholder": null
   },
   {
     "id": "v2-mon",
     "plan": "vegan",
     "week": 2,
-    "day": "Mon \u2014 Week 2",
+    "day": "Mon — Week 2",
     "title": "Falafel hummus grain plate",
     "time": "15 min",
     "protein": "30g protein",
@@ -690,7 +690,7 @@
       "Small handful flat-leaf parsley"
     ],
     "steps": [
-      "Heat falafel per packet \u2014 oven 10 min at 180 \u00b0C or pan-fry 3-4 min.",
+      "Heat falafel per packet — oven 10 min at 180 °C or pan-fry 3-4 min.",
       "Season grains with lemon juice + 1 tbsp oil + pinch salt.",
       "Spread hummus on plate. Pile grains alongside tomato-cucumber-onion salad.",
       "Top with falafel, drizzle remaining oil, sprinkle za'atar + parsley."
@@ -702,7 +702,7 @@
     "id": "v2-tue",
     "plan": "vegan",
     "week": 2,
-    "day": "Tue \u2014 Week 2",
+    "day": "Tue — Week 2",
     "title": "Teriyaki tempeh & broccoli rice bowl",
     "time": "22 min",
     "protein": "56g protein",
@@ -725,14 +725,14 @@
       "Steam or stir-fry broccoli 4-5 min until bright green and tender-crisp.",
       "Bowl: rice, broccoli, teriyaki tempeh. Scatter sesame seeds + spring onions."
     ],
-    "storage": "Fridge 3 days. Sauce intensifies \u2014 reheat tempeh with a splash of water.",
+    "storage": "Fridge 3 days. Sauce intensifies — reheat tempeh with a splash of water.",
     "placeholder": null
   },
   {
     "id": "v2-wed",
     "plan": "vegan",
     "week": 2,
-    "day": "Wed \u2014 Week 2",
+    "day": "Wed — Week 2",
     "title": "Quinoa tabbouleh with roasted chickpeas",
     "time": "20 min",
     "protein": "35g protein",
@@ -752,19 +752,19 @@
       "2 lemons, juice + salt & pepper"
     ],
     "steps": [
-      "Toss chickpeas in cumin, paprika + 1 tsp oil + salt. Roast 200 \u00b0C for 15 min or pan-fry until crispy.",
+      "Toss chickpeas in cumin, paprika + 1 tsp oil + salt. Roast 200 °C for 15 min or pan-fry until crispy.",
       "Cool quinoa to room temp. Combine with parsley, mint, tomatoes, cucumber, spring onions.",
       "Dress with lemon juice + olive oil + salt + pepper. Toss well.",
       "Top with crispy chickpeas just before serving."
     ],
-    "storage": "Fridge 3 days \u2014 improves overnight. Add chickpeas day-of to keep crunch.",
+    "storage": "Fridge 3 days — improves overnight. Add chickpeas day-of to keep crunch.",
     "placeholder": null
   },
   {
     "id": "v2-thu",
     "plan": "vegan",
     "week": 2,
-    "day": "Thu \u2014 Week 2",
+    "day": "Thu — Week 2",
     "title": "Thai-style peanut tofu with jasmine rice",
     "time": "25 min",
     "protein": "45g protein",
@@ -788,14 +788,14 @@
       "Stir in peanut butter, soy, lime, chilli, sugar + 4 tbsp water into a sauce. Add tofu back, toss 1 min.",
       "Serve over rice. Top with coriander + lime wedge."
     ],
-    "storage": "Fridge 2 days. Sauce thickens \u2014 loosen with water when reheating.",
+    "storage": "Fridge 2 days. Sauce thickens — loosen with water when reheating.",
     "placeholder": null
   },
   {
     "id": "v2-fri",
     "plan": "vegan",
     "week": 2,
-    "day": "Fri \u2014 Week 2",
+    "day": "Fri — Week 2",
     "title": "Smoky chipotle bean tacos",
     "time": "18 min",
     "protein": "37g protein",
@@ -820,14 +820,14 @@
       "Warm tortillas dry in a hot pan 30 sec each side.",
       "Fill tortillas: beans, cabbage, tomato, avocado, salsa, coriander."
     ],
-    "storage": "Fridge 2 days \u2014 beans only. Assemble tacos fresh. Avocado add day-of.",
+    "storage": "Fridge 2 days — beans only. Assemble tacos fresh. Avocado add day-of.",
     "placeholder": null
   },
   {
     "id": "v2-sat",
     "plan": "vegan",
     "week": 2,
-    "day": "Sat \u2014 Week 2",
+    "day": "Sat — Week 2",
     "title": "Greek-style stuffed bell peppers",
     "time": "35 min",
     "protein": "16g protein",
@@ -847,19 +847,19 @@
       "Small handful parsley + salt & pepper"
     ],
     "steps": [
-      "Preheat oven 200 \u00b0C. Place pepper halves cut-side up on a baking tray. Brush with oil + salt.",
+      "Preheat oven 200 °C. Place pepper halves cut-side up on a baking tray. Brush with oil + salt.",
       "Mix rice, chickpeas, tomatoes, onion, tomato paste, oregano, cumin, lemon juice + 1 tbsp oil.",
       "Fill peppers generously with rice mixture. Roast 20-22 min until peppers are tender.",
       "Finish with parsley + extra lemon juice."
     ],
-    "storage": "Fridge 3 days. Reheat covered at 180 \u00b0C for 10 min or microwave 2 min.",
+    "storage": "Fridge 3 days. Reheat covered at 180 °C for 10 min or microwave 2 min.",
     "placeholder": null
   },
   {
     "id": "v2-sun",
     "plan": "vegan",
     "week": 2,
-    "day": "Sun \u2014 Week 2",
+    "day": "Sun — Week 2",
     "title": "Green lentil & spinach coconut curry",
     "time": "30 min",
     "protein": "28g protein",
@@ -885,7 +885,409 @@
       "Stir in spinach until wilted. Season with lime juice + salt.",
       "Serve over rice."
     ],
-    "storage": "Fridge 4 days. Thickens \u2014 add coconut milk or water when reheating.",
+    "storage": "Fridge 4 days. Thickens — add coconut milk or water when reheating.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-mon",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Mon — Week 1",
+    "title": "Shakshuka with pita",
+    "time": "25 min",
+    "protein": "22g protein",
+    "kcal": "450 kcal",
+    "fat": "24g fat",
+    "carbs": "36g carbs",
+    "ingredients": [
+      "4 eggs",
+      "400g canned tomatoes, crushed",
+      "1 red pepper, diced",
+      "1 onion, diced",
+      "3 garlic cloves, minced",
+      "1 tsp cumin + 1 tsp smoked paprika + pinch cayenne",
+      "1 tbsp olive oil",
+      "2 pita breads, warmed",
+      "Small handful parsley, chopped + salt & pepper"
+    ],
+    "steps": [
+      "Heat oil in a wide pan. Sauté onion 5 min until soft, add garlic, red pepper, spices — cook 2 min.",
+      "Pour in tomatoes. Simmer 10 min, seasoning well.",
+      "Make wells in sauce. Crack eggs in, cover and cook 5–7 min until whites are set.",
+      "Scatter parsley. Serve straight from pan with warm pita."
+    ],
+    "storage": "Sauce keeps fridge 4 days — eggs are best fresh. Reheat sauce then poach new eggs.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-tue",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Tue — Week 1",
+    "title": "Avocado & soft-boiled egg toast",
+    "time": "15 min",
+    "protein": "18g protein",
+    "kcal": "420 kcal",
+    "fat": "26g fat",
+    "carbs": "28g carbs",
+    "ingredients": [
+      "2 eggs",
+      "1 ripe avocado",
+      "2 thick slices sourdough",
+      "1/2 lemon, juice",
+      "Chilli flakes + salt & black pepper"
+    ],
+    "steps": [
+      "Bring small pan to boil. Soft-boil eggs 6.5 min, transfer to cold water, peel.",
+      "Toast sourdough until golden.",
+      "Mash avocado with lemon juice, salt & pepper. Spread generously on toast.",
+      "Halve eggs, lay on top. Finish with chilli flakes and black pepper."
+    ],
+    "storage": "Avocado browns quickly — mash fresh. Hard-boil eggs ahead if needed; peel on the day.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-wed",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Wed — Week 1",
+    "title": "Labneh & za'atar flatbread bowl",
+    "time": "10 min",
+    "protein": "16g protein",
+    "kcal": "380 kcal",
+    "fat": "18g fat",
+    "carbs": "38g carbs",
+    "ingredients": [
+      "150g labneh",
+      "2 pita breads",
+      "2 ripe tomatoes, diced",
+      "1/2 cucumber, diced",
+      "10 kalamata olives",
+      "1 tbsp olive oil",
+      "1 tsp za'atar + salt & pepper"
+    ],
+    "steps": [
+      "Warm pita in a dry pan or directly over a gas flame for 1 min.",
+      "Spread labneh on a plate. Drizzle with olive oil, sprinkle za'atar.",
+      "Scatter tomatoes, cucumber, and olives around. Season.",
+      "Serve with warm pita for dipping and scooping."
+    ],
+    "storage": "Prep veg ahead; keep labneh covered in fridge. Assemble just before eating.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-thu",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Thu — Week 1",
+    "title": "Overnight oats with berries & almond butter",
+    "time": "5 min + overnight",
+    "protein": "15g protein",
+    "kcal": "480 kcal",
+    "fat": "16g fat",
+    "carbs": "68g carbs",
+    "ingredients": [
+      "80g rolled oats",
+      "250ml milk",
+      "150g mixed berries",
+      "1 tbsp honey",
+      "1 tbsp almond butter",
+      "1 tbsp chia seeds"
+    ],
+    "steps": [
+      "Combine oats, milk, chia seeds, and honey in a jar or bowl. Stir well.",
+      "Cover and refrigerate overnight (or at least 4 hours).",
+      "In the morning, stir and add a splash of milk if too thick.",
+      "Top with mixed berries and a swirl of almond butter."
+    ],
+    "storage": "Keeps fridge 3 days without toppings. Add berries and almond butter fresh each morning.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-fri",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Fri — Week 1",
+    "title": "Smoked salmon scrambled eggs",
+    "time": "12 min",
+    "protein": "30g protein",
+    "kcal": "390 kcal",
+    "fat": "24g fat",
+    "carbs": "14g carbs",
+    "ingredients": [
+      "3 eggs",
+      "80g smoked salmon, torn",
+      "2 tbsp milk",
+      "1 tbsp butter",
+      "2 slices sourdough",
+      "1/2 lemon, juice",
+      "Salt & black pepper"
+    ],
+    "steps": [
+      "Toast sourdough. Whisk eggs with milk, salt, and black pepper.",
+      "Melt butter in a non-stick pan over low heat. Add eggs and stir slowly — 3–4 min for soft curds.",
+      "Remove from heat while still slightly underdone. Fold in smoked salmon.",
+      "Pile onto toast, squeeze lemon over and season to taste."
+    ],
+    "storage": "Scrambled eggs don't keep — make fresh. Smoked salmon stays fridge 3 days once opened.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-sat",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Sat — Week 1",
+    "title": "Ful medames with eggs & pita",
+    "time": "20 min",
+    "protein": "24g protein",
+    "kcal": "460 kcal",
+    "fat": "14g fat",
+    "carbs": "60g carbs",
+    "ingredients": [
+      "400g fava beans, drained & rinsed",
+      "2 garlic cloves, minced",
+      "1 lemon, juice",
+      "2 tbsp olive oil",
+      "1 tsp cumin",
+      "2 eggs",
+      "2 pita breads",
+      "Small handful parsley + chilli flakes + salt"
+    ],
+    "steps": [
+      "Heat 1 tbsp oil in a pan. Sauté garlic 1 min. Add fava beans, cumin, and 4 tbsp water.",
+      "Simmer 8–10 min, mashing half the beans roughly. Stir in lemon juice and season.",
+      "Fry or poach eggs separately to your liking.",
+      "Serve ful in a bowl topped with egg, parsley, chilli, and remaining olive oil. Warm pita alongside."
+    ],
+    "storage": "Ful keeps fridge 4 days. Reheat with a splash of water. Cook eggs fresh.",
+    "placeholder": null
+  },
+  {
+    "id": "b1-sun",
+    "plan": "breakfast",
+    "week": 1,
+    "day": "Sun — Week 1",
+    "title": "Banana oat pancakes",
+    "time": "20 min",
+    "protein": "16g protein",
+    "kcal": "460 kcal",
+    "fat": "12g fat",
+    "carbs": "72g carbs",
+    "ingredients": [
+      "2 ripe bananas, mashed",
+      "2 eggs",
+      "80g rolled oats",
+      "100ml milk",
+      "1 tsp baking powder",
+      "1 tbsp honey",
+      "1 tsp olive oil (for pan)"
+    ],
+    "steps": [
+      "Blend or whisk together bananas, eggs, oats, milk, and baking powder into a thick batter.",
+      "Rest 5 min so oats absorb.",
+      "Heat a little oil in a non-stick pan over medium. Cook small rounds 2–3 min per side until golden.",
+      "Stack and drizzle with honey. Serve with sliced banana or mixed berries."
+    ],
+    "storage": "Batter keeps fridge 24 hours. Cooked pancakes fridge 2 days — reheat in a dry pan.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-mon",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Mon — Week 2",
+    "title": "Halloumi & spinach scramble",
+    "time": "18 min",
+    "protein": "26g protein",
+    "kcal": "430 kcal",
+    "fat": "28g fat",
+    "carbs": "18g carbs",
+    "ingredients": [
+      "3 eggs",
+      "100g halloumi, cut into small cubes",
+      "100g baby spinach",
+      "1 red pepper, diced",
+      "1 tbsp olive oil",
+      "2 pita breads, warmed",
+      "Salt & black pepper"
+    ],
+    "steps": [
+      "Heat oil in a non-stick pan over medium-high. Fry halloumi cubes 3–4 min until golden.",
+      "Add red pepper, cook 3 min. Add spinach and stir until wilted.",
+      "Beat eggs, pour over and stir gently over low heat for 2–3 min until just set.",
+      "Season and serve with warm pita."
+    ],
+    "storage": "Best eaten fresh. Halloumi goes rubbery once cold — cook to order.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-tue",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Tue — Week 2",
+    "title": "Greek yogurt & granola parfait",
+    "time": "10 min",
+    "protein": "22g protein",
+    "kcal": "390 kcal",
+    "fat": "14g fat",
+    "carbs": "44g carbs",
+    "ingredients": [
+      "200g Greek yogurt",
+      "50g granola",
+      "150g mixed berries",
+      "2 tbsp honey",
+      "30g walnut halves"
+    ],
+    "steps": [
+      "Spoon half the yogurt into a glass or bowl.",
+      "Layer with half the berries and half the granola.",
+      "Repeat with remaining yogurt, berries, and granola.",
+      "Top with walnuts and a drizzle of honey."
+    ],
+    "storage": "Layer just before eating or granola goes soggy. Yogurt and berries keep fridge 3 days.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-wed",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Wed — Week 2",
+    "title": "Spinach & feta omelette",
+    "time": "15 min",
+    "protein": "26g protein",
+    "kcal": "360 kcal",
+    "fat": "25g fat",
+    "carbs": "8g carbs",
+    "ingredients": [
+      "3 eggs",
+      "80g baby spinach",
+      "60g feta, crumbled",
+      "1/2 onion, diced",
+      "1 tbsp butter",
+      "Salt & black pepper"
+    ],
+    "steps": [
+      "Beat eggs with a pinch of salt and plenty of black pepper.",
+      "Melt butter over medium heat. Sauté onion 3 min until soft. Add spinach and wilt 1 min.",
+      "Pour eggs over filling. Cook edges first, tilting pan — 2–3 min.",
+      "Scatter feta over half the omelette. Fold over and slide onto plate."
+    ],
+    "storage": "Omelettes don't keep. The filling (onion, spinach) can be prepped and held fridge 2 days.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-thu",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Thu — Week 2",
+    "title": "Bircher muesli with apple & honey",
+    "time": "5 min + overnight",
+    "protein": "16g protein",
+    "kcal": "440 kcal",
+    "fat": "12g fat",
+    "carbs": "67g carbs",
+    "ingredients": [
+      "80g rolled oats",
+      "200ml milk",
+      "1 apple, grated",
+      "50g Greek yogurt",
+      "2 tbsp honey",
+      "30g almonds, roughly chopped",
+      "Pinch cinnamon"
+    ],
+    "steps": [
+      "Mix oats, milk, grated apple, yogurt, and honey in a bowl. Add cinnamon.",
+      "Cover and refrigerate overnight (minimum 4 hours).",
+      "In the morning, stir and add milk to reach your preferred consistency.",
+      "Top with chopped almonds and an extra drizzle of honey."
+    ],
+    "storage": "Keeps fridge 3 days without toppings. Add nuts just before eating.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-fri",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Fri — Week 2",
+    "title": "Egg & cheddar breakfast quesadilla",
+    "time": "15 min",
+    "protein": "26g protein",
+    "kcal": "520 kcal",
+    "fat": "26g fat",
+    "carbs": "46g carbs",
+    "ingredients": [
+      "2 whole wheat wraps",
+      "3 eggs, beaten",
+      "60g cheddar, grated",
+      "1/2 red pepper, diced",
+      "50g baby spinach",
+      "1 tbsp olive oil",
+      "Salt & black pepper"
+    ],
+    "steps": [
+      "Heat 1 tsp oil in a pan. Scramble eggs loosely over medium heat — remove while slightly wet.",
+      "Sauté pepper and spinach in remaining oil for 2 min.",
+      "Lay a wrap flat. Spread scrambled egg and veg over half. Top with cheddar.",
+      "Fold over. Toast in a dry pan 2 min per side until crispy and cheese melted. Slice and serve."
+    ],
+    "storage": "Best fresh but keeps fridge 2 days wrapped tightly. Reheat in a dry pan for best crunch.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-sat",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Sat — Week 2",
+    "title": "Date & banana smoothie bowl",
+    "time": "10 min",
+    "protein": "15g protein",
+    "kcal": "440 kcal",
+    "fat": "12g fat",
+    "carbs": "68g carbs",
+    "ingredients": [
+      "2 frozen bananas",
+      "4 Medjool dates, pitted",
+      "100ml almond milk",
+      "30g granola (topping)",
+      "1 tbsp almond butter (topping)",
+      "1 tbsp chia seeds (topping)"
+    ],
+    "steps": [
+      "Blend frozen bananas, dates, and almond milk until thick and smooth.",
+      "Pour into a bowl — it should be thick enough to hold toppings.",
+      "Top with granola, almond butter, and chia seeds.",
+      "Eat immediately — the bowl softens as the frozen base thaws."
+    ],
+    "storage": "Make fresh each time. Prep portions of frozen banana ahead for speed.",
+    "placeholder": null
+  },
+  {
+    "id": "b2-sun",
+    "plan": "breakfast",
+    "week": 2,
+    "day": "Sun — Week 2",
+    "title": "French toast with mixed berries",
+    "time": "20 min",
+    "protein": "18g protein",
+    "kcal": "490 kcal",
+    "fat": "18g fat",
+    "carbs": "64g carbs",
+    "ingredients": [
+      "4 thick slices sourdough",
+      "3 eggs",
+      "100ml milk",
+      "1 tsp cinnamon",
+      "1 tbsp butter",
+      "150g mixed berries",
+      "2 tbsp maple syrup"
+    ],
+    "steps": [
+      "Whisk eggs, milk, and cinnamon in a wide shallow bowl.",
+      "Soak each bread slice 30 seconds per side.",
+      "Melt butter in a pan over medium heat. Fry soaked bread 2–3 min per side until deep golden.",
+      "Serve topped with fresh mixed berries and a drizzle of maple syrup."
+    ],
+    "storage": "Cook fresh. Leftover cooked French toast keeps fridge 2 days — reheat in a dry pan.",
     "placeholder": null
   }
 ]

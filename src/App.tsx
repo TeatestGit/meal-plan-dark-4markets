@@ -104,6 +104,8 @@ export default function App() {
   useEffect(() => { saveSet("planned-meals", plannedMeals); }, [plannedMeals]);
 
   const planLabel = plans.find((p) => p.id === plan)?.label ?? plan;
+  const mealType = plan === "breakfast" ? "Breakfast" : "Lunch";
+  const mealTypePlural = plan === "breakfast" ? "breakfasts" : "lunches";
   const planMealCount = useMemo(() => meals.filter((m) => m.plan === plan).length, [plan]);
 
   const weekMeals = useMemo(() => {
@@ -145,7 +147,7 @@ export default function App() {
       avgProtein: Math.round(totalProtein / wm.length),
       avgTime: Math.round(totalTime / wm.length),
     };
-  }, [week]);
+  }, [plan, week]);
 
   const shoppingListItems = useMemo(() => {
     const grouped = new Map<string, PricedItem>();
@@ -327,7 +329,7 @@ export default function App() {
                 <input
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Search lunches, ingredients…"
+                  placeholder={`Search ${mealTypePlural}, ingredients…`}
                   data-testid={testIds.searchInput}
                   className="h-[44px] sm:h-[36px] w-full rounded-full bg-card border border-rim px-5 sm:px-4 pr-10 text-[15px] sm:text-[13px] font-dm text-ink-primary placeholder:text-ink-muted focus:border-rim-hover focus:outline-none shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition min-w-0"
                 />
@@ -342,7 +344,7 @@ export default function App() {
                 <span className="font-dm text-[11px] font-medium tracking-[0.18em] uppercase text-ink-secondary break-words">Dubai Meal Planner · {planLabel} · AED · 4 Markets</span>
               </div>
               <h1 className="font-newsreader italic font-normal text-[36px] sm:text-[42px] md:text-[48px] lg:text-[52px] leading-[1.1] sm:leading-[1.02] lg:leading-[0.95] tracking-[-0.03em] text-ink-primary break-words">
-                2-Week Lunch<br />Plan
+                2-Week {mealType}<br />Plan
               </h1>
               <div className="mt-4 sm:mt-5 flex items-center gap-3 flex-wrap">
                 <span className="h-px w-8 bg-rim hidden sm:block" />
@@ -354,7 +356,7 @@ export default function App() {
 
             <div className="lg:max-w-[42ch] flex flex-col gap-5 sm:gap-6 min-w-0">
               <p className="font-dm text-[14px] leading-[1.8] text-ink-secondary break-words">
-                {planMealCount} {planLabel.toLowerCase()} lunches across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
+                {planMealCount} {planLabel.toLowerCase()} {mealTypePlural} across 2 weeks, priced across four Dubai supermarkets. Build your shopping list, compare Carrefour, LuLu, Spinneys and Géant, and cook one week at a time.
               </p>
               <div className="flex flex-wrap gap-2 sm:gap-2.5">
                 <span data-testid={testIds.statAvgKcal} className="inline-flex h-[28px] px-4 rounded-full bg-page border border-rim text-ink-secondary font-dm text-[11px] font-medium tracking-[0.08em] uppercase items-center tabular">Avg {stats.avgKcal} · {stats.totalKcal} kcal</span>
@@ -409,7 +411,7 @@ export default function App() {
                     </button>
                   ))}
                 </div>
-                <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} lunches</span>
+                <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} {mealTypePlural}</span>
               </div>
 
               <div className="flex md:hidden items-center justify-between px-6 pt-4 pb-1">
@@ -434,7 +436,7 @@ export default function App() {
           <div className="min-w-0 order-2 md:order-2">
             {weekMeals.length === 0 ? (
               <div role="status" data-testid={testIds.noResults} className="rounded-[20px] bg-card border border-rim p-8 font-dm text-[14px] text-ink-secondary">
-                No lunches match "{search}".
+                No {mealTypePlural} match "{search}".
               </div>
             ) : (
               <MealDetail

@@ -8,9 +8,10 @@ test.describe("Plan switching", () => {
     await page.reload();
   });
 
-  test("both plan tabs are visible", async ({ page }) => {
+  test("all three plan tabs are visible", async ({ page }) => {
     await expect(page.getByTestId(sel.planBtn("no-red-meat"))).toBeVisible();
     await expect(page.getByTestId(sel.planBtn("vegan"))).toBeVisible();
+    await expect(page.getByTestId(sel.planBtn("breakfast"))).toBeVisible();
   });
 
   test("No Red Meat plan is active by default", async ({ page }) => {
@@ -98,5 +99,47 @@ test.describe("Plan switching", () => {
     // no chicken breast (a no-red-meat ingredient) should appear in the list
     const listText = await page.locator("[data-testid='list-item']").allInnerTexts();
     expect(listText.join(" ")).not.toMatch(/chicken breast/i);
+  });
+});
+
+test.describe("Breakfast plan", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+  });
+
+  test("breakfast plan tab is visible", async ({ page }) => {
+    await expect(page.getByTestId(sel.planBtn("breakfast"))).toBeVisible();
+  });
+
+  test("switching to breakfast shows 7 breakfasts in week badge", async ({ page }) => {
+    await page.getByTestId(sel.planBtn("breakfast")).click();
+    await expect(page.getByTestId(sel.weekMealCount)).toContainText("7 breakfasts");
+  });
+
+  test("switching to breakfast changes heading to '2-Week Breakfast Plan'", async ({ page }) => {
+    await page.getByTestId(sel.planBtn("breakfast")).click();
+    await expect(page.locator("h1")).toContainText("2-Week Breakfast");
+  });
+
+  test("breakfast week 2 also shows 7 meals", async ({ page }) => {
+    await page.getByTestId(sel.planBtn("breakfast")).click();
+    await page.getByTestId(sel.weekBtn(2)).click();
+    await expect(page.getByTestId(sel.weekMealCount)).toContainText("7 breakfasts");
+  });
+
+  test("add week on breakfast plan populates list with breakfast ingredients", async ({ page }) => {
+    await page.getByTestId(sel.planBtn("breakfast")).click();
+    await page.getByTestId(sel.addWeekBtn).click();
+    await expect(page.getByTestId(sel.emptyState)).not.toBeVisible();
+    // breakfast-specific ingredient — not found in lunch plans
+    const listText = await page.locator("[data-testid='list-item']").allInnerTexts();
+    expect(listText.join(" ")).toMatch(/egg|oat|avocado|pita|banana|yogurt/i);
+  });
+
+  test("footer shows Breakfast plan label after switching", async ({ page }) => {
+    await page.getByTestId(sel.planBtn("breakfast")).click();
+    await expect(page.locator("footer")).toContainText("Breakfast");
   });
 });
