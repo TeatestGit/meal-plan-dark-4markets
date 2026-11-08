@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
 import type { PriceEntry } from "./types";
+import mealsData from "./assets/meals.json";
 
 const chickenPrice: PriceEntry = {
   unit: "kg",
@@ -236,4 +237,38 @@ describe("qualitative quantities (handful / pinch)", () => {
   it("resolves pepper via alias", () => expect(findPriceEntry("pinch black pepper")).not.toBeNull());
   it("resolves sesame oil via alias", () => expect(findPriceEntry("1 tsp sesame oil + 1 tbsp sesame seeds")).not.toBeNull());
   it("resolves celery by weight", () => expect(findPriceEntry("60g celery, thinly sliced")).not.toBeNull());
+});
+
+describe("parseIngredientQuantity — full meal ingredient coverage", () => {
+  const allIngredients = [
+    ...new Set((mealsData as Array<{ ingredients: string[] }>).flatMap((m) => m.ingredients)),
+  ];
+
+  // These are garnish/seasoning lines with no measurable quantity — null is correct.
+  const knownGarnishes = new Set([
+    "Squeeze lemon + black pepper",
+    "Side: 80g cucumber, 80g tomatoes, 20g parsley, 1 tbsp olive oil, lemon",
+    "Salt & pepper",
+    "Fresh mint & coriander leaves",
+    "Fresh coriander + lime wedge to serve",
+    "Salt & black pepper",
+    "Squeeze of lemon",
+    "Black pepper & dried oregano",
+    "Salt & black pepper, fresh chives to finish",
+    "Squeeze of lemon, black pepper",
+    "Salt & black pepper, pinch of nutmeg",
+  ]);
+
+  it("every quantifiable ingredient parses to a non-null quantity", () => {
+    const quantifiable = allIngredients.filter((i) => !knownGarnishes.has(i));
+    for (const ingredient of quantifiable) {
+      expect(parseIngredientQuantity(ingredient), ingredient).not.toBeNull();
+    }
+  });
+
+  it("known garnish/seasoning lines correctly return null", () => {
+    for (const garnish of knownGarnishes) {
+      expect(parseIngredientQuantity(garnish), garnish).toBeNull();
+    }
+  });
 });
