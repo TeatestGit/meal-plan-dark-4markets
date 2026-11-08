@@ -1,5 +1,11 @@
 e Changelog
 
+## 2026-11-08 — Ingredient quantity display fixes & full coverage tests
+
+- **fix**: Added `mango`, `tortillas?`, `flatbreads?` to count-unit word list in `parseIngredientQuantity` — `1 small mango, julienned`, `6 small corn tortillas`, `2 wholegrain flatbreads` now show quantity
+- **fix**: Normalize Unicode fraction characters (`½`, `¼`, `¾`, `⅓`, `⅔`, etc.) before parsing — `½ ripe avocado, sliced` and `¼ red onion, finely sliced` now show quantity
+- **test**: Added full meal ingredient coverage describe block to `pricing.test.ts` — iterates every unique ingredient in `meals.json`, asserts non-null parse for all quantifiable ingredients and null for 11 known garnish/seasoning lines (51 tests total)
+
 ## 2026-11-08 — European breakfast plan, pricing docs
 
 - **feat**: Replaced 14 Middle-Eastern breakfast meals with 14 European high-protein easy-prep breakfasts — scrambled eggs & smoked salmon on sourdough, Greek yogurt parfait, poached eggs on avocado & feta toast, overnight oats, spinach & feta omelette, turkey & egg open sandwich, halloumi & tomato skillet (W1); cheddar & egg scramble, chia pudding, smoked salmon & avocado bagel, Greek yogurt with walnuts & banana, soft-boiled eggs with Dijon, bell pepper & feta omelette, poached eggs on wilted spinach & sourdough (W2). All ≥16g protein, 5–12 min prep.
