@@ -51,7 +51,7 @@ export function ShoppingListPanel({
         <div className="mt-3 rounded-[10px] bg-amber-500/10 border border-amber-500/20 px-3 py-2 flex items-center gap-2">
           <span className="text-amber-400 text-[13px] shrink-0">~</span>
           <span className="font-dm text-[10px] tracking-[0.04em] text-amber-300/80 leading-[1.5]">
-            Prices are estimates based on Dubai market data (Sep 2026) — actual in-store prices may differ.
+            Prices are estimates based on Dubai market data (Nov 2026) — actual in-store prices may differ.
           </span>
         </div>
 
@@ -168,7 +168,7 @@ export function ShoppingListPanel({
           <div data-testid={testIds.emptyState} className="rounded-[18px] border border-dashed border-rim bg-page/60 p-5 sm:p-6 mx-1 min-w-0">
             <div className="font-instrument text-[16px] text-ink-secondary mb-2 tracking-[-0.01em] break-words">Soft &amp; empty</div>
             <div className="font-dm text-[13px] text-ink-muted leading-[1.8] break-words">
-              Select ingredients or add a whole week. Prices are static Dubai estimates, not live retailer prices. Reference: Sep 2026.
+              Select ingredients or add a whole week. Prices are static Dubai estimates, not live retailer prices. Reference: Nov 2026.
             </div>
             <div className="mt-4 flex flex-wrap gap-1.5">
               {marketOrder.map((mk) => {
@@ -251,7 +251,7 @@ export function ShoppingListPanel({
         <div className="mt-3 mx-1 rounded-[14px] bg-page border border-rim/60 px-4 py-3">
           <div className="font-dm text-[10px] font-medium tracking-[0.12em] uppercase text-ink-muted mb-1.5">Price estimate basis</div>
           <div className="font-dm text-[11px] leading-[1.6] text-ink-secondary">
-            Static estimate based on Dubai market data from Sep 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 AED/kg, Géant 45 AED/kg, Spinneys 59.25 AED; feta Spinneys 135 AED/kg, Géant 90 AED.
+            Static estimate based on Dubai market data from Nov 2026; prices are not live or retailer-verified. Example references: chicken breast Carrefour ~42 AED/kg, Géant 45 AED/kg, Spinneys 59.25 AED; feta Spinneys 135 AED/kg, Géant 90 AED.
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             <span className="inline-flex rounded-full bg-card border border-rim px-2.5 py-1 font-dm text-[9px] tracking-[0.06em] uppercase text-ink-muted">Carrefour UAE</span>
