@@ -1,5 +1,11 @@
 e Changelog
 
+## 2026-11-08 — European breakfast plan, pricing docs
+
+- **feat**: Replaced 14 Middle-Eastern breakfast meals with 14 European high-protein easy-prep breakfasts — scrambled eggs & smoked salmon on sourdough, Greek yogurt parfait, poached eggs on avocado & feta toast, overnight oats, spinach & feta omelette, turkey & egg open sandwich, halloumi & tomato skillet (W1); cheddar & egg scramble, chia pudding, smoked salmon & avocado bagel, Greek yogurt with walnuts & banana, soft-boiled eggs with Dijon, bell pepper & feta omelette, poached eggs on wilted spinach & sourdough (W2). All ≥16g protein, 5–12 min prep.
+- **refactor**: Removed 4 unused price entries (`pita`, `fava beans`, `almond butter`, `medjool dates`) and their 3 aliases (`ful`, `fava`, `dates`) from `prices.ts`
+- **docs**: Added Pricing Logic section to README covering ingredient matching, quantity parsing, unit normalisation, the `g can` special case, and line cost formula
+
 ## 2026-11-08 — Add Breakfast plan
 
 - **feat**: 14 Dubai breakfast meals (plan: "breakfast", IDs `b1-mon`–`b2-sun`) added to `meals.json` — Shakshuka, Avocado toast, Labneh bowl, Overnight oats, Smoked salmon scramble, Ful medames, Banana pancakes, Halloumi scramble, Yogurt parfait, Spinach & feta omelette, Bircher muesli, Breakfast quesadilla, Smoothie bowl, French toast

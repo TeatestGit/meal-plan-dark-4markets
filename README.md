@@ -83,7 +83,52 @@ Aspect 4/3 mobile, 16/10 sm, 16/9 lg, gradient from-black/70, h2 #hero-title fon
 npm run build
 dist/ -> deploy to Vercel/Netlify
 
-## Customize Prices
+## Pricing Logic
+
+Ingredient costs are estimated at checkout time — no prices are stored on meals, only on the central price map.
+
+### 1. Price map (`src/data/prices.ts`)
+
+Each entry stores a package unit and four per-market prices in AED:
+
+```ts
+"chicken breast": { unit: "kg", carrefour: 42, lulu: 38, spinneys: 59.25, geant: 45 }
+```
+
+`aliasMap` maps common ingredient name variations to canonical keys (`"spinach"` → `"baby spinach"`, `"oats"` → `"rolled oats"`).
+
+### 2. Ingredient → price entry matching (`findPriceEntry`)
+
+The function normalises both the ingredient string and every price-map key (lowercase, collapse non-alphanumeric to spaces), then picks the **leftmost** match — the key that appears earliest in the ingredient string — breaking ties by preferring the longer key. This means `"300g chicken breast, cubed"` matches `"chicken breast"` rather than `"chicken"` because `"chicken breast"` appears at the same position and is longer.
+
+### 3. Quantity parsing (`parseIngredientQuantity`)
+
+Extracts a numeric amount and a canonical internal unit (`g`, `ml`, or `count`) from the ingredient string:
+
+- `"300g chicken breast"` → `{ amount: 300, unit: "g" }`
+- `"2 tbsp olive oil"` → `{ amount: 30, unit: "ml" }` (1 tbsp = 15 ml)
+- `"2 eggs"` → `{ amount: 2, unit: "count" }`
+
+The price entry's package unit (e.g. `"kg"`, `"500ml"`, `"12 pcs"`) is parsed to the same canonical unit via `priceBasis`. Both sides must land on the same unit (`g`↔`g`, `ml`↔`ml`, `count`↔`count`) — if they don't, the ingredient is unpriced. There is one special case: a `"400g can"` package unit is treated as `400 g` per unit, not `1 count`, so `"200g chickpeas"` prices correctly against a per-can price.
+
+### 4. Line cost calculation
+
+```
+cost = (parsed amount / package amount) × store price
+```
+
+Example — chicken breast at Carrefour:
+```
+300g / 1000g × AED 42 = AED 12.60
+```
+
+Each of the four markets gets its own total. Ingredients with no price match are listed as `"price unknown"` and excluded from the market total.
+
+### 5. Shopping list total
+
+The total shown per market is the sum of all matched ingredient line costs for the meals currently added to the list. The cheapest market is highlighted and the potential saving vs. the most expensive market is shown.
+
+### Customize Prices
 Edit `src/data/prices.ts` — `ingredientPriceMap` holds all per-market prices; `aliasMap` maps ingredient name aliases to canonical keys.
 
 ## Linear ↔ GitHub Integration
