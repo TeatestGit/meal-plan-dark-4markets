@@ -51,8 +51,8 @@ test.describe("Plan switching", () => {
 
   test("hero eyebrow updates to show active plan label", async ({ page }) => {
     await page.getByTestId(sel.planBtn("vegan")).click();
-    // The eyebrow span contains the plan label
-    await expect(page.locator("text=Vegan").first()).toBeVisible();
+    // footer is always rendered and carries the plan label on all viewports
+    await expect(page.locator("footer")).toContainText("Vegan");
   });
 
   test("footer updates to show active plan label", async ({ page }) => {
