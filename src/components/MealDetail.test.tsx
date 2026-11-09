@@ -25,13 +25,11 @@ function renderWith(tab: "ingredients" | "steps" | "storage" | "nutrition", over
       tab={tab}
       activeStepIdx={0}
       shoppingSet={new Set()}
-      plannedMeals={new Set()}
       onTabChange={() => {}}
       onToggleIngredient={() => {}}
       onAddMealToList={() => {}}
       onClearMealIngredients={() => {}}
       onSetActiveStepIdx={() => {}}
-      onTogglePlanned={() => {}}
       getIngredientPrice={() => null}
     />
   );
@@ -71,13 +69,11 @@ describe("MealDetail — Ingredients tab", () => {
         tab="ingredients"
         activeStepIdx={0}
         shoppingSet={new Set(["w1-mon:0"])}
-        plannedMeals={new Set()}
         onTabChange={() => {}}
         onToggleIngredient={() => {}}
         onAddMealToList={() => {}}
         onClearMealIngredients={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
         getIngredientPrice={() => null}
       />
     );
@@ -139,25 +135,6 @@ describe("MealDetail — tab bar", () => {
     expect(screen.getByTestId("tab-ingredients")).not.toHaveClass("bg-rim");
   });
 
-  it("mark-planned button shows Planned when meal is in planned set", () => {
-    render(
-      <MealDetail
-        selectedMeal={meal}
-        tab="ingredients"
-        activeStepIdx={0}
-        shoppingSet={new Set()}
-        plannedMeals={new Set([meal.id])}
-        onTabChange={() => {}}
-        onToggleIngredient={() => {}}
-        onAddMealToList={() => {}}
-        onClearMealIngredients={() => {}}
-        onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
-        getIngredientPrice={() => null}
-      />
-    );
-    expect(screen.getByTestId("mark-planned-btn")).toHaveTextContent("Planned");
-  });
 });
 
 describe("MealDetail — no-shopping mode (optional props omitted)", () => {
@@ -167,10 +144,8 @@ describe("MealDetail — no-shopping mode (optional props omitted)", () => {
         selectedMeal={meal}
         tab="ingredients"
         activeStepIdx={0}
-        plannedMeals={new Set()}
         onTabChange={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
       />
     );
   }
@@ -203,10 +178,8 @@ describe("MealDetail — no-shopping mode (optional props omitted)", () => {
         selectedMeal={meal}
         tab="ingredients"
         activeStepIdx={0}
-        plannedMeals={new Set()}
         onTabChange={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
         onClearMealIngredients={() => {}}
       />
     );
@@ -270,7 +243,6 @@ describe("MealDetail — Nutrition tab", () => {
         tab="ingredients"
         activeStepIdx={-1}
         shoppingSet={new Set()}
-        plannedMeals={new Set()}
         onTabChange={(t) => {
           if (t === "nutrition") {
             // re-render with nutrition tab active
@@ -280,7 +252,6 @@ describe("MealDetail — Nutrition tab", () => {
         onAddMealToList={() => {}}
         onClearMealIngredients={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
         getIngredientPrice={() => null}
       />
     );

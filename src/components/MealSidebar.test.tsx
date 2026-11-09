@@ -24,7 +24,6 @@ function renderSidebar(overrides: Partial<Parameters<typeof MealSidebar>[0]> = {
     weekMeals: week1Meals,
     mealTypePlural: "lunches",
     stats,
-    plannedMeals: new Set<string>(),
     selectedMealId: "w1-mon",
     onWeekChange: vi.fn(),
     onSelect: vi.fn(),

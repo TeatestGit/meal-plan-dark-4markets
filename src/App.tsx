@@ -32,12 +32,10 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState<"ingredients" | "steps" | "storage" | "nutrition">("ingredients");
   const [shoppingSet, setShoppingSet] = useState<Set<string>>(() => loadSet("shopping-set"));
-  const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
   const [selectedMarket, setSelectedMarket] = useState<MarketKey>("carrefour");
 
   useEffect(() => { saveSet("shopping-set", shoppingSet); }, [shoppingSet]);
-  useEffect(() => { saveSet("planned-meals", plannedMeals); }, [plannedMeals]);
 
   const planLabel = plans.find((p) => p.id === plan)?.label ?? plan;
   const mealType = plan === "breakfast" ? "Breakfast" : "Lunch";
@@ -182,11 +180,6 @@ export default function App() {
       meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index)));
       return next;
     });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      next.add(meal.id);
-      return next;
-    });
   };
 
   const addWholeWeekToList = () => {
@@ -196,11 +189,6 @@ export default function App() {
       wm.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
       return next;
     });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      wm.forEach((meal) => next.add(meal.id));
-      return next;
-    });
   };
 
   const addAllMealsToList = () => {
@@ -208,11 +196,6 @@ export default function App() {
     setShoppingSet((prev) => {
       const next = new Set(prev);
       planMeals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
-      return next;
-    });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      planMeals.forEach((meal) => next.add(meal.id));
       return next;
     });
   };
@@ -310,7 +293,6 @@ export default function App() {
               weekMeals={weekMeals}
               mealTypePlural={mealTypePlural}
               stats={stats}
-              plannedMeals={plannedMeals}
               selectedMealId={selectedMeal.id}
               onWeekChange={setWeek}
               onSelect={(id) => { setSelectedId(id); setActiveStepIdx(0); }}
@@ -328,7 +310,6 @@ export default function App() {
                 tab={tab}
                 activeStepIdx={activeStepIdx}
                 shoppingSet={shoppingSet}
-                plannedMeals={plannedMeals}
                 onTabChange={setTab}
                 onToggleIngredient={(index) => toggleIngredientInList(selectedMeal, index)}
                 onAddMealToList={addMealToList}
@@ -340,13 +321,6 @@ export default function App() {
                   });
                 }}
                 onSetActiveStepIdx={setActiveStepIdx}
-                onTogglePlanned={(id) => {
-                  setPlannedMeals((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(id)) next.delete(id); else next.add(id);
-                    return next;
-                  });
-                }}
                 getIngredientPrice={(ingredient) => {
                   const found = findPriceEntry(ingredient);
                   return found ? calculateIngredientCost(ingredient, found.entry) : null;

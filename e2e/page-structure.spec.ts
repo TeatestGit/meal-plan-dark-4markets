@@ -109,10 +109,6 @@ test.describe("Page structure — on load", () => {
     await expect(page.getByTestId(sel.clearMealBtn)).toBeVisible();
   });
 
-  test("'Mark planned' footer button is visible", async ({ page }) => {
-    await expect(page.getByTestId(sel.markPlannedBtn)).toBeVisible();
-  });
-
   test("'+ List' footer button is visible", async ({ page }) => {
     await expect(page.getByTestId(sel.addListFooterBtn)).toBeVisible();
   });

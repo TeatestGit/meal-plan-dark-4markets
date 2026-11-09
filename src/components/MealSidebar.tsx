@@ -11,7 +11,6 @@ type MealSidebarProps = {
   weekMeals: Meal[];
   mealTypePlural: string;
   stats: Stats;
-  plannedMeals: Set<string>;
   selectedMealId: string;
   onWeekChange: (week: 1 | 2) => void;
   onSelect: (id: string) => void;
@@ -19,7 +18,7 @@ type MealSidebarProps = {
 
 export function MealSidebar({
   plan, week, meals, weekMeals, mealTypePlural, stats,
-  plannedMeals, selectedMealId, onWeekChange, onSelect,
+  selectedMealId, onWeekChange, onSelect,
 }: MealSidebarProps) {
   return (
     <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
@@ -75,7 +74,6 @@ export function MealSidebar({
         <MealSelector
           weekMeals={weekMeals}
           selectedMealId={selectedMealId}
-          plannedMeals={plannedMeals}
           onSelect={onSelect}
         />
       </div>

@@ -4,16 +4,14 @@ import { testIds } from "../testIds";
 type MealSelectorProps = {
   weekMeals: Meal[];
   selectedMealId: string;
-  plannedMeals: Set<string>;
   onSelect: (id: string) => void;
 };
 
-export function MealSelector({ weekMeals, selectedMealId, plannedMeals, onSelect }: MealSelectorProps) {
+export function MealSelector({ weekMeals, selectedMealId, onSelect }: MealSelectorProps) {
   return (
     <div className="flex md:grid md:grid-cols-1 gap-3 overflow-x-auto md:overflow-x-visible md:overflow-y-auto md:max-h-[62vh] pb-3 md:pb-0 snap-x snap-mandatory md:snap-none px-3 md:px-0 scrollbar-hide max-w-full w-full box-border">
       {weekMeals.map((meal) => {
         const isActive = meal.id === selectedMealId;
-        const isPlanned = plannedMeals.has(meal.id);
 
         return (
           <button
@@ -35,9 +33,6 @@ export function MealSelector({ weekMeals, selectedMealId, plannedMeals, onSelect
               ) : (
                 <div className="w-full h-full bg-rim" />
               )}
-              {isPlanned && (
-                <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-ink-primary text-page flex items-center justify-center text-[10px]">✓</div>
-              )}
             </div>
             <div className="flex-1 min-w-0 pt-0.5 text-left">
               <div className="flex items-center gap-2 mb-1 min-w-0">
@@ -56,11 +51,6 @@ export function MealSelector({ weekMeals, selectedMealId, plannedMeals, onSelect
                 <span className="font-dm text-[10px] font-medium tracking-[0.08em] uppercase bg-rim border-rim-hover text-ink-secondary border rounded-full px-2 py-0.5 tabular">
                   {meal.kcal}
                 </span>
-                {isPlanned && (
-                  <span className="font-dm text-[10px] font-medium tracking-[0.08em] uppercase bg-ink-primary text-page rounded-full px-2 py-0.5">
-                    planned
-                  </span>
-                )}
               </div>
             </div>
           </button>

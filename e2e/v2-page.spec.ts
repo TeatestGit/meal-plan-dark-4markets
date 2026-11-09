@@ -55,12 +55,4 @@ test.describe("v2 — price-free build", () => {
     expect(tag).toBe("div");
   });
 
-  // ── Planned meal toggle works without shopping state ─────────────────────
-
-  test("can mark a meal as planned", async ({ page }) => {
-    await page.getByTestId(sel.mealCard).first().click();
-    const btn = page.getByTestId(sel.markPlannedBtn);
-    await btn.click();
-    await expect(btn).toContainText(/planned/i);
-  });
 });

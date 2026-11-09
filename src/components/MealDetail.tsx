@@ -8,13 +8,11 @@ type MealDetailProps = {
   tab: "ingredients" | "steps" | "storage" | "nutrition";
   activeStepIdx: number;
   shoppingSet?: Set<string>;
-  plannedMeals: Set<string>;
   onTabChange: (tab: "ingredients" | "steps" | "storage" | "nutrition") => void;
   onToggleIngredient?: (index: number) => void;
   onAddMealToList?: (meal: Meal) => void;
   onClearMealIngredients?: (meal: Meal) => void;
   onSetActiveStepIdx: (idx: number) => void;
-  onTogglePlanned: (id: string) => void;
   getIngredientPrice?: (ingredient: string) => IngredientCost | null;
 };
 
@@ -23,13 +21,11 @@ export function MealDetail({
   tab,
   activeStepIdx,
   shoppingSet,
-  plannedMeals,
   onTabChange,
   onToggleIngredient,
   onAddMealToList,
   onClearMealIngredients,
   onSetActiveStepIdx,
-  onTogglePlanned,
   getIngredientPrice,
 }: MealDetailProps) {
   const ss = shoppingSet ?? new Set<string>();
@@ -291,23 +287,11 @@ export function MealDetail({
         )}
       </div>
 
-      <div className="px-4 sm:px-8 h-[64px] sm:h-[68px] border-t border-rim bg-page/50 flex items-center justify-between gap-3 min-w-0">
-        <button
-          data-testid={testIds.markPlannedBtn}
-          onClick={() => onTogglePlanned(selectedMeal.id)}
-          className={`h-[36px] sm:h-[32px] px-3 sm:px-4 rounded-full font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase border transition tabular active:scale-[0.98] shrink-0 ${
-            plannedMeals.has(selectedMeal.id)
-              ? "bg-ink-primary border-ink-primary text-page"
-              : "bg-card border-rim text-ink-secondary hover:border-rim-hover"
-          }`}
-        >
-          {plannedMeals.has(selectedMeal.id) ? "✓ Planned" : "○ Mark planned"}
-        </button>
-
-        {onAddMealToList && (
+      {onAddMealToList && (
+        <div className="px-4 sm:px-8 h-[64px] sm:h-[68px] border-t border-rim bg-page/50 flex items-center justify-end gap-3 min-w-0">
           <button data-testid={testIds.addListFooterBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

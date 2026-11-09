@@ -4,7 +4,7 @@ import mealsData from "./assets/meals.json";
 import { MealDetail } from "./components/MealDetail";
 import { MealSidebar } from "./components/MealSidebar";
 import { testIds } from "./testIds";
-import { meals, parseKcal, parseProtein, parseTime, loadSet, saveSet, derivePlans } from "./mealPlanShared";
+import { meals, parseKcal, parseProtein, parseTime, derivePlans } from "./mealPlanShared";
 
 export default function AppV2() {
   const plans = useMemo(() => derivePlans(mealsData as Array<{ plan: string }>), []);
@@ -14,10 +14,7 @@ export default function AppV2() {
   const [selectedId, setSelectedId] = useState<string>("w1-mon");
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState<"ingredients" | "steps" | "storage" | "nutrition">("ingredients");
-  const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals-v2"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
-
-  useEffect(() => { saveSet("planned-meals-v2", plannedMeals); }, [plannedMeals]);
 
   const planLabel = plans.find((p) => p.id === plan)?.label ?? plan;
   const mealType = plan === "breakfast" ? "Breakfast" : "Lunch";
@@ -156,7 +153,6 @@ export default function AppV2() {
               weekMeals={weekMeals}
               mealTypePlural={mealTypePlural}
               stats={stats}
-              plannedMeals={plannedMeals}
               selectedMealId={selectedMeal.id}
               onWeekChange={setWeek}
               onSelect={(id) => { setSelectedId(id); setActiveStepIdx(0); }}
@@ -173,16 +169,8 @@ export default function AppV2() {
                 selectedMeal={selectedMeal}
                 tab={tab}
                 activeStepIdx={activeStepIdx}
-                plannedMeals={plannedMeals}
                 onTabChange={setTab}
                 onSetActiveStepIdx={setActiveStepIdx}
-                onTogglePlanned={(id) => {
-                  setPlannedMeals((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(id)) next.delete(id); else next.add(id);
-                    return next;
-                  });
-                }}
               />
             )}
           </div>

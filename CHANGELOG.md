@@ -1,5 +1,13 @@
 e Changelog
 
+## 2026-11-09 — Remove "mark planned" feature
+
+- **feat**: Removed the mark-planned feature entirely — `plannedMeals` state, `onTogglePlanned` handler, and the "Mark planned" button are gone from `MealDetail`, `MealSelector`, `MealSidebar`, `App`, and `AppV2`
+- **refactor**: `addMealToList`, `addWholeWeekToList`, `addAllMealsToList` in `App.tsx` simplified — no longer touch planned state
+- **test**: Removed 1 unit test from `App.test.tsx`, 1 from `MealSelector.test.tsx`, 1 from `MealDetail.test.tsx`, 1 from `e2e/meal-detail.spec.ts`, 1 from `e2e/page-structure.spec.ts`, 1 from `e2e/v2-page.spec.ts`
+- **chore**: Removed `markPlannedBtn` from `testIds.ts`
+- **Coverage**: 141 unit tests (8 files)
+
 ## 2026-11-09 — Structural cleanup, shared modules, test coverage
 
 - **refactor**: Extracted `src/mealPlanShared.ts` — single source for `imageMap`, `thumbnailMap`, `meals`, `parseKcal/parseProtein/parseTime`, `loadSet/saveSet`, `derivePlans`; eliminates ~70 lines duplicated between `App.tsx` and `AppV2.tsx`
