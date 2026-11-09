@@ -32,4 +32,4 @@ yarn-error.log*
 
 # Playwright generated output
 playwright-report/
-test-results/scripts/__pycache__/
+test-results/*

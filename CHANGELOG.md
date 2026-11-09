@@ -1,5 +1,36 @@
 e Changelog
 
+## 2026-11-09 — Remove "mark planned" feature
+
+- **feat**: Removed the mark-planned feature entirely — `plannedMeals` state, `onTogglePlanned` handler, and the "Mark planned" button are gone from `MealDetail`, `MealSelector`, `MealSidebar`, `App`, and `AppV2`
+- **refactor**: `addMealToList`, `addWholeWeekToList`, `addAllMealsToList` in `App.tsx` simplified — no longer touch planned state
+- **test**: Removed 1 unit test from `App.test.tsx`, 1 from `MealSelector.test.tsx`, 1 from `MealDetail.test.tsx`, 1 from `e2e/meal-detail.spec.ts`, 1 from `e2e/page-structure.spec.ts`, 1 from `e2e/v2-page.spec.ts`
+- **chore**: Removed `markPlannedBtn` from `testIds.ts`
+- **Coverage**: 141 unit tests (8 files)
+
+## 2026-11-09 — Structural cleanup, shared modules, test coverage
+
+- **refactor**: Extracted `src/mealPlanShared.ts` — single source for `imageMap`, `thumbnailMap`, `meals`, `parseKcal/parseProtein/parseTime`, `loadSet/saveSet`, `derivePlans`; eliminates ~70 lines duplicated between `App.tsx` and `AppV2.tsx`
+- **refactor**: Extracted `src/components/MealSidebar.tsx` — left-panel component (week-glance stats, week nav, `MealSelector`) shared by both app variants; v2 bundle drops from 31 KB → 7.9 KB
+- **test**: Added `MealSidebar.test.tsx` (8 tests) — stats display, week nav, `onWeekChange`/`onSelect` callbacks, meal count badge, card rendering
+- **test**: Added `MealSelector.test.tsx` (6 tests) — card count, titles, `aria-pressed`, click handler, planned badge
+- **test**: Added `ShoppingListPanel.test.tsx` (7 tests) — empty state, item count, list items, remove/clear/add-week callbacks
+- **test**: Added `e2e/v2-page.spec.ts` (10 Playwright tests) — presence of core v2 UI, absence of all shopping/pricing elements, read-only ingredient rows, planned-meal toggle
+- **fix**: Removed stale `selectedMarket="carrefour"` from 4 render calls in `MealDetail.test.tsx` — prop was removed in the optional-props refactor
+- **chore**: Renamed `src/test/setup.js` → `src/test/setup.ts`
+- **chore**: Deleted orphan `src/assets/no-red-meat/w1-mon_1.webp`
+- **Coverage**: 144 unit tests (8 files) · 135 Playwright e2e tests (desktop)
+
+## 2026-11-09 — v2 build, breakfast images, Clear button fix & tests
+
+- **feat**: Added `AppV2.tsx` — price-free variant of the app served from `index-v2.html`; strips market logos, `ShoppingListPanel`, all pricing/shopping state and the 3rd grid column
+- **feat**: Multi-page Vite config (`vite.config.js`) — `npm run build` now produces both `dist/index.html` (v1) and `dist/index-v2.html` (v2)
+- **feat**: `MealDetail` shopping-related props (`shoppingSet`, `onToggleIngredient`, `onAddMealToList`, `onClearMealIngredients`, `getIngredientPrice`) made optional — ingredients render as read-only divs when `onToggleIngredient` is absent
+- **fix**: Clear button in `MealDetail` was gated on `onAddMealToList` being present; now independently gated on `onClearMealIngredients` so a caller can show Clear without Add-to-list
+- **feat**: Replaced all 14 breakfast webp images and thumbnails with final versions; removed stale `vegan-meal-plan-assets/manifest.txt`
+- **test**: Added `MealDetail — no-shopping mode` describe block (5 tests) covering read-only ingredient rows, hidden shopping UI, and Clear-without-Add scenario
+- **test**: Added `AppV2.test.tsx` smoke suite (5 tests) verifying render, absence of pricing UI, plan switcher, week-glance panel, and read-only ingredients
+
 ## 2026-11-08 — Ingredient quantity display fixes & full coverage tests
 
 - **fix**: Added `mango`, `tortillas?`, `flatbreads?` to count-unit word list in `parseIngredientQuantity` — `1 small mango, julienned`, `6 small corn tortillas`, `2 wholegrain flatbreads` now show quantity

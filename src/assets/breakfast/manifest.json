@@ -1,0 +1,22 @@
+{
+  "count": 14,
+  "assets": "assets/{meal-id}.webp",
+  "thumbnails": "thumbs/{meal-id}.jpg",
+  "meal_ids": [
+    "b1-mon",
+    "b1-tue",
+    "b1-wed",
+    "b1-thu",
+    "b1-fri",
+    "b1-sat",
+    "b1-sun",
+    "b2-mon",
+    "b2-tue",
+    "b2-wed",
+    "b2-thu",
+    "b2-fri",
+    "b2-sat",
+    "b2-sun"
+  ],
+  "note": "Images are cropped from a generated breakfast contact sheet; several tiles are approximate matches and one image is reused. Review ingredient fidelity before production use."
+}

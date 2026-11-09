@@ -60,17 +60,6 @@ describe('App', () => {
     expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
-  it('mark planned button toggles between "Mark planned" and "Planned"', () => {
-    localStorage.clear();
-    render(<App />);
-    const btn = screen.getByTestId('mark-planned-btn');
-    expect(btn).toHaveTextContent('Mark planned');
-    fireEvent.click(btn);
-    expect(btn).toHaveTextContent('Planned');
-    fireEvent.click(btn);
-    expect(btn).toHaveTextContent('Mark planned');
-  });
-
   it('Clear list empties the shopping list after Add week', () => {
     localStorage.clear();
     render(<App />);

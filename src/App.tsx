@@ -6,36 +6,13 @@ import spinneysLogo from "./assets/hypermarkets/spinneys-logo.jpg";
 import geantLogo from "./assets/hypermarkets/geant-logo.webp";
 import mealsData from "./assets/meals.json";
 import { MealDetail } from "./components/MealDetail";
-import { MealSelector } from "./components/MealSelector";
+import { MealSidebar } from "./components/MealSidebar";
 import { ShoppingListPanel } from "./components/ShoppingListPanel";
 import type { Meal, MarketKey, MarketInfo, PricedItem } from "./types";
 import { calculateIngredientCost, formatIngredientQuantity, parseIngredientQuantity } from "./pricing";
 import { findPriceEntry } from "./data/prices";
 import { testIds } from "./testIds";
-
-const rawImages = import.meta.glob<{ default: string }>("./assets/*/*.{webp,jpg}", { eager: true });
-const imageMap: Record<string, string> = Object.fromEntries(
-  Object.entries(rawImages).map(([path, mod]) => [
-    path.replace(/^\.\/assets\/[^/]+\//, "").replace(/\.(webp|jpg)$/, ""),
-    mod.default,
-  ])
-);
-
-const rawThumbs = import.meta.glob<{ default: string }>("./assets/*/thumbs/*.jpg", { eager: true });
-const thumbnailMap: Record<string, string> = Object.fromEntries(
-  Object.entries(rawThumbs).map(([path, mod]) => [
-    path.replace(/^\.\/assets\/[^/]+\/thumbs\//, "").replace(/-thumb\.jpg$/, "").replace(".jpg", ""),
-    mod.default,
-  ])
-);
-
-type RawMeal = Omit<Meal, "image" | "thumbnail">;
-
-const meals: Meal[] = (mealsData as RawMeal[]).map((meal) => ({
-  ...meal,
-  image: imageMap[meal.id],
-  thumbnail: thumbnailMap[meal.id],
-}));
+import { meals, parseKcal, parseProtein, parseTime, loadSet, saveSet, derivePlans } from "./mealPlanShared";
 
 const marketPrices: Record<MarketKey, MarketInfo> = {
   carrefour: { name: "Carrefour",   color: "#0a4da1", logo: "C", logoImg: carrefourLogo, delivery: "30-45 min", fee: "AED 7",  url: "https://www.carrefouruae.com" },
@@ -46,48 +23,8 @@ const marketPrices: Record<MarketKey, MarketInfo> = {
 
 const marketOrder: MarketKey[] = ["carrefour", "lulu", "spinneys", "geant"];
 
-function parseKcal(value: string) {
-  const match = value.match(/(\d+)/);
-  return match ? parseInt(match[1], 10) : 0;
-}
-
-function parseProtein(value: string) {
-  const match = value.match(/(\d+)/);
-  return match ? parseInt(match[1], 10) : 0;
-}
-
-function parseTime(value: string) {
-  const match = value.match(/(\d+)/);
-  return match ? parseInt(match[1], 10) : 0;
-}
-
-function loadSet(key: string): Set<string> {
-  try {
-    const saved = localStorage.getItem(key);
-    return saved ? new Set(JSON.parse(saved) as string[]) : new Set();
-  } catch {
-    return new Set();
-  }
-}
-
-function saveSet(key: string, value: Set<string>) {
-  try {
-    localStorage.setItem(key, JSON.stringify([...value]));
-  } catch { /* storage unavailable */ }
-}
-
 export default function App() {
-  const plans = useMemo(() => {
-    const seen = new Set<string>();
-    const result: { id: string; label: string }[] = [];
-    for (const meal of mealsData as Array<{ plan: string }>) {
-      if (!seen.has(meal.plan)) {
-        seen.add(meal.plan);
-        result.push({ id: meal.plan, label: meal.plan.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) });
-      }
-    }
-    return result;
-  }, []);
+  const plans = useMemo(() => derivePlans(mealsData as Array<{ plan: string }>), []);
 
   const [plan, setPlan] = useState<string>(plans[0]?.id ?? "no-red-meat");
   const [week, setWeek] = useState<1 | 2>(1);
@@ -95,12 +32,10 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState<"ingredients" | "steps" | "storage" | "nutrition">("ingredients");
   const [shoppingSet, setShoppingSet] = useState<Set<string>>(() => loadSet("shopping-set"));
-  const [plannedMeals, setPlannedMeals] = useState<Set<string>>(() => loadSet("planned-meals"));
   const [activeStepIdx, setActiveStepIdx] = useState(0);
   const [selectedMarket, setSelectedMarket] = useState<MarketKey>("carrefour");
 
   useEffect(() => { saveSet("shopping-set", shoppingSet); }, [shoppingSet]);
-  useEffect(() => { saveSet("planned-meals", plannedMeals); }, [plannedMeals]);
 
   const planLabel = plans.find((p) => p.id === plan)?.label ?? plan;
   const mealType = plan === "breakfast" ? "Breakfast" : "Lunch";
@@ -129,9 +64,7 @@ export default function App() {
     if (!exists && weekMeals.length) setSelectedId(weekMeals[0].id);
   }, [weekMeals, selectedId]);
 
-  useEffect(() => {
-    setActiveStepIdx(0);
-  }, [selectedId]);
+  useEffect(() => { setActiveStepIdx(0); }, [selectedId]);
 
   const stats = useMemo(() => {
     const wm = meals.filter((meal) => meal.plan === plan && meal.week === week);
@@ -247,11 +180,6 @@ export default function App() {
       meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index)));
       return next;
     });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      next.add(meal.id);
-      return next;
-    });
   };
 
   const addWholeWeekToList = () => {
@@ -261,11 +189,6 @@ export default function App() {
       wm.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
       return next;
     });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      wm.forEach((meal) => next.add(meal.id));
-      return next;
-    });
   };
 
   const addAllMealsToList = () => {
@@ -273,11 +196,6 @@ export default function App() {
     setShoppingSet((prev) => {
       const next = new Set(prev);
       planMeals.forEach((meal) => meal.ingredients.forEach((_, index) => next.add(ingredientId(meal, index))));
-      return next;
-    });
-    setPlannedMeals((prev) => {
-      const next = new Set(prev);
-      planMeals.forEach((meal) => next.add(meal.id));
       return next;
     });
   };
@@ -368,68 +286,17 @@ export default function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)_400px] gap-5 md:gap-6 lg:gap-8 pb-12 min-w-0 overflow-hidden max-w-full">
           <div className="min-w-0 order-1 md:order-1 lg:sticky lg:top-6 lg:self-start">
-            <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
-              <div data-testid={testIds.weekGlance} className="m-3 mb-0 rounded-[18px] bg-page border border-rim p-4 sm:p-5 min-w-0">
-                <div className="font-newsreader italic text-[13px] text-ink-secondary mb-4 break-words">Week {week} glance — soft numbers</div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">kcal</div>
-                    <div data-testid={testIds.weekGlanceKcal} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalKcal}</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">protein</div>
-                    <div data-testid={testIds.weekGlanceProtein} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular break-words">{stats.totalProtein}g</div>
-                  </div>
-                  <div className="rounded-[14px] bg-card border border-rim p-3 sm:p-3.5 text-center min-w-0">
-                    <div className="font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase text-ink-muted">time</div>
-                    <div data-testid={testIds.weekGlanceTime} className="font-newsreader text-[16px] sm:text-[18px] text-ink-primary mt-1 tabular whitespace-nowrap">{stats.totalTime}m</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between border-b border-rim min-w-0 gap-3">
-                <div className="flex items-center bg-page rounded-full p-1 border border-rim shadow-[0_4px_12px_rgba(0,0,0,0.3)]">
-                  {[1, 2].map((weekNumber) => (
-                    <button
-                      key={weekNumber}
-                      type="button"
-                      data-testid={testIds.weekBtn(weekNumber as 1 | 2)}
-                      onClick={() => {
-                        setWeek(weekNumber as 1 | 2);
-                        const firstMeal = meals.find((meal) => meal.plan === plan && meal.week === weekNumber);
-                        if (firstMeal) setSelectedId(firstMeal.id);
-                        setActiveStepIdx(0);
-                      }}
-                      className={`h-[30px] px-4 rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all font-dm active:scale-[0.98] ${
-                        week === weekNumber
-                          ? "bg-ink-primary text-page shadow-[0_4px_12px_rgba(0,0,0,0.25)]"
-                          : "text-ink-secondary hover:text-ink-primary"
-                      }`}
-                    >
-                      W{weekNumber}
-                    </button>
-                  ))}
-                </div>
-                <span data-testid={testIds.weekMealCount} className="font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary bg-page rounded-full px-3 py-1 border border-rim tabular shrink-0">{weekMeals.length} {mealTypePlural}</span>
-              </div>
-
-              <div className="flex md:hidden items-center justify-between px-6 pt-4 pb-1">
-                <span className="font-dm text-[10px] tracking-[0.14em] uppercase text-ink-muted">Days</span>
-                <span className="font-dm text-[10px] tracking-[0.14em] uppercase text-ink-secondary flex items-center gap-1">Swipe <span className="text-[12px]">→</span></span>
-              </div>
-
-              <div className="px-0 sm:px-0 pt-1 pb-3 sm:p-3 min-w-0 overflow-hidden max-w-full w-full">
-                <MealSelector
-                  weekMeals={weekMeals}
-                  selectedMealId={selectedMeal.id}
-                  plannedMeals={plannedMeals}
-                  onSelect={(id) => {
-                    setSelectedId(id);
-                    setActiveStepIdx(0);
-                  }}
-                />
-              </div>
-            </div>
+            <MealSidebar
+              plan={plan}
+              week={week}
+              meals={meals}
+              weekMeals={weekMeals}
+              mealTypePlural={mealTypePlural}
+              stats={stats}
+              selectedMealId={selectedMeal.id}
+              onWeekChange={setWeek}
+              onSelect={(id) => { setSelectedId(id); setActiveStepIdx(0); }}
+            />
           </div>
 
           <div className="min-w-0 order-2 md:order-2">
@@ -443,7 +310,6 @@ export default function App() {
                 tab={tab}
                 activeStepIdx={activeStepIdx}
                 shoppingSet={shoppingSet}
-                plannedMeals={plannedMeals}
                 onTabChange={setTab}
                 onToggleIngredient={(index) => toggleIngredientInList(selectedMeal, index)}
                 onAddMealToList={addMealToList}
@@ -455,13 +321,6 @@ export default function App() {
                   });
                 }}
                 onSetActiveStepIdx={setActiveStepIdx}
-                onTogglePlanned={(id) => {
-                  setPlannedMeals((prev) => {
-                    const next = new Set(prev);
-                    if (next.has(id)) next.delete(id); else next.add(id);
-                    return next;
-                  });
-                }}
                 getIngredientPrice={(ingredient) => {
                   const found = findPriceEntry(ingredient);
                   return found ? calculateIngredientCost(ingredient, found.entry) : null;

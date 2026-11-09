@@ -25,14 +25,11 @@ function renderWith(tab: "ingredients" | "steps" | "storage" | "nutrition", over
       tab={tab}
       activeStepIdx={0}
       shoppingSet={new Set()}
-      plannedMeals={new Set()}
-      selectedMarket="carrefour"
       onTabChange={() => {}}
       onToggleIngredient={() => {}}
       onAddMealToList={() => {}}
       onClearMealIngredients={() => {}}
       onSetActiveStepIdx={() => {}}
-      onTogglePlanned={() => {}}
       getIngredientPrice={() => null}
     />
   );
@@ -72,14 +69,11 @@ describe("MealDetail — Ingredients tab", () => {
         tab="ingredients"
         activeStepIdx={0}
         shoppingSet={new Set(["w1-mon:0"])}
-        plannedMeals={new Set()}
-        selectedMarket="carrefour"
         onTabChange={() => {}}
         onToggleIngredient={() => {}}
         onAddMealToList={() => {}}
         onClearMealIngredients={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
         getIngredientPrice={() => null}
       />
     );
@@ -141,25 +135,56 @@ describe("MealDetail — tab bar", () => {
     expect(screen.getByTestId("tab-ingredients")).not.toHaveClass("bg-rim");
   });
 
-  it("mark-planned button shows Planned when meal is in planned set", () => {
+});
+
+describe("MealDetail — no-shopping mode (optional props omitted)", () => {
+  function renderNoShopping() {
     render(
       <MealDetail
         selectedMeal={meal}
         tab="ingredients"
         activeStepIdx={0}
-        shoppingSet={new Set()}
-        plannedMeals={new Set([meal.id])}
-        selectedMarket="carrefour"
         onTabChange={() => {}}
-        onToggleIngredient={() => {}}
-        onAddMealToList={() => {}}
-        onClearMealIngredients={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
-        getIngredientPrice={() => null}
       />
     );
-    expect(screen.getByTestId("mark-planned-btn")).toHaveTextContent("Planned");
+  }
+
+  it("renders ingredient rows as divs (not buttons) when onToggleIngredient is absent", () => {
+    renderNoShopping();
+    const rows = screen.getAllByTestId("ingredient-row");
+    rows.forEach((row) => expect(row.tagName).toBe("DIV"));
+  });
+
+  it("hides Add meal and Clear buttons when handlers are absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("add-meal-btn")).toBeNull();
+    expect(screen.queryByTestId("clear-meal-btn")).toBeNull();
+  });
+
+  it("hides in-list count when shoppingSet is absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("in-list-count")).toBeNull();
+  });
+
+  it("hides footer + List button when onAddMealToList is absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("add-list-footer-btn")).toBeNull();
+  });
+
+  it("shows Clear button when only onClearMealIngredients is provided", () => {
+    render(
+      <MealDetail
+        selectedMeal={meal}
+        tab="ingredients"
+        activeStepIdx={0}
+        onTabChange={() => {}}
+        onSetActiveStepIdx={() => {}}
+        onClearMealIngredients={() => {}}
+      />
+    );
+    expect(screen.getByTestId("clear-meal-btn")).toBeInTheDocument();
+    expect(screen.queryByTestId("add-meal-btn")).toBeNull();
   });
 });
 
@@ -218,8 +243,6 @@ describe("MealDetail — Nutrition tab", () => {
         tab="ingredients"
         activeStepIdx={-1}
         shoppingSet={new Set()}
-        plannedMeals={new Set()}
-        selectedMarket="carrefour"
         onTabChange={(t) => {
           if (t === "nutrition") {
             // re-render with nutrition tab active
@@ -229,7 +252,6 @@ describe("MealDetail — Nutrition tab", () => {
         onAddMealToList={() => {}}
         onClearMealIngredients={() => {}}
         onSetActiveStepIdx={() => {}}
-        onTogglePlanned={() => {}}
         getIngredientPrice={() => null}
       />
     );

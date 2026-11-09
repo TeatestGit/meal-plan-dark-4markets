@@ -67,13 +67,6 @@ test.describe("Meal detail tabs", () => {
     await expect(page.getByTestId(sel.storageText)).not.toBeEmpty();
   });
 
-  test("mark planned button toggles planned state", async ({ page }) => {
-    const btn = page.getByTestId(sel.markPlannedBtn);
-    await expect(btn).toContainText("Mark planned");
-    await btn.click();
-    await expect(btn).toContainText("Planned");
-  });
-
   test("footer add-to-list button adds ingredients", async ({ page }) => {
     await page.getByTestId(sel.addListFooterBtn).click();
     await expect(page.getByTestId(sel.inListCount)).not.toHaveText("0 in list");

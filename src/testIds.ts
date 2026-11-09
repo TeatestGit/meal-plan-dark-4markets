@@ -37,8 +37,6 @@ export const testIds = {
   addMealBtn: "add-meal-btn",
   clearMealBtn: "clear-meal-btn",
   addListFooterBtn: "add-list-footer-btn",
-  markPlannedBtn: "mark-planned-btn",
-
   // Meal detail — steps
   stepRow: "step-row",
 

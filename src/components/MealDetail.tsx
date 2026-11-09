@@ -7,15 +7,13 @@ type MealDetailProps = {
   selectedMeal: Meal;
   tab: "ingredients" | "steps" | "storage" | "nutrition";
   activeStepIdx: number;
-  shoppingSet: Set<string>;
-  plannedMeals: Set<string>;
+  shoppingSet?: Set<string>;
   onTabChange: (tab: "ingredients" | "steps" | "storage" | "nutrition") => void;
-  onToggleIngredient: (index: number) => void;
-  onAddMealToList: (meal: Meal) => void;
-  onClearMealIngredients: (meal: Meal) => void;
+  onToggleIngredient?: (index: number) => void;
+  onAddMealToList?: (meal: Meal) => void;
+  onClearMealIngredients?: (meal: Meal) => void;
   onSetActiveStepIdx: (idx: number) => void;
-  onTogglePlanned: (id: string) => void;
-  getIngredientPrice: (ingredient: string) => IngredientCost | null;
+  getIngredientPrice?: (ingredient: string) => IngredientCost | null;
 };
 
 export function MealDetail({
@@ -23,15 +21,14 @@ export function MealDetail({
   tab,
   activeStepIdx,
   shoppingSet,
-  plannedMeals,
   onTabChange,
   onToggleIngredient,
   onAddMealToList,
   onClearMealIngredients,
   onSetActiveStepIdx,
-  onTogglePlanned,
   getIngredientPrice,
 }: MealDetailProps) {
+  const ss = shoppingSet ?? new Set<string>();
   return (
     <div className="rounded-[20px] sm:rounded-[22px] bg-card border border-rim shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden min-w-0">
       <div className="p-2.5 sm:p-3 min-w-0">
@@ -79,9 +76,11 @@ export function MealDetail({
             {t === "ingredients" ? `Ingredients · ${selectedMeal.ingredients.length}` : t === "steps" ? `Steps · ${selectedMeal.steps.length}` : t === "storage" ? "Storage" : "Nutrition"}
           </button>
         ))}
-        <span data-testid={testIds.inListCount} className="ml-auto hidden sm:inline font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular">
-          {shoppingSet.size} in list
-        </span>
+        {shoppingSet && (
+          <span data-testid={testIds.inListCount} className="ml-auto hidden sm:inline font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular">
+            {ss.size} in list
+          </span>
+        )}
       </div>
 
       <div className="px-4 sm:px-8 py-6 sm:py-8 min-w-0">
@@ -89,16 +88,34 @@ export function MealDetail({
           <>
             <div className="flex items-baseline justify-between mb-5 sm:mb-6 gap-3 min-w-0">
               <h3 className="font-instrument text-[20px] sm:text-[22px] text-ink-primary">Ingredients</h3>
-              <span data-testid={testIds.ingredientsSelectedCount} className="font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular shrink-0">
-                {selectedMeal.ingredients.filter((_, index) => shoppingSet.has(`${selectedMeal.id}:${index}`)).length}/{selectedMeal.ingredients.length} selected
-              </span>
+              {shoppingSet && (
+                <span data-testid={testIds.ingredientsSelectedCount} className="font-dm text-[11px] tracking-[0.12em] uppercase text-ink-muted tabular shrink-0">
+                  {selectedMeal.ingredients.filter((_, index) => ss.has(`${selectedMeal.id}:${index}`)).length}/{selectedMeal.ingredients.length} selected
+                </span>
+              )}
             </div>
             <div className="space-y-2.5">
               {selectedMeal.ingredients.map((ingredient, idx) => {
-                const inList = shoppingSet.has(`${selectedMeal.id}:${idx}`);
-                const priceInfo = getIngredientPrice(ingredient);
+                const inList = ss.has(`${selectedMeal.id}:${idx}`);
+                const priceInfo = getIngredientPrice?.(ingredient);
                 const qty = priceInfo?.quantity ?? parseIngredientQuantity(ingredient);
                 const unit = qty ? formatIngredientQuantity(qty) : null;
+
+                if (!onToggleIngredient) {
+                  return (
+                    <div
+                      key={`${ingredient}-${idx}`}
+                      data-testid={testIds.ingredientRow}
+                      data-index={idx}
+                      className="w-full text-left flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-[16px] border border-rim bg-card text-ink-secondary min-w-0"
+                    >
+                      <span className="font-dm text-[15px] sm:text-[14px] leading-[1.6] sm:leading-[1.8] break-words min-w-0 flex-1">{ingredient}</span>
+                      {unit && (
+                        <span className="ml-auto pl-3 shrink-0 font-dm text-[10px] tracking-[0.06em] uppercase text-ink-muted tabular">{unit}</span>
+                      )}
+                    </div>
+                  );
+                }
 
                 return (
                   <button
@@ -128,18 +145,24 @@ export function MealDetail({
                 );
               })}
             </div>
-            <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-2">
-              <button data-testid={testIds.addMealBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
-                Add meal to list
-              </button>
-              <button
-                data-testid={testIds.clearMealBtn}
-                onClick={() => onClearMealIngredients(selectedMeal)}
-                className="h-[44px] sm:h-10 px-6 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] w-full sm:w-auto"
-              >
-                Clear
-              </button>
-            </div>
+            {(onAddMealToList || onClearMealIngredients) && (
+              <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-2">
+                {onAddMealToList && (
+                  <button data-testid={testIds.addMealBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
+                    Add meal to list
+                  </button>
+                )}
+                {onClearMealIngredients && (
+                  <button
+                    data-testid={testIds.clearMealBtn}
+                    onClick={() => onClearMealIngredients(selectedMeal)}
+                    className="h-[44px] sm:h-10 px-6 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] w-full sm:w-auto"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+            )}
           </>
         )}
 
@@ -264,21 +287,11 @@ export function MealDetail({
         )}
       </div>
 
-      <div className="px-4 sm:px-8 h-[64px] sm:h-[68px] border-t border-rim bg-page/50 flex items-center justify-between gap-3 min-w-0">
-        <button
-          data-testid={testIds.markPlannedBtn}
-          onClick={() => onTogglePlanned(selectedMeal.id)}
-          className={`h-[36px] sm:h-[32px] px-3 sm:px-4 rounded-full font-dm text-[10px] sm:text-[11px] font-medium tracking-[0.12em] uppercase border transition tabular active:scale-[0.98] shrink-0 ${
-            plannedMeals.has(selectedMeal.id)
-              ? "bg-ink-primary border-ink-primary text-page"
-              : "bg-card border-rim text-ink-secondary hover:border-rim-hover"
-          }`}
-        >
-          {plannedMeals.has(selectedMeal.id) ? "✓ Planned" : "○ Mark planned"}
-        </button>
-
-        <button data-testid={testIds.addListFooterBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
-      </div>
+      {onAddMealToList && (
+        <div className="px-4 sm:px-8 h-[64px] sm:h-[68px] border-t border-rim bg-page/50 flex items-center justify-end gap-3 min-w-0">
+          <button data-testid={testIds.addListFooterBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[36px] sm:h-[32px] px-4 rounded-full bg-rim border-rim-hover text-ink-secondary hover:bg-rim-hover border font-dm text-[11px] font-medium tracking-[0.12em] uppercase transition tabular active:scale-[0.98] shrink-0">+ List</button>
+        </div>
+      )}
     </div>
   );
 }
