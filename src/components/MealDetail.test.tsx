@@ -26,7 +26,6 @@ function renderWith(tab: "ingredients" | "steps" | "storage" | "nutrition", over
       activeStepIdx={0}
       shoppingSet={new Set()}
       plannedMeals={new Set()}
-      selectedMarket="carrefour"
       onTabChange={() => {}}
       onToggleIngredient={() => {}}
       onAddMealToList={() => {}}
@@ -73,7 +72,6 @@ describe("MealDetail — Ingredients tab", () => {
         activeStepIdx={0}
         shoppingSet={new Set(["w1-mon:0"])}
         plannedMeals={new Set()}
-        selectedMarket="carrefour"
         onTabChange={() => {}}
         onToggleIngredient={() => {}}
         onAddMealToList={() => {}}
@@ -149,7 +147,6 @@ describe("MealDetail — tab bar", () => {
         activeStepIdx={0}
         shoppingSet={new Set()}
         plannedMeals={new Set([meal.id])}
-        selectedMarket="carrefour"
         onTabChange={() => {}}
         onToggleIngredient={() => {}}
         onAddMealToList={() => {}}
@@ -274,7 +271,6 @@ describe("MealDetail — Nutrition tab", () => {
         activeStepIdx={-1}
         shoppingSet={new Set()}
         plannedMeals={new Set()}
-        selectedMarket="carrefour"
         onTabChange={(t) => {
           if (t === "nutrition") {
             // re-render with nutrition tab active
