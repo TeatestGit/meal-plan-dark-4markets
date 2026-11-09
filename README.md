@@ -1,10 +1,10 @@
-# 2-Week Lunch Plan - Dark + Grocery Prices (4 Markets)
+# Dubai 2-Week Meal Planner
 
 ## Description
 
-A responsive lunch-planning app featuring 14 recipes across two weeks, with preparation steps, ingredients, nutrition details, and food photography. Build a shopping list from the meals you choose, then compare estimated ingredient costs across Carrefour, LuLu, Spinneys, and Géant in the UAE. The app uses a dark editorial design and includes links to each market for shopping.
+A responsive meal-planning app for Dubai with three plans — No Red Meat, Vegan, and Breakfast — each covering 14 recipes across two weeks. Browse preparation steps, ingredients, nutrition details, and food photography. Build a shopping list from selected meals and compare estimated ingredient costs across Carrefour, LuLu, Spinneys, and Géant.
 
-Latest version: dark theme editorial luxury, responsive, 14 real food photos, grocery prices per market.
+Two builds ship from the same codebase: **v1** (full app with pricing and shopping list) and **v2** (price-free: recipes and nutrition only). Both produced by a single `npm run build`.
 
 ## Quick Start in VS Code
 ```bash
@@ -15,42 +15,70 @@ npm run dev
 
 ## Testing
 
-Start the dev server in one terminal, then run tests in another:
-
 ```bash
-# terminal 1 — start dev server
-npm run dev
+# unit tests (Vitest + React Testing Library) — no server needed
+npm test                              # 144 tests across 8 files
 
-# terminal 2 — run all tests (all devices)
-npx playwright test
+# e2e tests (Playwright) — requires dev server running
+npm run dev                           # terminal 1
+npx playwright test                   # terminal 2 — all devices (135 tests)
+npx playwright test --project=desktop # desktop only
+npx playwright test e2e/v2-page.spec.ts  # single spec
 
-# run a single spec file
-npx playwright test e2e/shopping-list.spec.ts
-
-# run only on a specific device project
+# device projects
 npx playwright test --project=iphone-17-pro
 npx playwright test --project=galaxy-s24
 npx playwright test --project=ipad-gen11
 npx playwright test --project=galaxy-tab-s9
-npx playwright test --project=desktop
 
-# open the HTML report after a run
+# view HTML report after a run
 npx playwright show-report
-
-# unit tests
-npm test
 ```
 
+### Test coverage
+
+| File | Tests | Covers |
+|------|-------|--------|
+| `src/mealData.test.ts` | 12 | meal JSON schema, field completeness |
+| `src/pricing.test.ts` | 51 | quantity parsing, price matching, every ingredient |
+| `src/components/MealDetail.test.tsx` | 27 | tabs, ingredient rows, shopping actions, nutrition |
+| `src/components/MealSelector.test.tsx` | 6 | card rendering, selection, planned badge |
+| `src/components/MealSidebar.test.tsx` | 8 | week-glance stats, week nav, callbacks |
+| `src/components/ShoppingListPanel.test.tsx` | 7 | empty state, items, market controls |
+| `src/AppV2.test.tsx` | 5 | v2 smoke: render, no pricing UI, read-only ingredients |
+| `src/App.test.tsx` | 28 | v1 smoke + plan switching, shopping state |
+| `e2e/*.spec.ts` | 135 | full user flows across 5 device profiles |
+
 ## Structure
-- `src/App.tsx` — full app; meal state, shopping list, localStorage persistence
-- `src/data/prices.ts` — `ingredientPriceMap`, `findPriceEntry` (alias resolution)
-- `src/testIds.ts` — single source of truth for all `data-testid` strings
-- `src/components/` — `MealDetail`, `MealSelector`, `ShoppingListPanel`
-- `src/assets/meals.json` — 14 meal definitions
-- `src/assets/w*.webp` — 14 food images
-- `src/index.css` — Tailwind + font variables
-- `e2e/` — Playwright end-to-end specs (desktop + tablet + mobile)
-- `scripts/linear_helpers.py` — Linear API helper used by the GitHub Actions workflow
+
+```
+src/
+├── App.tsx              v1 app — full shopping + pricing features
+├── AppV2.tsx            v2 app — recipes and nutrition only (no pricing)
+├── main.tsx             v1 entry point
+├── main-v2.tsx          v2 entry point
+├── mealPlanShared.ts    shared: image maps, meals array, parse helpers, localStorage utils
+├── types.ts             shared TypeScript types
+├── testIds.ts           single source of truth for all data-testid strings
+├── pricing.ts           quantity parsing and cost calculation
+├── data/prices.ts       ingredient price map + alias resolution
+├── components/
+│   ├── MealDetail.tsx         meal detail panel (tabs: ingredients, steps, storage, nutrition)
+│   ├── MealSidebar.tsx        left panel: week-glance stats + week nav + MealSelector
+│   ├── MealSelector.tsx       scrollable meal card grid
+│   └── ShoppingListPanel.tsx  shopping list with per-market price comparison
+└── assets/
+    ├── meals.json             42 meal definitions (3 plans × 14 meals)
+    ├── no-red-meat/           14 webp images + thumbs/
+    ├── vegan/                 14 webp images + thumbs/
+    ├── breakfast/             14 webp images + thumbs/
+    └── hypermarkets/          4 market logo images
+
+index.html       v1 entry
+index-v2.html    v2 entry
+vite.config.js   multi-page build (both HTML entries)
+e2e/             Playwright specs (10 files, 135 tests across 5 device profiles)
+```
 
 ## Markets (4) - Kibsons removed
 - Carrefour: chicken breast 42 AED/kg, Spinneys Fresh 59.25 AED
@@ -80,8 +108,12 @@ Aspect 4/3 mobile, 16/10 sm, 16/9 lg, gradient from-black/70, h2 #hero-title fon
 - Shop links: carrefouruae.com, luluhypermarket.com, spinneys.com, geantuae.com
 
 ## Build
+
+```bash
 npm run build
-dist/ -> deploy to Vercel/Netlify
+# produces dist/index.html (v1) and dist/index-v2.html (v2)
+# deploy dist/ to Vercel, Netlify, or any static host
+```
 
 ## Pricing Logic
 
