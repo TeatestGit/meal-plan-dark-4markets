@@ -22,10 +22,21 @@ CI still passes. No code change is needed. Fix: upgrade to `actions/checkout@v5`
 
 ## Remaining limitations
 
-- Prices remain manually maintained estimates, with Sep 2026 reference data; they are not checked against live retailer catalogs.
+- Prices remain manually maintained estimates, with Nov 2026 reference data; they are not checked against live retailer catalogs.
 - Ingredient lines with compound items, unsupported units, or no clear quantity are not priced. They remain visible in the list and are excluded from totals.
 - Optimized 256px meal thumbnails (about 388 KB total versus about 8 MB for the full-size photos) are used in selector and recipe prep-tip views; full-resolution photos remain available for recipe detail views.
 
 Verdict: The reported correctness, interaction, and image-loading issues are fixed. Treat market comparisons as partial estimates until prices and unsupported ingredient quantities are verified.
 
 Not checked: Retailer data accuracy, production deployment, and hands-on screen-reader/device testing. `npm test` passed (10 tests); `npm run build` passed.
+
+## Suggested structural improvements (Nov 2026 review)
+
+| # | Change | Effort | Impact |
+|---|--------|--------|--------|
+| 1 | Delete `src/assets/vegan-meal-plan-assets/` and `customization-migration-recovery/` — orphaned artefacts not referenced by the app | 5 min | Cleaner repo |
+| 2 | Move `src/assets/meals.json` → `src/data/meals.json` — all other data lives in `src/data/`; assets is for images | 30 min | Consistent structure |
+| 3 | Add breakfast plan image assets (`b1-*/b2-*` `.webp` + thumbnails) to match `no-red-meat/` and `vegan/` — currently missing, meal cards fall back to placeholder | varies | Fixes broken images |
+| 4 | Extract `src/hooks/useMealPlan.ts` and `src/hooks/useShoppingList.ts` from `App.tsx` (506 lines) — state, computed values, and handlers in one file is hard to maintain | 2h | Maintainability |
+| 5 | Delete or merge `ENHANCE.md` into `CHANGELOG.md` once improvements land | 5 min | Docs hygiene |
+| 6 | Upgrade CI actions: `actions/checkout@v5` and `actions/setup-node@v5` (Node 20 deprecation warning, non-blocking) | 5 min | CI cleanliness |
