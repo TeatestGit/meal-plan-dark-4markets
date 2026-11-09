@@ -163,6 +163,61 @@ describe("MealDetail — tab bar", () => {
   });
 });
 
+describe("MealDetail — no-shopping mode (optional props omitted)", () => {
+  function renderNoShopping() {
+    render(
+      <MealDetail
+        selectedMeal={meal}
+        tab="ingredients"
+        activeStepIdx={0}
+        plannedMeals={new Set()}
+        onTabChange={() => {}}
+        onSetActiveStepIdx={() => {}}
+        onTogglePlanned={() => {}}
+      />
+    );
+  }
+
+  it("renders ingredient rows as divs (not buttons) when onToggleIngredient is absent", () => {
+    renderNoShopping();
+    const rows = screen.getAllByTestId("ingredient-row");
+    rows.forEach((row) => expect(row.tagName).toBe("DIV"));
+  });
+
+  it("hides Add meal and Clear buttons when handlers are absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("add-meal-btn")).toBeNull();
+    expect(screen.queryByTestId("clear-meal-btn")).toBeNull();
+  });
+
+  it("hides in-list count when shoppingSet is absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("in-list-count")).toBeNull();
+  });
+
+  it("hides footer + List button when onAddMealToList is absent", () => {
+    renderNoShopping();
+    expect(screen.queryByTestId("add-list-footer-btn")).toBeNull();
+  });
+
+  it("shows Clear button when only onClearMealIngredients is provided", () => {
+    render(
+      <MealDetail
+        selectedMeal={meal}
+        tab="ingredients"
+        activeStepIdx={0}
+        plannedMeals={new Set()}
+        onTabChange={() => {}}
+        onSetActiveStepIdx={() => {}}
+        onTogglePlanned={() => {}}
+        onClearMealIngredients={() => {}}
+      />
+    );
+    expect(screen.getByTestId("clear-meal-btn")).toBeInTheDocument();
+    expect(screen.queryByTestId("add-meal-btn")).toBeNull();
+  });
+});
+
 describe("MealDetail — Nutrition tab", () => {
   it("renders the Nutrition heading and per-serving subtitle", () => {
     renderNutrition();

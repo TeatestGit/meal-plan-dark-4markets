@@ -149,18 +149,22 @@ export function MealDetail({
                 );
               })}
             </div>
-            {onAddMealToList && (
+            {(onAddMealToList || onClearMealIngredients) && (
               <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-2">
-                <button data-testid={testIds.addMealBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
-                  Add meal to list
-                </button>
-                <button
-                  data-testid={testIds.clearMealBtn}
-                  onClick={() => onClearMealIngredients?.(selectedMeal)}
-                  className="h-[44px] sm:h-10 px-6 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] w-full sm:w-auto"
-                >
-                  Clear
-                </button>
+                {onAddMealToList && (
+                  <button data-testid={testIds.addMealBtn} onClick={() => onAddMealToList(selectedMeal)} className="h-[44px] sm:h-10 px-6 rounded-full bg-ink-primary text-page hover:bg-ink-cta font-dm text-[11px] font-medium tracking-[0.12em] uppercase shadow-[0_8px_20px_rgba(0,0,0,0.25)] transition active:scale-[0.98] w-full sm:w-auto">
+                    Add meal to list
+                  </button>
+                )}
+                {onClearMealIngredients && (
+                  <button
+                    data-testid={testIds.clearMealBtn}
+                    onClick={() => onClearMealIngredients(selectedMeal)}
+                    className="h-[44px] sm:h-10 px-6 rounded-full bg-card border border-rim font-dm text-[11px] font-medium tracking-[0.12em] uppercase text-ink-secondary hover:bg-rim transition active:scale-[0.98] w-full sm:w-auto"
+                  >
+                    Clear
+                  </button>
+                )}
               </div>
             )}
           </>

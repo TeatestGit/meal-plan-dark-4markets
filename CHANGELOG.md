@@ -1,5 +1,15 @@
 e Changelog
 
+## 2026-11-09 — v2 build, breakfast images, Clear button fix & tests
+
+- **feat**: Added `AppV2.tsx` — price-free variant of the app served from `index-v2.html`; strips market logos, `ShoppingListPanel`, all pricing/shopping state and the 3rd grid column
+- **feat**: Multi-page Vite config (`vite.config.js`) — `npm run build` now produces both `dist/index.html` (v1) and `dist/index-v2.html` (v2)
+- **feat**: `MealDetail` shopping-related props (`shoppingSet`, `onToggleIngredient`, `onAddMealToList`, `onClearMealIngredients`, `getIngredientPrice`) made optional — ingredients render as read-only divs when `onToggleIngredient` is absent
+- **fix**: Clear button in `MealDetail` was gated on `onAddMealToList` being present; now independently gated on `onClearMealIngredients` so a caller can show Clear without Add-to-list
+- **feat**: Replaced all 14 breakfast webp images and thumbnails with final versions; removed stale `vegan-meal-plan-assets/manifest.txt`
+- **test**: Added `MealDetail — no-shopping mode` describe block (5 tests) covering read-only ingredient rows, hidden shopping UI, and Clear-without-Add scenario
+- **test**: Added `AppV2.test.tsx` smoke suite (5 tests) verifying render, absence of pricing UI, plan switcher, week-glance panel, and read-only ingredients
+
 ## 2026-11-08 — Ingredient quantity display fixes & full coverage tests
 
 - **fix**: Added `mango`, `tortillas?`, `flatbreads?` to count-unit word list in `parseIngredientQuantity` — `1 small mango, julienned`, `6 small corn tortillas`, `2 wholegrain flatbreads` now show quantity
